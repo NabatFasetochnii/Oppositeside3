@@ -3,6 +3,7 @@ package com.nabat.game.levels;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.nabat.game.RectZone;
 import java.io.*;
 import java.util.ArrayList;
@@ -17,16 +18,21 @@ public class Lvl1 {
     Color color;
     long startPoint;
     FileHandle fileHandle;
-
+    private float timeSeconds = 0f;
+    private final float period = 0.05f;
+    final int MAX_COUNT_OF_PERIOD = 600; //30sec
+    int countOfPeriod = 0;
     int i = 0;
     Thread thread;
     File file;
     boolean e;
+    ShapeRenderer timeLine;
 
     public Lvl1(Color color) {
         arrayLists = new ArrayList<>();
         this.color = color;
-
+        timeLine = new ShapeRenderer();
+        timeLine.setColor(Color.BLUE);
 
         try {
             fileHandle = Gdx.files.internal(path);
@@ -76,12 +82,33 @@ public class Lvl1 {
 
                         thread.join();
                         arrayLists.get(i).get(j).draw();
+                        timeLineDraw();
 
                     } catch (InterruptedException ignored) {
                     }
                 }
             }
         }
+    }
+
+    public void timeLineDraw(){
+
+        if (countOfPeriod<=MAX_COUNT_OF_PERIOD){
+
+            timeSeconds += Gdx.graphics.getRawDeltaTime();
+            if (timeSeconds>period){
+
+                //draw line
+                timeLine.begin();
+                timeLine.rect(0,0,
+                        Gdx.graphics.getWidth()*(1f-(float)countOfPeriod/MAX_COUNT_OF_PERIOD),30);
+                timeLine.end();
+
+                timeSeconds -=period;
+                countOfPeriod++;
+            }
+        }
+
     }
 
     public void dispose() {

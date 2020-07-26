@@ -65,7 +65,7 @@ public class Input implements InputProcessor {
 
                 }
                 if (b){
-                    lvl1.setI(i++);
+                    lvl1.setI(i++);//TODO написать функцию смены уровня
                 }
             }
         }
