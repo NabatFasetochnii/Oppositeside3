@@ -10,7 +10,7 @@ public class RectZone extends Actor {
     final int HEIGHT_OF_PERIMETER = 10;
     final int WIDTH_OF_PERIMETER = 10;
     final int PROSAK = 10;
-    float x, y;
+    int x, y;
     int width;
     int height;
     Color color;
@@ -66,7 +66,7 @@ public class RectZone extends Actor {
         square.dispose();
     }
 
-    boolean isTouch(float X, float Y) {
+    boolean isTouch(int X, int Y) {
 
         return !((x <= X) && (X <= x + width) && (y <= Y) && (Y <= y + height));
     }

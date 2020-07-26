@@ -8,11 +8,11 @@ import com.nabat.game.levels.Lvl1;
 
 public class Game extends ApplicationAdapter {
 
+    //SpriteBatch spriteBatch;
+    final int LEVEL_LEVEL = 200;
     RectZone l1, l2, l3, l0;
     boolean startScreen = true;
     Lvl1 lvl1;
-    //SpriteBatch spriteBatch;
-    final int LEVEL_LEVEL = 200;
 
     @Override
     public void create() {
@@ -38,6 +38,8 @@ public class Game extends ApplicationAdapter {
         //spriteBatch = new SpriteBatch();
 
         lvl1.load();
+        Gdx.input.setInputProcessor(new Input(lvl1));
+
     }
 
     @Override
@@ -59,8 +61,9 @@ public class Game extends ApplicationAdapter {
                     startScreen = false;
                 }
             }
-        }else {
+        } else {
             lvl1.draw();
+
             //openMenu();
         }
 
