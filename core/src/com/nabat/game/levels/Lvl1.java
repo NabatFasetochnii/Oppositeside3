@@ -5,46 +5,34 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.nabat.game.RectZone;
-import java.io.*;
 import java.util.ArrayList;
-import java.util.concurrent.ThreadLocalRandom;
 
 
 public class Lvl1 {
 
 
+    final int MAX_COUNT_OF_PERIOD = 6000; //30sec
+    private final float period = 0.005f;
     ArrayList<ArrayList<RectZone>> arrayLists;
     String path = "levels/1/1"; //levels/1/2
     Color color;
     long startPoint;
     FileHandle fileHandle;
-    private float timeSeconds = 0f;
-    private final float period = 0.05f;
-    final int MAX_COUNT_OF_PERIOD = 600; //30sec
     int countOfPeriod = 0;
     int i = 0;
     Thread thread;
-    File file;
-    boolean e;
+    //File file;
     ShapeRenderer timeLine;
+    private float timeSeconds = 0f;
 
     public Lvl1(Color color) {
         arrayLists = new ArrayList<>();
         this.color = color;
         timeLine = new ShapeRenderer();
-        timeLine.setColor(Color.BLUE);
+
 
         try {
             fileHandle = Gdx.files.internal(path);
-            e = fileHandle.exists();
-            file = fileHandle.file();
-            e = file.exists();
-            e = fileHandle.isDirectory();
-            e = file.canRead();
-            e = file.canWrite();
-            e = file.isFile();
-            e = file.setReadable(true);
-            e = file.canRead();
 
         } catch (Exception exception) {
             exception.printStackTrace();
@@ -54,13 +42,13 @@ public class Lvl1 {
     }
 
     public void load() {
-
-        Runnable runnable = new Runnable() {
+        arrayLists = setLevel(path, 20, 1);
+       /* Runnable runnable = new Runnable() {
             @Override
             public void run() {
                 try {
-                    arrayLists = setLevel(path, 50, 1);
-                } catch (IOException exception) {
+
+                } catch (Exception exception) {
                     exception.printStackTrace();
                 }
             }
@@ -68,7 +56,11 @@ public class Lvl1 {
 
         thread = new Thread(runnable);
         thread.start();
-
+        try {
+            thread.join();
+        } catch (InterruptedException interruptedException) {
+            interruptedException.printStackTrace();
+        }*/
 
     }
 
@@ -80,31 +72,33 @@ public class Lvl1 {
                 for (int j = 0; j < arrayLists.get(i).size(); j++) {
                     try {
 
-                        thread.join();
+                        //thread.join();
                         arrayLists.get(i).get(j).draw();
                         timeLineDraw();
 
-                    } catch (InterruptedException ignored) {
+                    } catch (Exception ignored) {
                     }
                 }
             }
         }
     }
 
-    public void timeLineDraw(){
+    public void timeLineDraw() {
 
-        if (countOfPeriod<=MAX_COUNT_OF_PERIOD){
+        if (countOfPeriod <= MAX_COUNT_OF_PERIOD) {
 
             timeSeconds += Gdx.graphics.getRawDeltaTime();
-            if (timeSeconds>period){
+            if (timeSeconds > period) {
 
                 //draw line
-                timeLine.begin();
-                timeLine.rect(0,0,
-                        Gdx.graphics.getWidth()*(1f-(float)countOfPeriod/MAX_COUNT_OF_PERIOD),30);
+                timeLine.begin(ShapeRenderer.ShapeType.Filled);
+
+                timeLine.setColor(Color.BLUE);
+                timeLine.rect(0, 0,
+                        Gdx.graphics.getWidth() * (1f - (float) countOfPeriod / MAX_COUNT_OF_PERIOD), 50);
                 timeLine.end();
 
-                timeSeconds -=period;
+                timeSeconds -= period;
                 countOfPeriod++;
             }
         }
@@ -115,11 +109,51 @@ public class Lvl1 {
 
     }
 
-    ArrayList<ArrayList<RectZone>> setLevel(String path, int size, int lvl) throws IOException {
+    ArrayList<ArrayList<RectZone>> setLevel(String path, int size, int lvl) {
         // генерим отрезок экранов в нужном файле
         ArrayList<ArrayList<RectZone>> list = new ArrayList<>();
 
-        //AssetFileDescriptor assetFileDescriptor = activity.getAssets().openFd(path);
+        /*startPoint = ThreadLocalRandom.current().nextLong(0L,
+                (fileHandle.length() - 1 - size * 4L * 3 * lvl));*/
+
+        byte[] buf = fileHandle.readBytes();
+        int[] e = new int[buf.length / 4];
+        for (int bc = 0; bc < buf.length / 4; bc++) {
+
+            e[bc] = (((buf[bc * 4] & 0xff) << 24) | ((buf[bc * 4 + 1] & 0xff) << 16) |
+                    ((buf[bc * 4 + 2] & 0xff) << 8) | (buf[bc * 4 + 3] & 0xff));
+        }
+
+        /*ByteBuffer byteBuffer = ByteBuffer.wrap(buf);
+        IntBuffer intBuffer = byteBuffer.asIntBuffer();
+        int[] e = (intBuffer.array());*/
+
+
+        for (int p = 0; p < size; p++) {
+
+            ArrayList<RectZone> doubles = new ArrayList<>();
+
+            for (int t = 0; t < lvl; t++) {
+
+                int[] b = new int[3];
+
+                int u = (t + p) * 3;
+                b[0] = e[u];
+                b[1] = e[u + 1];
+                b[2] = e[u + 2];
+
+                doubles.add(new RectZone(
+                        b[0], b[1],
+                        b[2], b[2],
+                        Color.BLACK));
+            }
+            list.add(doubles);
+
+        }
+
+        return list;
+
+        /*//AssetFileDescriptor assetFileDescriptor = activity.getAssets().openFd(path);
         InputStream inputStream = fileHandle.read();
 
         try (DataInputStream dataInputStream = new DataInputStream(inputStream)) {
@@ -158,9 +192,10 @@ public class Lvl1 {
         } catch (IOException exception) {
             exception.printStackTrace();
             return null;
-        }
+        }*/
 
     }
+
     public ArrayList<ArrayList<RectZone>> getArrayLists() {
         return arrayLists;
     }

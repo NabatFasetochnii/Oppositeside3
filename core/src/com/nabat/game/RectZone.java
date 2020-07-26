@@ -26,16 +26,16 @@ public class RectZone extends Actor {
         this.color = color;
 
         square = new ShapeRenderer();
+
+
+        square.setColor(color);
 //        perimeter = new ShapeRenderer();
 
     }
 
     public void draw() {
         square.begin(ShapeRenderer.ShapeType.Filled);
-//        perimeter.begin(ShapeRenderer.ShapeType.Filled);
 
-        square.setColor(color);
-//        perimeter.setColor(color);
 //width
         square.rect(x, y, width, height); //квадрат
         square.rect(x - WIDTH_OF_PERIMETER - PROSAK,
@@ -68,7 +68,7 @@ public class RectZone extends Actor {
 
     boolean isTouch(int X, int Y) {
 
-        return !((x <= X) && (X <= x + width) && (y <= Y) && (Y <= y + height));
+        return ((x <= X) && (X <= x + width) && (y <= Y) && (Y <= y + height));
     }
     boolean isNotOverlay(int X, int Y, int RIGHT, int TOP) {
         return ((x + width < X || RIGHT < x) && (y + height < Y || TOP < y));//

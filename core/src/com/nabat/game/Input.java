@@ -17,7 +17,8 @@ public class Input implements InputProcessor {
 
     Input(Lvl1 lvl1) {
         this.lvl1 = lvl1;
-        this.arrayLists =lvl1.getArrayLists();
+
+        this.arrayLists = lvl1.getArrayLists();
         this.i = lvl1.getI();
         this.size = arrayLists.get(i).size();
         points = new int[size][2];
@@ -45,7 +46,7 @@ public class Input implements InputProcessor {
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 
 
-        if (pointer<size){
+        if (pointer<size){//TODO пофиксить
 
             points[pointer][0] = screenX;
             points[pointer][1] = screenX;
