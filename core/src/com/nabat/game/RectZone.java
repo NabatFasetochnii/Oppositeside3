@@ -8,7 +8,7 @@ public class RectZone extends Actor {
 
     final int HEIGHT_OF_PERIMETER = (int) (10 * Consts.getScaleY());
     final int WIDTH_OF_PERIMETER = (int) (10*Consts.getScaleX());
-    final int PROSAK = (int) (10*((Consts.getScaleX()+Consts.getScaleY())/2f));
+    final int PROSAK = (int) (10*Consts.getScaleXY());
     int x, y;
     int width;
     int height;

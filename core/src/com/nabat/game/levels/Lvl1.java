@@ -9,23 +9,24 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.nabat.game.Consts;
 import com.nabat.game.RectZone;
+
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Lvl1 {
 
-    private final int MAX_COUNT_OF_PERIOD = 300; //30sec = 6000
+    private final int MAX_COUNT_OF_PERIOD = 3000; //30sec = 6000
     private final float period = 0.005f;
     private final String path = "levels/1/1"; //levels/1/2
     private final float LOSE_TO_SCREEN = 7.5f;
-    private ArrayList<ArrayList<RectZone>> arrayLists;
     private final Color color;
-    private int countOfPeriod = 0;
-    private int i = 0;
     private final ShapeRenderer timeLine;
-    private boolean isLose = false;
     private final BitmapFont font;
     private final SpriteBatch batch;
+    private ArrayList<ArrayList<RectZone>> arrayLists;
+    private int countOfPeriod = 0;
+    private int i = 0;
+    private boolean isLose = false;
     private float timeSeconds = 0f;
 
     public Lvl1(Color color) {
@@ -41,7 +42,6 @@ public class Lvl1 {
         parameter.borderWidth = 5;
         font = generator.generateFont(parameter);
         generator.dispose();
-
 
 
     }
@@ -108,7 +108,7 @@ public class Lvl1 {
                 timeLine.setColor(Color.GREEN);
                 timeLine.rect(0, 0,
                         Gdx.graphics.getWidth() * (1f - (float) countOfPeriod / MAX_COUNT_OF_PERIOD),
-                        50*Consts.getScaleY());
+                        50 * Consts.getScaleY());
                 timeLine.end();
                 if (Gdx.graphics.getWidth() * (1f - (float) countOfPeriod / MAX_COUNT_OF_PERIOD) < 0.1f) {
                     isLose = true;
@@ -126,13 +126,12 @@ public class Lvl1 {
     }
 
     ArrayList<ArrayList<RectZone>> setLevel(String path, int size, int lvl) {
-        long startPoint;
+
         FileHandle fileHandle;
         // генерим отрезок экранов в нужном файле
         ArrayList<ArrayList<RectZone>> list = new ArrayList<>();
 
         fileHandle = Gdx.files.internal(path);
-
 
 
         byte[] buf = fileHandle.readBytes();
@@ -143,28 +142,39 @@ public class Lvl1 {
                     ((buf[bc * 4 + 2] & 0xff) << 8) | (buf[bc * 4 + 3] & 0xff));
         }
 
-        startPoint = ThreadLocalRandom.current().
-                nextInt(0, (e.length - 1 - size * 3 * lvl));//TODO дописать рандомайз
+        int startPoint = ThreadLocalRandom.current().
+                nextInt(0, (e.length - 1 - size * 3 * lvl));
 
         for (int p = 0; p < size; p++) {
 
             ArrayList<RectZone> doubles = new ArrayList<>();
+            int u = 0;
 
             for (int t = 0; t < lvl; t++) {
 
-                int[] b = new int[3];
+                u = (t + p) * 3;
 
-                int u = (t + p) * 3;
-                b[0] = e[u];
-                b[1] = e[u + 1];
-                b[2] = e[u + 2];
+                if (u >= startPoint && u + 2 <= startPoint + size * 3 * lvl) {
 
-                doubles.add(new RectZone(
-                        (int) (b[0] * Consts.getScaleX()), (int) (b[1] * Consts.getScaleY()),
-                        (int) (b[2] * Consts.getScaleX()), (int) (b[2] * Consts.getScaleY()),
-                        color));
+                    int[] b = new int[3];
+                    b[0] = (int) (e[u] * Consts.getScaleX());
+                    b[1] = (int) (e[u + 1] * Consts.getScaleY());
+                    b[2] = (int) (e[u + 2] * Consts.getScaleXY());
+
+                    doubles.add(new RectZone(
+                            b[0], b[1], b[2], b[2],
+                            color));
+                } else if (u+2 > startPoint + size * 3 * lvl) {
+                    break;
+                }
+
+
             }
-            list.add(doubles);
+            if (doubles.size()!=0){
+
+                list.add(doubles);
+            }
+
 
         }
 

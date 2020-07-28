@@ -7,12 +7,22 @@ public class Consts {
     private final static String LOSE = "You lose";
     private final static String ttfPath = "fonts/Terminus.ttf";
     private final static float scaleX = Gdx.app.getGraphics().getWidth() / 1080f;
+    private final static String PLAY = "Tap to play";
+    private final static float scaleY = Gdx.app.getGraphics().getHeight() / 1920f;
+    private final static float scaleXY = ((scaleX + scaleY) / 2f);
+
+    Consts() {
+
+
+    }
+
+    public static float getScaleXY() {
+        return scaleXY;
+    }
 
     public static String getPLAY() {
         return PLAY;
     }
-
-    private final static String PLAY = "Tap to play";
 
     public static String getLOSE() {
         return LOSE;
@@ -28,13 +38,5 @@ public class Consts {
 
     public static float getScaleY() {
         return scaleY;
-    }
-
-    private final static float scaleY = Gdx.app.getGraphics().getHeight() / 1920f;
-
-    Consts() {
-
-
-
     }
 }
