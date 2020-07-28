@@ -1,5 +1,6 @@
 package com.nabat.game;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.nabat.game.levels.Lvl1;
 import java.util.ArrayList;
@@ -46,10 +47,10 @@ public class Input implements InputProcessor {
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 
 
-        if (pointer<size){//TODO пофиксить
+        if (pointer<size){
 
             points[pointer][0] = screenX;
-            points[pointer][1] = screenX;
+            points[pointer][1] = Gdx.app.getGraphics().getHeight() - screenY;
             touch[pointer] = true;
 
             r = true;
@@ -66,7 +67,8 @@ public class Input implements InputProcessor {
 
                 }
                 if (b){
-                    lvl1.setI(i++);//TODO написать функцию смены уровня
+                    lvl1.setI(i+1);//TODO написать функцию смены уровня
+                    i++;
                 }
             }
         }
