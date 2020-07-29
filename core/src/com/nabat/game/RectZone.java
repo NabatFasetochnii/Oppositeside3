@@ -2,13 +2,12 @@ package com.nabat.game;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 
-public class RectZone extends Actor {
+public class RectZone {
 
     final int HEIGHT_OF_PERIMETER = (int) (10 * Consts.getScaleY());
-    final int WIDTH_OF_PERIMETER = (int) (10*Consts.getScaleX());
-    final int PROSAK = (int) (10*Consts.getScaleXY());
+    final int WIDTH_OF_PERIMETER = (int) (10 * Consts.getScaleX());
+    final int PROSAK = (int) (10 * Consts.getScaleXY());
     int x, y;
     int width;
     int height;
@@ -28,7 +27,8 @@ public class RectZone extends Actor {
 
     }
 
-    public void draw() {
+    synchronized public void draw() {
+
         square.begin(ShapeRenderer.ShapeType.Filled);
 
         square.rect(x, y, width, height); //квадрат
@@ -48,11 +48,10 @@ public class RectZone extends Actor {
                 y - PROSAK - HEIGHT_OF_PERIMETER,
                 WIDTH_OF_PERIMETER,
                 height + PROSAK * 2 + HEIGHT_OF_PERIMETER * 2); //правая грань
-
         square.end();
     }
 
-    public void dispose(){
+    public void dispose() {
         square.dispose();
     }
 
@@ -63,7 +62,6 @@ public class RectZone extends Actor {
     /*boolean isNotOverlay(int X, int Y, int RIGHT, int TOP) {
         return ((x + width < X || RIGHT < x) && (y + height < Y || TOP < y));//
     }*/
-
 
 
 }

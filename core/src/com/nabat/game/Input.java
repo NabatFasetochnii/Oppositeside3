@@ -2,7 +2,7 @@ package com.nabat.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
-import com.nabat.game.levels.Lvl1;
+import com.nabat.game.levels.LevelFactory;
 import java.util.ArrayList;
 
 public class Input implements InputProcessor {
@@ -14,13 +14,13 @@ public class Input implements InputProcessor {
     int size;
     int[][] points;
     boolean[] touch;
-    Lvl1 lvl1;
+    LevelFactory levelFactory;
 
-    Input(Lvl1 lvl1) {
-        this.lvl1 = lvl1;
+    Input(LevelFactory levelFactory) {
+        this.levelFactory = levelFactory;
 
-        this.arrayLists = lvl1.getArrayLists();
-        this.i = lvl1.getI();
+        this.arrayLists = levelFactory.getArrayLists();
+        this.i = levelFactory.getI();
         this.size = arrayLists.get(i).size();
         points = new int[size][2];
         touch = new boolean[size];
@@ -67,7 +67,7 @@ public class Input implements InputProcessor {
 
                 }
                 if (b){
-                    lvl1.setI(i+1);//TODO написать функцию смены уровня
+                    levelFactory.setI(i+1);//TODO написать функцию смены уровня
                     i++;
                 }
             }

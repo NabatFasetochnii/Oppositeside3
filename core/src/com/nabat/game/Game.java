@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
-import com.nabat.game.levels.Lvl1;
+import com.nabat.game.levels.LevelFactory;
 
 public class Game extends ApplicationAdapter {
 
@@ -15,7 +15,7 @@ public class Game extends ApplicationAdapter {
     private final float PLAY_SCREEN = 7.5f;
     private RectZone l1, l2, l3, l0;
     private boolean startScreen = true;
-    private Lvl1 lvl1;
+    private LevelFactory levelFactory;
     private Input input;
     private BitmapFont font;
     private SpriteBatch batch;
@@ -33,7 +33,7 @@ public class Game extends ApplicationAdapter {
         font = generator.generateFont(parameter);
         generator.dispose();
 
-        lvl1 = new Lvl1(Color.RED);
+        levelFactory = new LevelFactory(Color.RED, 30, Consts.getPathToFirst(), 2000, 1);
 
         l0 = new RectZone(0, Gdx.app.getGraphics().getHeight() / 2,
                 Gdx.app.getGraphics().getWidth(), Gdx.app.getGraphics().getHeight(), Color.RED);
@@ -51,9 +51,9 @@ public class Game extends ApplicationAdapter {
                 Gdx.app.getGraphics().getHeight() - LEVEL_LEVEL,
                 100,
                 100, Color.YELLOW);
-        lvl1.load();
 
-        input = new Input(lvl1);
+        levelFactory.load();
+        input = new Input(levelFactory);
 
 
     }
@@ -64,13 +64,14 @@ public class Game extends ApplicationAdapter {
         Gdx.gl.glClearColor(255, 255, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+
         if (startScreen) {
 
             l0.draw();
             batch.begin();
             font.draw(batch, Consts.getPLAY(),
                     Gdx.app.getGraphics().getWidth() / 7.5f,
-                    Gdx.app.getGraphics().getHeight()*0.75f);
+                    Gdx.app.getGraphics().getHeight() * 0.75f);
             batch.end();
 
             if (Gdx.input.isTouched()) {
@@ -83,9 +84,7 @@ public class Game extends ApplicationAdapter {
         } else {
 
             Gdx.input.setInputProcessor(input);
-
-            lvl1.draw();
-
+            levelFactory.draw();
             //openMenu();
         }
 
@@ -107,6 +106,6 @@ public class Game extends ApplicationAdapter {
         l1.dispose();
         l2.dispose();
         l3.dispose();
-        lvl1.dispose();
+        levelFactory.dispose();
     }
 }

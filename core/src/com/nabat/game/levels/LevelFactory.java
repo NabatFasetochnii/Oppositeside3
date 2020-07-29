@@ -10,27 +10,38 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.nabat.game.Consts;
 import com.nabat.game.RectZone;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class Lvl1 {
+public class LevelFactory {
 
-    private final int MAX_COUNT_OF_PERIOD = 3000; //30sec = 6000
+
+    private final int MAX_COUNT_OF_PERIOD; //30sec = 6000
     private final float period = 0.005f;
-    private final String path = "levels/1/1"; //levels/1/2
+    private final String path; //levels/1/2
     private final float LOSE_TO_SCREEN = 7.5f;
     private final Color color;
     private final ShapeRenderer timeLine;
     private final BitmapFont font;
     private final SpriteBatch batch;
+    private final int sizeOfScreens;
+    private final int lvl;
     private ArrayList<ArrayList<RectZone>> arrayLists;
     private int countOfPeriod = 0;
     private int i = 0;
     private boolean isLose = false;
     private float timeSeconds = 0f;
 
-    public Lvl1(Color color) {
+    public LevelFactory(Color color, float levelTime, String pathToFile, int sizeOfScreens, int lvl) {
+
+        MAX_COUNT_OF_PERIOD = (int) (levelTime / period);
+        path = pathToFile;
+        this.sizeOfScreens = sizeOfScreens;
+        this.lvl = lvl;
+
         arrayLists = new ArrayList<>();
+
         this.color = color;
         timeLine = new ShapeRenderer();
         batch = new SpriteBatch();
@@ -47,7 +58,11 @@ public class Lvl1 {
     }
 
     public void load() {
-        arrayLists = setLevel(path, 1500, 1);
+
+
+        arrayLists = setLevel(path, sizeOfScreens, lvl);
+
+
        /* Runnable runnable = new Runnable() {
             @Override
             public void run() {
@@ -81,13 +96,16 @@ public class Lvl1 {
 
                 if (i < arrayLists.size()) {
                     for (int j = 0; j < arrayLists.get(i).size(); j++) {
+
                         try {
 
                             //thread.join();
                             arrayLists.get(i).get(j).draw();
                             timeLineDraw();
 
-                        } catch (Exception ignored) {
+                        } catch (Exception e) {
+                            e.printStackTrace();
+
                         }
                     }
                 }
@@ -122,7 +140,8 @@ public class Lvl1 {
     }
 
     public void dispose() {
-
+        batch.dispose();
+        font.dispose();
     }
 
     ArrayList<ArrayList<RectZone>> setLevel(String path, int size, int lvl) {
@@ -132,9 +151,19 @@ public class Lvl1 {
         ArrayList<ArrayList<RectZone>> list = new ArrayList<>();
 
         fileHandle = Gdx.files.internal(path);
+        long startPoint = ThreadLocalRandom.current().
+                nextLong( 0, (fileHandle.length() - 1L - size * 3L * lvl * 4));
 
 
-        byte[] buf = fileHandle.readBytes();
+        byte[] buf = new byte[size * 3 * lvl * 4];
+
+        try {
+            fileHandle.read().skip(startPoint);
+        } catch (IOException exception) {
+            exception.printStackTrace();
+        }
+        fileHandle.readBytes(buf, 0, buf.length);
+
         int[] e = new int[buf.length / 4];
         for (int bc = 0; bc < buf.length / 4; bc++) {
 
@@ -142,35 +171,25 @@ public class Lvl1 {
                     ((buf[bc * 4 + 2] & 0xff) << 8) | (buf[bc * 4 + 3] & 0xff));
         }
 
-        int startPoint = ThreadLocalRandom.current().
-                nextInt(0, (e.length - 1 - size * 3 * lvl));
-
         for (int p = 0; p < size; p++) {
 
             ArrayList<RectZone> doubles = new ArrayList<>();
-            int u = 0;
+            int u;
 
             for (int t = 0; t < lvl; t++) {
 
                 u = (t + p) * 3;
+                int[] b = new int[3];
+                b[0] = (int) (e[u] * Consts.getScaleX());
+                b[1] = (int) (e[u + 1] * Consts.getScaleY());
+                b[2] = (int) (e[u + 2] * Consts.getScaleXY());
 
-                if (u >= startPoint && u + 2 <= startPoint + size * 3 * lvl) {
-
-                    int[] b = new int[3];
-                    b[0] = (int) (e[u] * Consts.getScaleX());
-                    b[1] = (int) (e[u + 1] * Consts.getScaleY());
-                    b[2] = (int) (e[u + 2] * Consts.getScaleXY());
-
-                    doubles.add(new RectZone(
-                            b[0], b[1], b[2], b[2],
-                            color));
-                } else if (u+2 > startPoint + size * 3 * lvl) {
-                    break;
-                }
-
+                doubles.add(new RectZone(
+                        b[0], b[1], b[2], b[2],
+                        color));
 
             }
-            if (doubles.size()!=0){
+            if (doubles.size() != 0) {
 
                 list.add(doubles);
             }
