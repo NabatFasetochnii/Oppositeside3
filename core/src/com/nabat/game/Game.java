@@ -33,7 +33,7 @@ public class Game extends ApplicationAdapter {
         font = generator.generateFont(parameter);
         generator.dispose();
 
-        levelFactory = new LevelFactory(Color.RED, 30, Consts.getPathToFirst(), 2000, 1);
+        levelFactory = new LevelFactory(Color.RED, 10, Consts.getPathToFirst(), 2000, 1);
 
         l0 = new RectZone(0, Gdx.app.getGraphics().getHeight() / 2,
                 Gdx.app.getGraphics().getWidth(), Gdx.app.getGraphics().getHeight(), Color.RED);

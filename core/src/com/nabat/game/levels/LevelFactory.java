@@ -16,13 +16,13 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class LevelFactory {
 
-
     private final int MAX_COUNT_OF_PERIOD; //30sec = 6000
     private final float period = 0.005f;
     private final String path; //levels/1/2
     private final float LOSE_TO_SCREEN = 7.5f;
     private final Color color;
     private final ShapeRenderer timeLine;
+    private final ShapeRenderer timeLineEnd;
     private final BitmapFont font;
     private final SpriteBatch batch;
     private final int sizeOfScreens;
@@ -44,12 +44,13 @@ public class LevelFactory {
 
         this.color = color;
         timeLine = new ShapeRenderer();
+        timeLineEnd = new ShapeRenderer();
         batch = new SpriteBatch();
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal(Consts.getTtfPath()));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
         parameter.size = (int) (Gdx.app.getGraphics().getWidth() / LOSE_TO_SCREEN);
-        parameter.color = Color.BLACK;
-        parameter.borderColor = Color.RED;
+        parameter.color = Color.RED;
+        parameter.borderColor = Color.BLACK;
         parameter.borderWidth = 5;
         font = generator.generateFont(parameter);
         generator.dispose();
@@ -59,29 +60,7 @@ public class LevelFactory {
 
     public void load() {
 
-
         arrayLists = setLevel(path, sizeOfScreens, lvl);
-
-
-       /* Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                try {
-
-                } catch (Exception exception) {
-                    exception.printStackTrace();
-                }
-            }
-        };
-
-        thread = new Thread(runnable);
-        thread.start();
-        try {
-            thread.join();
-        } catch (InterruptedException interruptedException) {
-            interruptedException.printStackTrace();
-        }*/
-
     }
 
     public void draw() {
@@ -122,12 +101,22 @@ public class LevelFactory {
 
                 //draw line
                 timeLine.begin(ShapeRenderer.ShapeType.Filled);
+                timeLineEnd.begin(ShapeRenderer.ShapeType.Filled);
+
 
                 timeLine.setColor(Color.GREEN);
                 timeLine.rect(0, 0,
                         Gdx.graphics.getWidth() * (1f - (float) countOfPeriod / MAX_COUNT_OF_PERIOD),
                         50 * Consts.getScaleY());
+
+                timeLineEnd.setColor(Color.WHITE);
+                timeLineEnd.rect(Gdx.graphics.getWidth() * (1f - (float) countOfPeriod / MAX_COUNT_OF_PERIOD) -
+                                Gdx.app.getGraphics().getWidth() / 50f,
+                        0, Gdx.app.getGraphics().getWidth() / 50f,
+                        50 * Consts.getScaleY());
+
                 timeLine.end();
+                timeLineEnd.end();
                 if (Gdx.graphics.getWidth() * (1f - (float) countOfPeriod / MAX_COUNT_OF_PERIOD) < 0.1f) {
                     isLose = true;
                 }
@@ -152,7 +141,7 @@ public class LevelFactory {
 
         fileHandle = Gdx.files.internal(path);
         long startPoint = ThreadLocalRandom.current().
-                nextLong( 0, (fileHandle.length() - 1L - size * 3L * lvl * 4));
+                nextLong(0, (fileHandle.length() - 1L - size * 3L * lvl * 4));
 
 
         byte[] buf = new byte[size * 3 * lvl * 4];
