@@ -37,6 +37,7 @@ public class Game extends ApplicationAdapter {
 
         l0 = new RectZone((int) (-Gdx.app.getGraphics().getWidth()*0.2f), Gdx.app.getGraphics().getHeight() / 2,
                 (int) (Gdx.app.getGraphics().getWidth()*1.3f), Gdx.app.getGraphics().getHeight(), Color.RED);
+        l0.setPulsar(false);
 
         l1 = new RectZone(100,
                 Gdx.app.getGraphics().getHeight() - LEVEL_LEVEL,
