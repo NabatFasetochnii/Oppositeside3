@@ -35,8 +35,8 @@ public class Game extends ApplicationAdapter {
 
         levelFactory = new LevelFactory(Color.RED, 10, Consts.getPathToFirst(), 2000, 1);
 
-        l0 = new RectZone(0, Gdx.app.getGraphics().getHeight() / 2,
-                Gdx.app.getGraphics().getWidth(), Gdx.app.getGraphics().getHeight(), Color.RED);
+        l0 = new RectZone((int) (-Gdx.app.getGraphics().getWidth()*0.2f), Gdx.app.getGraphics().getHeight() / 2,
+                (int) (Gdx.app.getGraphics().getWidth()*1.3f), Gdx.app.getGraphics().getHeight(), Color.RED);
 
         l1 = new RectZone(100,
                 Gdx.app.getGraphics().getHeight() - LEVEL_LEVEL,

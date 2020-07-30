@@ -1,5 +1,6 @@
 package com.nabat.game;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
@@ -13,6 +14,13 @@ public class RectZone {
     int height;
     Color color;
     ShapeRenderer square;
+    private int countOfPeriodPulsar = 0;
+    private float timeSecondsPulsar = 0f;
+    private final float period = 0.005f;
+    private final float DELTA = Gdx.app.getGraphics().getWidth()/1100f;
+    private final int MAX_COUNT_OF_PERIOD_PULSAR = 50;
+    private int gain = 0;
+
 
     public RectZone(int x, int y, int width, int height, Color color) {
 
@@ -29,25 +37,62 @@ public class RectZone {
 
     synchronized public void draw() {
 
+        timeSecondsPulsar += Gdx.graphics.getRawDeltaTime();
+        if (countOfPeriodPulsar<=MAX_COUNT_OF_PERIOD_PULSAR/2){ //TODO довести пульсацию до ума 
+
+
+            if (timeSecondsPulsar>period){
+
+
+                gain += DELTA;
+
+                timeSecondsPulsar -= period;
+                countOfPeriodPulsar++;
+            }
+
+        } else if (countOfPeriodPulsar < MAX_COUNT_OF_PERIOD_PULSAR){
+
+            if (timeSecondsPulsar>period){
+
+
+                gain -= DELTA;
+
+                timeSecondsPulsar -= period;
+                countOfPeriodPulsar++;
+            }
+
+        } else if (countOfPeriodPulsar == MAX_COUNT_OF_PERIOD_PULSAR){
+
+            //gain = 0;
+            countOfPeriodPulsar = 0;
+        }
+
+
+
         square.begin(ShapeRenderer.ShapeType.Filled);
 
-        square.rect(x, y, width, height); //квадрат
-        square.rect(x - WIDTH_OF_PERIMETER - PROSAK,
-                y + PROSAK + height,
-                width + PROSAK * 2 + WIDTH_OF_PERIMETER * 2,
+        square.rect(x - gain, y - gain,
+                width + gain*2, height + gain*2); //квадрат
+
+        square.rect((x - WIDTH_OF_PERIMETER - PROSAK) - gain,
+                    y + PROSAK + height               + gain,
+                width + PROSAK * 2 + WIDTH_OF_PERIMETER * 2 + gain*2,
                 HEIGHT_OF_PERIMETER); // верхняя грань
-        square.rect(x - WIDTH_OF_PERIMETER - PROSAK,
-                y - HEIGHT_OF_PERIMETER - PROSAK,
-                width + PROSAK * 2 + WIDTH_OF_PERIMETER * 2,
+
+        square.rect(x - WIDTH_OF_PERIMETER - PROSAK - gain,
+                y - HEIGHT_OF_PERIMETER - PROSAK - gain,
+                width + PROSAK * 2 + WIDTH_OF_PERIMETER * 2 + gain*2,
                 HEIGHT_OF_PERIMETER); // нижняя грань
-        square.rect(x - PROSAK - WIDTH_OF_PERIMETER,
-                y - PROSAK - HEIGHT_OF_PERIMETER,
+
+        square.rect(x - PROSAK - WIDTH_OF_PERIMETER - gain,
+                y - PROSAK - HEIGHT_OF_PERIMETER - gain,
                 WIDTH_OF_PERIMETER,
-                height + PROSAK * 2 + HEIGHT_OF_PERIMETER * 2); //левая грань
-        square.rect(x + width + PROSAK,
-                y - PROSAK - HEIGHT_OF_PERIMETER,
+                height + PROSAK * 2 + HEIGHT_OF_PERIMETER * 2 + gain*2); //левая грань
+
+        square.rect(x + width + PROSAK + gain,
+                y - PROSAK - HEIGHT_OF_PERIMETER - gain,
                 WIDTH_OF_PERIMETER,
-                height + PROSAK * 2 + HEIGHT_OF_PERIMETER * 2); //правая грань
+                height + PROSAK * 2 + HEIGHT_OF_PERIMETER * 2 + gain*2); //правая грань
         square.end();
     }
 
