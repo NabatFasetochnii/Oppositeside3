@@ -35,10 +35,6 @@ public class RectZone {
 
     }
 
-    public boolean isPulsar() {
-        return pulsar;
-    }
-
     public void setPulsar(boolean pulsar) {
         this.pulsar = pulsar;
     }

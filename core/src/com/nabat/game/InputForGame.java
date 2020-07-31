@@ -5,7 +5,7 @@ import com.badlogic.gdx.InputProcessor;
 import com.nabat.game.levels.LevelFactory;
 import java.util.ArrayList;
 
-public class Input implements InputProcessor {
+public class InputForGame implements InputProcessor {
 
     ArrayList<ArrayList<RectZone>> arrayLists;
     int i;
@@ -16,7 +16,7 @@ public class Input implements InputProcessor {
     boolean[] touch;
     LevelFactory levelFactory;
 
-    Input(LevelFactory levelFactory) {
+    InputForGame(LevelFactory levelFactory) {
         this.levelFactory = levelFactory;
 
         this.arrayLists = levelFactory.getArrayLists();
@@ -47,30 +47,47 @@ public class Input implements InputProcessor {
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 
 
-        if (pointer<size){
+        boolean q = false;
+        for (int k = 0; k<size;k++){
 
-            points[pointer][0] = screenX;
-            points[pointer][1] = Gdx.app.getGraphics().getHeight() - screenY;
-            touch[pointer] = true;
+            if (arrayLists.get(i).get(k).isTouch(screenX, Gdx.app.getGraphics().getHeight() - screenY)){
 
-            r = true;
-            for (int t = 0;t < size; t++){
-
-                r = r&&touch[t];
+                q = true;
             }
-            if (pointer == size-1 && r){
+        }
 
-                b = true;
-                for (int j = 0; j < size; j++) {
+        if (q){
 
-                    b = b && arrayLists.get(i).get(j).isTouch(points[j][0], points[j][1]);
+            if (pointer<size){
 
+                points[pointer][0] = screenX;
+                points[pointer][1] = Gdx.app.getGraphics().getHeight() - screenY;
+                touch[pointer] = true;
+
+                r = true;
+                for (int t = 0;t < size; t++){
+
+                    r = r&&touch[t];
                 }
-                if (b){
-                    levelFactory.setI(i+1);//TODO написать функцию смены уровня
-                    i++;
+                if (pointer == size-1 && r){
+
+                    b = true;
+                    for (int j = 0; j < size; j++) {
+
+                        b = b && arrayLists.get(i).get(j).isTouch(points[j][0], points[j][1]);
+
+                    }
+                    if (b){
+                        levelFactory.setI(i+1);//TODO написать функцию смены уровня
+                        i++;
+                        levelFactory.upCountOfSquare();
+                    }
                 }
             }
+
+
+        }else{
+            levelFactory.upCountOfMiss();
         }
 
         return true;

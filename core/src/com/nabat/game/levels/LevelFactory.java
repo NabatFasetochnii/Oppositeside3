@@ -24,6 +24,8 @@ public class LevelFactory {
     private final ShapeRenderer timeLine;
     private final ShapeRenderer timeLineEnd;
     private final BitmapFont font;
+    private final BitmapFont fontForCount;
+    private final BitmapFont fontForCountMiss;
     private final SpriteBatch batch;
     private final int sizeOfScreens;
     private final int lvl;
@@ -32,6 +34,9 @@ public class LevelFactory {
     private int i = 0;
     private boolean isLose = false;
     private float timeSeconds = 0f;
+    private int countOfSquare = 0;
+    private int countOfMiss = 0;
+    private boolean setMenu = false;
 
     public LevelFactory(Color color, float levelTime, String pathToFile, int sizeOfScreens, int lvl) {
 
@@ -53,9 +58,47 @@ public class LevelFactory {
         parameter.borderColor = Color.BLACK;
         parameter.borderWidth = 5;
         font = generator.generateFont(parameter);
+
+        parameter.color = Color.GREEN;
+        parameter.size = (int) (Gdx.app.getGraphics().getWidth() / 10f);
+        parameter.borderWidth = 3;
+        fontForCount = generator.generateFont(parameter);
+
+        parameter.color = Color.RED;
+
+        fontForCountMiss = generator.generateFont(parameter);
         generator.dispose();
 
 
+    }
+
+    public boolean isSetMenu() {
+        return setMenu;
+    }
+
+    public void setSetMenu(boolean setMenu) {
+        this.setMenu = setMenu;
+    }
+
+    public boolean isLose() {
+        return isLose;
+    }
+
+    public void setLose(boolean lose) {
+        isLose = lose;
+    }
+
+    public void upCountOfSquare() {
+
+        countOfSquare += lvl;
+    }
+
+    public void upCountOfMiss() {
+
+        countOfMiss++;
+        if (countOfMiss == 3) {
+            isLose = true;
+        }
     }
 
     public void load() {
@@ -70,6 +113,12 @@ public class LevelFactory {
             font.draw(batch, Consts.getLOSE(),
                     Gdx.app.getGraphics().getWidth() / 3f, Gdx.app.getGraphics().getHeight() / 2f);
             batch.end();
+
+            if (Gdx.input.isTouched()){
+
+                setMenu = true;
+            }
+
         } else {
             if (arrayLists != null) {
 
@@ -78,8 +127,17 @@ public class LevelFactory {
 
                         try {
 
-                            //thread.join();
+
                             arrayLists.get(i).get(j).draw();
+
+                            batch.begin();
+                            fontForCount.draw(batch, countOfSquare + "",
+                                    50f, Gdx.app.getGraphics().getHeight() - 50f);
+                            fontForCountMiss.draw(batch, countOfMiss + "",
+                                    Gdx.app.getGraphics().getWidth() - 100f,
+                                    Gdx.app.getGraphics().getHeight() - 50f);
+
+                            batch.end();
                             timeLineDraw();
 
                         } catch (Exception e) {

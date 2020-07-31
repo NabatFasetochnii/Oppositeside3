@@ -16,7 +16,7 @@ public class Game extends ApplicationAdapter {
     private RectZone l1, l2, l3, l0;
     private boolean startScreen = true;
     private LevelFactory levelFactory;
-    private Input input;
+    private InputForGame inputForGame;
     private BitmapFont font;
     private SpriteBatch batch;
 
@@ -54,8 +54,8 @@ public class Game extends ApplicationAdapter {
                 100, Color.YELLOW);
 
         levelFactory.load();
-        input = new Input(levelFactory);
-
+        inputForGame = new InputForGame(levelFactory);
+        Loader.load();
 
     }
 
@@ -84,9 +84,17 @@ public class Game extends ApplicationAdapter {
             }
         } else {
 
-            Gdx.input.setInputProcessor(input);
-            levelFactory.draw();
-            //openMenu();
+            Gdx.input.setInputProcessor(inputForGame);
+            if (!levelFactory.isSetMenu()){
+
+                levelFactory.draw();
+            }else {
+
+                openMenu();
+            }
+
+
+            //
         }
 
 
