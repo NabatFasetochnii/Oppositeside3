@@ -1,34 +1,36 @@
 package com.nabat.game.levels;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.nabat.game.Consts;
+import com.nabat.game.Game;
 import com.nabat.game.RectZone;
+import com.nabat.game.inputs.InputForGame;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class LevelFactory {
+public class LevelFactory implements Screen {
 
     private final int MAX_COUNT_OF_PERIOD; //30sec = 6000
     private final float period = 0.005f;
     private final String path; //levels/1/2
-    private final float LOSE_TO_SCREEN = 7.5f;
     private final Color color;
     private final ShapeRenderer timeLine;
     private final ShapeRenderer timeLineEnd;
     private final BitmapFont font;
     private final BitmapFont fontForCount;
     private final BitmapFont fontForCountMiss;
-    private final SpriteBatch batch;
     private final int sizeOfScreens;
     private final int lvl;
+    Game game;
     private ArrayList<ArrayList<RectZone>> arrayLists;
     private int countOfPeriod = 0;
     private int i = 0;
@@ -38,22 +40,23 @@ public class LevelFactory {
     private int countOfMiss = 0;
     private boolean setMenu = false;
 
-    public LevelFactory(Color color, float levelTime, String pathToFile, int sizeOfScreens, int lvl) {
+
+    public LevelFactory(Color color, float levelTime, String pathToFile, int sizeOfScreens, int lvl, Game game) {
 
         MAX_COUNT_OF_PERIOD = (int) (levelTime / period);
         path = pathToFile;
         this.sizeOfScreens = sizeOfScreens;
         this.lvl = lvl;
+        this.game = game;
 
         arrayLists = new ArrayList<>();
 
         this.color = color;
         timeLine = new ShapeRenderer();
         timeLineEnd = new ShapeRenderer();
-        batch = new SpriteBatch();
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal(Consts.getTtfPath()));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = (int) (Gdx.app.getGraphics().getWidth() / LOSE_TO_SCREEN);
+        parameter.size = (int) (Gdx.app.getGraphics().getWidth() / Consts.getLOSE_TO_SCREEN());
         parameter.color = Color.RED;
         parameter.borderColor = Color.BLACK;
         parameter.borderWidth = 5;
@@ -70,6 +73,10 @@ public class LevelFactory {
         generator.dispose();
 
 
+    }
+
+    public int getLvl() {
+        return lvl;
     }
 
     public boolean isSetMenu() {
@@ -106,50 +113,6 @@ public class LevelFactory {
         arrayLists = setLevel(path, sizeOfScreens, lvl);
     }
 
-    public void draw() {
-
-        if (isLose) {
-            batch.begin();
-            font.draw(batch, Consts.getLOSE(),
-                    Gdx.app.getGraphics().getWidth() / 3f, Gdx.app.getGraphics().getHeight() / 2f);
-            batch.end();
-
-            if (Gdx.input.isTouched()){
-
-                setMenu = true;
-            }
-
-        } else {
-            if (arrayLists != null) {
-
-                if (i < arrayLists.size()) {
-                    for (int j = 0; j < arrayLists.get(i).size(); j++) {
-
-                        try {
-
-
-                            arrayLists.get(i).get(j).draw();
-
-                            batch.begin();
-                            fontForCount.draw(batch, countOfSquare + "",
-                                    50f, Gdx.app.getGraphics().getHeight() - 50f);
-                            fontForCountMiss.draw(batch, countOfMiss + "",
-                                    Gdx.app.getGraphics().getWidth() - 100f,
-                                    Gdx.app.getGraphics().getHeight() - 50f);
-
-                            batch.end();
-                            timeLineDraw();
-
-                        } catch (Exception e) {
-                            e.printStackTrace();
-
-                        }
-                    }
-                }
-            }
-        }
-    }
-
     public void timeLineDraw() {
 
         if (countOfPeriod <= MAX_COUNT_OF_PERIOD) {
@@ -164,18 +127,16 @@ public class LevelFactory {
 
                 timeLine.setColor(Color.GREEN);
                 timeLine.rect(0, 0,
-                        Gdx.graphics.getWidth() * (1f - (float) countOfPeriod / MAX_COUNT_OF_PERIOD),
+                        Consts.getWIDTH() * (1f - (float) countOfPeriod / MAX_COUNT_OF_PERIOD),
                         50 * Consts.getScaleY());
 
                 timeLineEnd.setColor(Color.WHITE);
-                timeLineEnd.rect(Gdx.graphics.getWidth() * (1f - (float) countOfPeriod / MAX_COUNT_OF_PERIOD) -
-                                Gdx.app.getGraphics().getWidth() / 50f,
-                        0, Gdx.app.getGraphics().getWidth() / 50f,
-                        50 * Consts.getScaleY());
+                timeLineEnd.circle(Consts.getWIDTH() * (1f - (float) countOfPeriod / MAX_COUNT_OF_PERIOD),
+                        0, 50 * Consts.getScaleY());
 
                 timeLine.end();
                 timeLineEnd.end();
-                if (Gdx.graphics.getWidth() * (1f - (float) countOfPeriod / MAX_COUNT_OF_PERIOD) < 0.1f) {
+                if (Consts.getWIDTH() * (1f - (float) countOfPeriod / MAX_COUNT_OF_PERIOD) < 0.1f) {
                     isLose = true;
                 }
 
@@ -186,8 +147,91 @@ public class LevelFactory {
 
     }
 
+    @Override
+    public void show() {
+        load();
+        Gdx.input.setInputProcessor(new InputForGame(this));
+
+    }
+
+    @Override
+    public void render(float delta) {
+
+        Gdx.gl.glClearColor(255, 255, 0, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        if (isLose) {
+
+            game.getBatch().begin();
+            font.draw(game.getBatch(), Consts.getLOSE(),
+                    Consts.getWIDTH() / 3f, Consts.getHEIGHT() / 2f);
+            game.getBatch().end();
+
+            if (Gdx.input.isTouched()) {
+
+                game.setScreen(game.getLevels());
+                isLose = false;
+                int a = Consts.getCountOfAllPoints() + countOfSquare - countOfMiss;
+                if (a>0)
+                Consts.setCountOfAllPoints(a);
+                countOfMiss = 0;
+                countOfSquare = 0;
+                countOfPeriod = 0;
+//                dispose();
+            }
+
+        } else {
+            if (arrayLists != null) {
+
+                if (i < arrayLists.size()) {
+                    for (int j = 0; j < arrayLists.get(i).size(); j++) {
+
+                        try {
+
+
+                            arrayLists.get(i).get(j).draw();
+
+                            game.getBatch().begin();
+                            fontForCount.draw(game.getBatch(), countOfSquare + "",
+                                    50f, Gdx.app.getGraphics().getHeight() - 50f);
+                            fontForCountMiss.draw(game.getBatch(), countOfMiss + "",
+                                    Gdx.app.getGraphics().getWidth() - 100f,
+                                    Gdx.app.getGraphics().getHeight() - 50f);
+
+                            game.getBatch().end();
+                            timeLineDraw();
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @Override
+    public void resize(int width, int height) {
+
+    }
+
+    @Override
+    public void pause() {
+
+    }
+
+    @Override
+    public void resume() {
+
+    }
+
+    @Override
+    public void hide() {
+
+    }
+
     public void dispose() {
-        batch.dispose();
         font.dispose();
     }
 

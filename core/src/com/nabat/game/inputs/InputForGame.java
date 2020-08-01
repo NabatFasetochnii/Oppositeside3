@@ -1,7 +1,8 @@
-package com.nabat.game;
+package com.nabat.game.inputs;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
+import com.nabat.game.RectZone;
 import com.nabat.game.levels.LevelFactory;
 import java.util.ArrayList;
 
@@ -16,7 +17,7 @@ public class InputForGame implements InputProcessor {
     boolean[] touch;
     LevelFactory levelFactory;
 
-    InputForGame(LevelFactory levelFactory) {
+    public InputForGame(LevelFactory levelFactory) { //TODO пофиксить мультитач
         this.levelFactory = levelFactory;
 
         this.arrayLists = levelFactory.getArrayLists();

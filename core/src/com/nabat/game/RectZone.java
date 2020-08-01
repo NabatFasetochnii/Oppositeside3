@@ -12,7 +12,8 @@ public class RectZone {
     private final float period = 0.005f;
     private final float DELTA = Gdx.app.getGraphics().getWidth() / 3000f;
     private final int MAX_COUNT_OF_PERIOD_PULSAR = 30;
-    int x, y;
+    private final int x;
+    private final int y;
     int width;
     int height;
     Color color;
@@ -21,7 +22,6 @@ public class RectZone {
     private float timeSecondsPulsar = 0f;
     private float gain = 0;
     private boolean pulsar = true;
-
     public RectZone(int x, int y, int width, int height, Color color) {
 
         this.x = x;
@@ -35,13 +35,29 @@ public class RectZone {
 
     }
 
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
     public void setPulsar(boolean pulsar) {
         this.pulsar = pulsar;
     }
 
     synchronized public void draw() {
 
-        if (pulsar){
+        if (pulsar) {
 
             timeSecondsPulsar += Gdx.graphics.getRawDeltaTime();
             if (countOfPeriodPulsar <= MAX_COUNT_OF_PERIOD_PULSAR / 2) {
@@ -70,11 +86,11 @@ public class RectZone {
             } else if (countOfPeriodPulsar == MAX_COUNT_OF_PERIOD_PULSAR) {
 
                 //gain = 0;
+                gain -= DELTA * 2;
                 countOfPeriodPulsar = 0;
             }
 
         }
-
 
 
         square.begin(ShapeRenderer.ShapeType.Filled);
@@ -108,7 +124,7 @@ public class RectZone {
         square.dispose();
     }
 
-    boolean isTouch(int X, int Y) {
+    public boolean isTouch(int X, int Y) {
 
         return ((x <= X) && (X <= x + width) && (y <= Y) && (Y <= y + height));
     }

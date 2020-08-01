@@ -1,72 +1,59 @@
 package com.nabat.game;
 
-import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.nabat.game.levels.LevelFactory;
+import com.nabat.game.levels.Levels;
 
-public class Game extends ApplicationAdapter {
+public class Game extends com.badlogic.gdx.Game { //TODO реализовать логгер
 
-    private final int LEVEL_LEVEL = 200;
-    private final float PLAY_SCREEN = 7.5f;
-    private RectZone l1, l2, l3, l0;
-    private boolean startScreen = true;
+    Levels levels;
+    //private RectZone l0;
+    //private final boolean startScreen = true;
     private LevelFactory levelFactory;
-    private InputForGame inputForGame;
-    private BitmapFont font;
+    //private BitmapFont font;
     private SpriteBatch batch;
+
+    public SpriteBatch getBatch() {
+        return batch;
+    }
 
     @Override
     public void create() {
 
         batch = new SpriteBatch();
-        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal(Consts.getTtfPath()));
+       /* FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal(Consts.getTtfPath()));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        float PLAY_SCREEN = 7.5f;
         parameter.size = (int) (Gdx.app.getGraphics().getWidth() / PLAY_SCREEN);
         parameter.color = Color.YELLOW;
         parameter.borderColor = Color.BLACK;
         parameter.borderWidth = 5;
-        font = generator.generateFont(parameter);
-        generator.dispose();
+        //font = generator.generateFont(parameter);
+        generator.dispose();*/
+        levels = new Levels(this);
 
-        levelFactory = new LevelFactory(Color.RED, 10, Consts.getPathToFirst(), 2000, 1);
+        levelFactory = levels.getLvl1();
 
-        l0 = new RectZone((int) (-Gdx.app.getGraphics().getWidth()*0.2f), Gdx.app.getGraphics().getHeight() / 2,
-                (int) (Gdx.app.getGraphics().getWidth()*1.3f), Gdx.app.getGraphics().getHeight(), Color.RED);
-        l0.setPulsar(false);
-
-        l1 = new RectZone(100,
-                Gdx.app.getGraphics().getHeight() - LEVEL_LEVEL,
-                100,
-                100, Color.BLACK);
-
-        l2 = new RectZone(300,
-                Gdx.app.getGraphics().getHeight() - LEVEL_LEVEL,
-                100,
-                100, Color.RED);
-        l3 = new RectZone(500,
-                Gdx.app.getGraphics().getHeight() - LEVEL_LEVEL,
-                100,
-                100, Color.YELLOW);
+//        l0 = new RectZone((int) (-Consts.getWIDTH() * 0.2f), Consts.getHEIGHT() / 2,
+//                (int) (Consts.getWIDTH() * 1.3f), Consts.getHEIGHT(), Color.RED);
+//        l0.setPulsar(false);
 
         levelFactory.load();
-        inputForGame = new InputForGame(levelFactory);
         Loader.load();
 
+        setScreen(levelFactory);
     }
 
 
     @Override
     public void render() {
-        Gdx.gl.glClearColor(255, 255, 0, 1);
+
+        super.render();
+        /*Gdx.gl.glClearColor(255, 255, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 
-        if (startScreen) {
+        if (startScreen) { //TODO переделать всю логику под setScreen, наверное это будет не сложно
 
             l0.draw();
             batch.begin();
@@ -83,38 +70,23 @@ public class Game extends ApplicationAdapter {
                 }
             }
         } else {
-
-            Gdx.input.setInputProcessor(inputForGame);
-            if (!levelFactory.isSetMenu()){
-
-                levelFactory.draw();
-            }else {
-
-                openMenu();
-            }
-
-
-            //
+            setScreen(levelFactory);
+            super.render();
         }
-
-
+*/
     }
 
-    private void openMenu() {
 
-        l1.draw();
-        l2.draw();
-        l3.draw();
-
+    public Levels getLevels() {
+        return levels;
     }
 
 
     @Override
     public void dispose() {
-        l0.dispose();
-        l1.dispose();
-        l2.dispose();
-        l3.dispose();
+        //l0.dispose();
+        levels.dispose();
         levelFactory.dispose();
+        Loader.dispose();
     }
 }

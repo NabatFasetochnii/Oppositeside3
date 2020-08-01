@@ -15,6 +15,10 @@ public class Loader {
 
 
     }
+    public static void dispose(){
+
+        textureAtlas.dispose();
+    }
 
     public static TextureRegion getExitButton() {
         return exitButton;
