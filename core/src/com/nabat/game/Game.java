@@ -38,7 +38,6 @@ public class Game extends com.badlogic.gdx.Game { //TODO реализовать 
 //                (int) (Consts.getWIDTH() * 1.3f), Consts.getHEIGHT(), Color.RED);
 //        l0.setPulsar(false);
 
-        levelFactory.load();
         Loader.load();
 
         setScreen(levelFactory);

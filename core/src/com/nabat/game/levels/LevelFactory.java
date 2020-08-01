@@ -75,26 +75,6 @@ public class LevelFactory implements Screen {
 
     }
 
-    public int getLvl() {
-        return lvl;
-    }
-
-    public boolean isSetMenu() {
-        return setMenu;
-    }
-
-    public void setSetMenu(boolean setMenu) {
-        this.setMenu = setMenu;
-    }
-
-    public boolean isLose() {
-        return isLose;
-    }
-
-    public void setLose(boolean lose) {
-        isLose = lose;
-    }
-
     public void upCountOfSquare() {
 
         countOfSquare += lvl;
@@ -269,7 +249,7 @@ public class LevelFactory implements Screen {
 
             for (int t = 0; t < lvl; t++) {
 
-                u = (t + p) * 3;
+                u = (t + p*3) * lvl;
                 int[] b = new int[3];
                 b[0] = (int) (e[u] * Consts.getScaleX());
                 b[1] = (int) (e[u + 1] * Consts.getScaleY());

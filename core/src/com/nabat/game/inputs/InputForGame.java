@@ -2,6 +2,7 @@ package com.nabat.game.inputs;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
+import com.nabat.game.Consts;
 import com.nabat.game.RectZone;
 import com.nabat.game.levels.LevelFactory;
 import java.util.ArrayList;
@@ -15,9 +16,10 @@ public class InputForGame implements InputProcessor {
     int size;
     int[][] points;
     boolean[] touch;
+    boolean[][] good;
     LevelFactory levelFactory;
 
-    public InputForGame(LevelFactory levelFactory) { //TODO пофиксить мультитач
+    public InputForGame(LevelFactory levelFactory) {
         this.levelFactory = levelFactory;
 
         this.arrayLists = levelFactory.getArrayLists();
@@ -25,6 +27,7 @@ public class InputForGame implements InputProcessor {
         this.size = arrayLists.get(i).size();
         points = new int[size][2];
         touch = new boolean[size];
+        good = new boolean[size][size];
 
     }
 
@@ -51,9 +54,10 @@ public class InputForGame implements InputProcessor {
         boolean q = false;
         for (int k = 0; k<size;k++){
 
-            if (arrayLists.get(i).get(k).isTouch(screenX, Gdx.app.getGraphics().getHeight() - screenY)){
+            if (arrayLists.get(i).get(k).isTouch(screenX, Consts.getHEIGHT() - screenY)){
 
                 q = true;
+                break;
             }
         }
 
@@ -62,7 +66,7 @@ public class InputForGame implements InputProcessor {
             if (pointer<size){
 
                 points[pointer][0] = screenX;
-                points[pointer][1] = Gdx.app.getGraphics().getHeight() - screenY;
+                points[pointer][1] = Consts.getHEIGHT() - screenY;
                 touch[pointer] = true;
 
                 r = true;
@@ -75,9 +79,24 @@ public class InputForGame implements InputProcessor {
                     b = true;
                     for (int j = 0; j < size; j++) {
 
-                        b = b && arrayLists.get(i).get(j).isTouch(points[j][0], points[j][1]);
+                        for (int l = 0; l<size; l++){
 
+                            good[j][l] = arrayLists.get(i).get(j).isTouch(points[l][0], points[l][1]);
+                        }
                     }
+
+                    for (int l = 0; l< size; l++){
+                        boolean z = false;
+                        for (int j = 0; j<size; j++){
+
+                            z = z || good[l][j];
+                        }
+                        if (!z){
+                            b = false;
+                            break;
+                        }
+                    }
+
                     if (b){
                         levelFactory.setI(i+1);//TODO написать функцию смены уровня
                         i++;
