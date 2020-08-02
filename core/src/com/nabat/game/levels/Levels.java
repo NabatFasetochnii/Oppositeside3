@@ -23,6 +23,7 @@ public class Levels implements Screen {
     private final BitmapFont font;
     private final SpriteBatch batch;
     private final Game game;
+
     public Levels(Game game) {//TODO написать менюшку
 //TODO реализовать ласт лвл или изменить концепцию
         this.lvl1 = new LevelFactory(Color.RED,
@@ -108,11 +109,11 @@ public class Levels implements Screen {
 
         batch.begin();
 
-        font.draw(batch, "1", l1.getX() + l1.getWidth()/3f, l1.getY() + l1.getHeight()/1.2f);
-        font.draw(batch, "2", l2.getX() + l2.getWidth()/4f, l2.getY() + l2.getHeight()/1.2f);
-        font.draw(batch, "3", l3.getX() + l3.getWidth()/4f, l3.getY() + l3.getHeight()/1.2f);
+        font.draw(batch, "1", l1.getX() + l1.getWidth() / 3f, l1.getY() + l1.getHeight() / 1.2f);
+        font.draw(batch, "2", l2.getX() + l2.getWidth() / 4f, l2.getY() + l2.getHeight() / 1.2f);
+        font.draw(batch, "3", l3.getX() + l3.getWidth() / 4f, l3.getY() + l3.getHeight() / 1.2f);
 
-        font.draw(batch, Consts.getCountOfAllPoints() +"", 50, Consts.getHEIGHT()-50);
+        font.draw(batch, Consts.getCountOfAllPoints() + "", 50, Consts.getHEIGHT() - 50);
 
         batch.end();
 

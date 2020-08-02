@@ -1,10 +1,10 @@
 package com.nabat.game.inputs;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.nabat.game.Consts;
 import com.nabat.game.RectZone;
 import com.nabat.game.levels.LevelFactory;
+
 import java.util.ArrayList;
 
 public class InputForGame implements InputProcessor {
@@ -52,53 +52,53 @@ public class InputForGame implements InputProcessor {
 
 
         boolean q = false;
-        for (int k = 0; k<size;k++){
+        for (int k = 0; k < size; k++) {
 
-            if (arrayLists.get(i).get(k).isTouch(screenX, Consts.getHEIGHT() - screenY)){
+            if (arrayLists.get(i).get(k).isTouch(screenX, Consts.getHEIGHT() - screenY)) {
 
                 q = true;
                 break;
             }
         }
 
-        if (q){
+        if (q) {
 
-            if (pointer<size){
+            if (pointer < size) {
 
                 points[pointer][0] = screenX;
                 points[pointer][1] = Consts.getHEIGHT() - screenY;
                 touch[pointer] = true;
 
                 r = true;
-                for (int t = 0;t < size; t++){
+                for (int t = 0; t < size; t++) {
 
-                    r = r&&touch[t];
+                    r = r && touch[t];
                 }
-                if (pointer == size-1 && r){
+                if (pointer == size - 1 && r) {
 
                     b = true;
                     for (int j = 0; j < size; j++) {
 
-                        for (int l = 0; l<size; l++){
+                        for (int l = 0; l < size; l++) {
 
                             good[j][l] = arrayLists.get(i).get(j).isTouch(points[l][0], points[l][1]);
                         }
                     }
 
-                    for (int l = 0; l< size; l++){
+                    for (int l = 0; l < size; l++) {
                         boolean z = false;
-                        for (int j = 0; j<size; j++){
+                        for (int j = 0; j < size; j++) {
 
                             z = z || good[l][j];
                         }
-                        if (!z){
+                        if (!z) {
                             b = false;
                             break;
                         }
                     }
 
-                    if (b){
-                        levelFactory.setI(i+1);//TODO написать функцию смены уровня
+                    if (b) {
+                        levelFactory.setI(i + 1);//TODO написать функцию смены уровня
                         i++;
                         levelFactory.upCountOfSquare();
                     }
@@ -106,7 +106,7 @@ public class InputForGame implements InputProcessor {
             }
 
 
-        }else{
+        } else {
             levelFactory.upCountOfMiss();
         }
 
@@ -116,7 +116,7 @@ public class InputForGame implements InputProcessor {
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
 
-        if (pointer<size){
+        if (pointer < size) {
             points[pointer][0] = -1;
             points[pointer][1] = -1;
             touch[pointer] = false;

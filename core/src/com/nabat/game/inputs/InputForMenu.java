@@ -1,13 +1,13 @@
 package com.nabat.game.inputs;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.nabat.game.Consts;
 import com.nabat.game.levels.Levels;
 
 public class InputForMenu implements InputProcessor {
 
-Levels levels;
+    Levels levels;
+
     public InputForMenu(Levels levels) {
         this.levels = levels;
 
@@ -32,16 +32,16 @@ Levels levels;
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 
-        if (levels.getL1().isTouch(screenX, Consts.getHEIGHT()-screenY)){
+        if (levels.getL1().isTouch(screenX, Consts.getHEIGHT() - screenY)) {
 
             Levels.setLvl(1);
         }
-        if (levels.getL2().isTouch(screenX, Consts.getHEIGHT()-screenY)){
+        if (levels.getL2().isTouch(screenX, Consts.getHEIGHT() - screenY)) {
 
             Levels.setLvl(2);
         }
 
-        if (levels.getL3().isTouch(screenX, Consts.getHEIGHT()-screenY)){
+        if (levels.getL3().isTouch(screenX, Consts.getHEIGHT() - screenY)) {
 
             Levels.setLvl(3);
         }

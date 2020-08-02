@@ -22,6 +22,7 @@ public class RectZone {
     private float timeSecondsPulsar = 0f;
     private float gain = 0;
     private boolean pulsar = true;
+
     public RectZone(int x, int y, int width, int height, Color color) {
 
         this.x = x;

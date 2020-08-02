@@ -14,6 +14,7 @@ import com.nabat.game.RectZone;
 import com.nabat.game.inputs.InputForGame;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -30,7 +31,7 @@ public class LevelFactory implements Screen {
     private final BitmapFont fontForCountMiss;
     private final int sizeOfScreens;
     private final int lvl;
-    Game game;
+    private final Game game;
     private ArrayList<ArrayList<RectZone>> arrayLists;
     private int countOfPeriod = 0;
     private int i = 0;
@@ -38,8 +39,6 @@ public class LevelFactory implements Screen {
     private float timeSeconds = 0f;
     private int countOfSquare = 0;
     private int countOfMiss = 0;
-    private boolean setMenu = false;
-
 
     public LevelFactory(Color color, float levelTime, String pathToFile, int sizeOfScreens, int lvl, Game game) {
 
@@ -152,11 +151,13 @@ public class LevelFactory implements Screen {
                 game.setScreen(game.getLevels());
                 isLose = false;
                 int a = Consts.getCountOfAllPoints() + countOfSquare - countOfMiss;
-                if (a>0)
-                Consts.setCountOfAllPoints(a);
+                if (a > 0)
+                    Consts.setCountOfAllPoints(a);
                 countOfMiss = 0;
                 countOfSquare = 0;
                 countOfPeriod = 0;
+                i = 0;
+                arrayLists = null;
 //                dispose();
             }
 
@@ -167,24 +168,22 @@ public class LevelFactory implements Screen {
                     for (int j = 0; j < arrayLists.get(i).size(); j++) {
 
                         try {
-
-
                             arrayLists.get(i).get(j).draw();
-
-                            game.getBatch().begin();
-                            fontForCount.draw(game.getBatch(), countOfSquare + "",
-                                    50f, Gdx.app.getGraphics().getHeight() - 50f);
-                            fontForCountMiss.draw(game.getBatch(), countOfMiss + "",
-                                    Gdx.app.getGraphics().getWidth() - 100f,
-                                    Gdx.app.getGraphics().getHeight() - 50f);
-
-                            game.getBatch().end();
-                            timeLineDraw();
 
                         } catch (Exception e) {
                             e.printStackTrace();
 
                         }
+
+                        game.getBatch().begin();
+                        fontForCount.draw(game.getBatch(), countOfSquare + "",
+                                50f, Gdx.app.getGraphics().getHeight() - 50f);
+                        fontForCountMiss.draw(game.getBatch(), countOfMiss + "",
+                                Gdx.app.getGraphics().getWidth() - 100f,
+                                Gdx.app.getGraphics().getHeight() - 50f);
+
+                        game.getBatch().end();
+                        timeLineDraw();
                     }
                 }
             }
@@ -222,18 +221,27 @@ public class LevelFactory implements Screen {
         ArrayList<ArrayList<RectZone>> list = new ArrayList<>();
 
         fileHandle = Gdx.files.internal(path);
-        long startPoint = ThreadLocalRandom.current().
-                nextLong(0, (fileHandle.length() - 1L - size * 3L * lvl * 4));
 
+        long handleLength = fileHandle.length();
+        long fileLength = handleLength / (3L * lvl * 4);
+
+        long startPoint = ThreadLocalRandom.current().
+                nextLong((fileLength + 1 - size));
+        startPoint *= 3L * lvl * 4;
 
         byte[] buf = new byte[size * 3 * lvl * 4];
 
         try {
-            fileHandle.read().skip(startPoint);
+            InputStream input = fileHandle.read();
+            input.skip(startPoint);
+            input.read(buf, 0, buf.length);
+
         } catch (IOException exception) {
             exception.printStackTrace();
         }
-        fileHandle.readBytes(buf, 0, buf.length);
+        //fileHandle.read().skip(startPoint);
+
+        //fileHandle.readBytes(buf, 0, buf.length);
 
         int[] e = new int[buf.length / 4];
         for (int bc = 0; bc < buf.length / 4; bc++) {
@@ -249,7 +257,7 @@ public class LevelFactory implements Screen {
 
             for (int t = 0; t < lvl; t++) {
 
-                u = (t + p*3) * lvl;
+                u = (t + p * 3) * lvl;
                 int[] b = new int[3];
                 b[0] = (int) (e[u] * Consts.getScaleX());
                 b[1] = (int) (e[u + 1] * Consts.getScaleY());
