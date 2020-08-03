@@ -14,13 +14,79 @@ public class Consts {
     private final static String PATH_TO_SECOND = "levels/2/1";
     private final static String PATH_TO_THIRD = "levels/3/2";
     private final static String PATH_TO_FOURTH = "levels/4/1";
-    private static final float LOSE_TO_SCREEN = 7.5f;
-    private static final int WIDTH = Gdx.app.getGraphics().getWidth();
-    private static final int HEIGHT = Gdx.app.getGraphics().getHeight();
-    private static int countOfAllPoints = 0;
+    private final static float LOSE_TO_SCREEN = 7.5f;
+    private final static int WIDTH = Gdx.app.getGraphics().getWidth();
+    private final static int HEIGHT = Gdx.app.getGraphics().getHeight();
+    private final static String COUNT1 = "countOfPoints1";
+    private final static String COUNT2 = "countOfPoints2";
+    private final static String COUNT3 = "countOfPoints3";
+    private final static String COUNT4 = "countOfPoints4";
+    private final static String COUNT0 = "countOfAllPoints";
+    private final static String PREF_NAME = "data";
+    private static int countOfAllPoints;
+    private static int countOfPoints1;
+    private static int countOfPoints2;
+    private static int countOfPoints3;
+    private static int countOfPoints4;
     Consts() {
 
 
+    }
+
+    public static String getCOUNT1() {
+        return COUNT1;
+    }
+
+    public static String getCOUNT2() {
+        return COUNT2;
+    }
+
+    public static String getCOUNT3() {
+        return COUNT3;
+    }
+
+    public static String getCOUNT4() {
+        return COUNT4;
+    }
+
+    public static String getCOUNT0() {
+        return COUNT0;
+    }
+
+    public static String getPrefName() {
+        return PREF_NAME;
+    }
+
+    public static int getCountOfPoints1() {
+        return countOfPoints1;
+    }
+
+    public static void setCountOfPoints1(int countOfPoints1) {
+        Consts.countOfPoints1 = countOfPoints1;
+    }
+
+    public static int getCountOfPoints2() {
+        return countOfPoints2;
+    }
+
+    public static void setCountOfPoints2(int countOfPoints2) {
+        Consts.countOfPoints2 = countOfPoints2;
+    }
+
+    public static int getCountOfPoints3() {
+        return countOfPoints3;
+    }
+
+    public static void setCountOfPoints3(int countOfPoints3) {
+        Consts.countOfPoints3 = countOfPoints3;
+    }
+
+    public static int getCountOfPoints4() {
+        return countOfPoints4;
+    }
+
+    public static void setCountOfPoints4(int countOfPoints4) {
+        Consts.countOfPoints4 = countOfPoints4;
     }
 
     public static String getPathToFourth() {

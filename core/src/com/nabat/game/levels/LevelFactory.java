@@ -32,6 +32,7 @@ public class LevelFactory implements Screen {
     private final int sizeOfScreens;
     private final int lvl;
     private final Game game;
+    private final float levelTime;
     private ArrayList<ArrayList<RectZone>> arrayLists;
     private int countOfPeriod = 0;
     private int i = 0;
@@ -39,9 +40,8 @@ public class LevelFactory implements Screen {
     private float timeSeconds = 0f;
     private int countOfSquare = 0;
     private int countOfMiss = 0;
-
     public LevelFactory(Color color, float levelTime, String pathToFile, int sizeOfScreens, int lvl, Game game) {
-
+        this.levelTime = levelTime;
         MAX_COUNT_OF_PERIOD = (int) (levelTime / period);
         path = pathToFile;
         this.sizeOfScreens = sizeOfScreens;
@@ -72,6 +72,18 @@ public class LevelFactory implements Screen {
         generator.dispose();
 
 
+    }
+
+    public int getSizeOfScreens() {
+        return sizeOfScreens;
+    }
+
+    public float getLevelTime() {
+        return levelTime;
+    }
+
+    public int getLvl() {
+        return lvl;
     }
 
     public void upCountOfSquare() {
@@ -149,16 +161,60 @@ public class LevelFactory implements Screen {
             if (Gdx.input.isTouched()) {
 
                 game.setScreen(game.getLevels());
+
+                int points = countOfSquare - countOfMiss;
+                if (points > 0) {
+
+                    switch (lvl) {
+
+                        case 1: {
+                            if (points > Consts.getCountOfPoints1()) {
+
+                                Consts.setCountOfAllPoints(Consts.getCountOfAllPoints() +
+                                        points - Consts.getCountOfPoints1());
+                                Consts.setCountOfPoints1(points);
+
+                            }
+                            break;
+                        }
+                        case 2: {
+                            if (points > Consts.getCountOfPoints2()) {
+
+                                Consts.setCountOfAllPoints(Consts.getCountOfAllPoints() +
+                                        points - Consts.getCountOfPoints2());
+                                Consts.setCountOfPoints2(points);
+                            }
+                            break;
+                        }
+                        case 3: {
+                            if (points > Consts.getCountOfPoints3()) {
+
+                                Consts.setCountOfAllPoints(Consts.getCountOfAllPoints() +
+                                        points - Consts.getCountOfPoints3());
+                                Consts.setCountOfPoints3(points);
+                            }
+                            break;
+                        }
+                        case 4: {
+                            if (points > Consts.getCountOfPoints4()) {
+
+                                Consts.setCountOfAllPoints(Consts.getCountOfAllPoints() +
+                                        points - Consts.getCountOfPoints4());
+                                Consts.setCountOfPoints4(points);
+                            }
+                            break;
+                        }
+                    }
+
+                    game.updatePref();
+
+                }
                 isLose = false;
-                int a = Consts.getCountOfAllPoints() + countOfSquare - countOfMiss;
-                if (a > 0)
-                    Consts.setCountOfAllPoints(a);
                 countOfMiss = 0;
                 countOfSquare = 0;
                 countOfPeriod = 0;
                 i = 0;
                 arrayLists = null;
-//                dispose();
             }
 
         } else {
@@ -239,9 +295,6 @@ public class LevelFactory implements Screen {
         } catch (IOException exception) {
             exception.printStackTrace();
         }
-        //fileHandle.read().skip(startPoint);
-
-        //fileHandle.readBytes(buf, 0, buf.length);
 
         int[] e = new int[buf.length / 4];
         for (int bc = 0; bc < buf.length / 4; bc++) {

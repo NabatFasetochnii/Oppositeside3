@@ -5,7 +5,6 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.nabat.game.Consts;
 import com.nabat.game.Game;
@@ -23,10 +22,11 @@ public class Levels implements Screen {
     private final LevelFactory lvl3;
     private final LevelFactory lvl4;
     private final BitmapFont font;
-    private final SpriteBatch batch;
     private final Game game;
+
     public Levels(Game game) {//TODO написать менюшку
-//TODO реализовать ласт лвл или изменить концепцию
+
+        this.game = game;
         this.lvl1 = new LevelFactory(Color.RED,
                 20, Consts.getPathToFirst(), 400, 1, game);
 
@@ -39,11 +39,9 @@ public class Levels implements Screen {
         this.lvl4 = new LevelFactory(Color.OLIVE,
                 30, Consts.getPathToFourth(), 100, 4, game);
 
-        this.game = game;
-        batch = new SpriteBatch();
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal(Consts.getTtfPath()));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = Gdx.app.getGraphics().getWidth() / 8;
+        parameter.size = Gdx.app.getGraphics().getWidth() / 10;
         parameter.color = Color.CHARTREUSE;
         parameter.borderColor = Color.BLACK;
         parameter.borderWidth = 5;
@@ -94,19 +92,6 @@ public class Levels implements Screen {
         return l3;
     }
 
-    public LevelFactory getLvl1() {
-        return lvl1;
-    }
-
-    public LevelFactory getLvl2() {
-        return lvl2;
-    }
-
-    public LevelFactory getLvl3() {
-        return lvl3;
-    }
-
-
     @Override
     public void show() {
         Gdx.input.setInputProcessor(new InputForMenu(this));
@@ -123,36 +108,38 @@ public class Levels implements Screen {
         l3.draw();
         l4.draw();
 
-        batch.begin();
+        game.getBatch().begin();
 
-        font.draw(batch, "1", l1.getX() + l1.getWidth() / 3f, l1.getY() + l1.getHeight() / 1.2f);
-        font.draw(batch, "2", l2.getX() + l2.getWidth() / 4f, l2.getY() + l2.getHeight() / 1.2f);
-        font.draw(batch, "3", l3.getX() + l3.getWidth() / 4f, l3.getY() + l3.getHeight() / 1.2f);
-        font.draw(batch, "4", l4.getX() + l4.getWidth() / 4f, l4.getY() + l4.getHeight() / 1.2f);
+        font.draw(game.getBatch(), "1", l1.getX() + l1.getWidth() / 3f, l1.getY() + l1.getHeight() / 1.2f);
+        font.draw(game.getBatch(), "2", l2.getX() + l2.getWidth() / 4f, l2.getY() + l2.getHeight() / 1.2f);
+        font.draw(game.getBatch(), "3", l3.getX() + l3.getWidth() / 4f, l3.getY() + l3.getHeight() / 1.2f);
+        font.draw(game.getBatch(), "4", l4.getX() + l4.getWidth() / 4f, l4.getY() + l4.getHeight() / 1.2f);
 
-        font.draw(batch, Consts.getCountOfAllPoints() + "", 50, Consts.getHEIGHT() - 50);
+//        font.draw(game.getBatch(), Consts.getCountOfPoints1() + "", l1.getX(),l1.getY() - l1.getHeight());
 
-        batch.end();
+        font.draw(game.getBatch(), "Sum of best: " + Consts.getCountOfAllPoints(), 50, Consts.getHEIGHT() - 50);
+
+        game.getBatch().end();
 
         switch (lvl) {
             case 1: {
-                game.setScreen(lvl1);
+                game.setScreen(new InfoScreen(game, lvl1, font));
                 lvl = 0;
                 break;
             }
             case 2: {
-                game.setScreen(lvl2);
+                game.setScreen(new InfoScreen(game, lvl2, font));
                 lvl = 0;
                 break;
             }
             case 3: {
-                game.setScreen(lvl3);
+                game.setScreen(new InfoScreen(game, lvl3, font));
                 lvl = 0;
                 break;
             }
             case 4: {
 
-                game.setScreen(lvl4);
+                game.setScreen(new InfoScreen(game, lvl4, font));
                 lvl = 0;
                 break;
             }

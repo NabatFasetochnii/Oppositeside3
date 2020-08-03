@@ -1,7 +1,8 @@
 package com.nabat.game;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.nabat.game.levels.LevelFactory;
 import com.nabat.game.levels.Levels;
 
 public class Game extends com.badlogic.gdx.Game { //TODO реализовать логгер
@@ -9,17 +10,21 @@ public class Game extends com.badlogic.gdx.Game { //TODO реализовать 
     Levels levels;
     //private RectZone l0;
     //private final boolean startScreen = true;
-    private LevelFactory levelFactory;
     //private BitmapFont font;
     private SpriteBatch batch;
+    private Preferences preferences;
 
-    public SpriteBatch getBatch() {
-        return batch;
-    }
 
     @Override
     public void create() {
 
+        preferences = Gdx.app.getPreferences(Consts.getPrefName());
+
+        Consts.setCountOfAllPoints(preferences.getInteger(Consts.getCOUNT0()));
+        Consts.setCountOfPoints1(preferences.getInteger(Consts.getCOUNT1()));
+        Consts.setCountOfPoints2(preferences.getInteger(Consts.getCOUNT2()));
+        Consts.setCountOfPoints3(preferences.getInteger(Consts.getCOUNT3()));
+        Consts.setCountOfPoints4(preferences.getInteger(Consts.getCOUNT4()));
         batch = new SpriteBatch();
        /* FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal(Consts.getTtfPath()));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
@@ -32,7 +37,7 @@ public class Game extends com.badlogic.gdx.Game { //TODO реализовать 
         generator.dispose();*/
         levels = new Levels(this);
 
-        levelFactory = levels.getLvl1();
+        //levelFactory = levels.getLvl1();
 
 //        l0 = new RectZone((int) (-Consts.getWIDTH() * 0.2f), Consts.getHEIGHT() / 2,
 //                (int) (Consts.getWIDTH() * 1.3f), Consts.getHEIGHT(), Color.RED);
@@ -40,7 +45,7 @@ public class Game extends com.badlogic.gdx.Game { //TODO реализовать 
 
         Loader.load();
 
-        setScreen(levelFactory);
+        setScreen(levels);
     }
 
 
@@ -52,7 +57,7 @@ public class Game extends com.badlogic.gdx.Game { //TODO реализовать 
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 
-        if (startScreen) { //TODO переделать всю логику под setScreen, наверное это будет не сложно
+        if (startScreen) {
 
             l0.draw();
             batch.begin();
@@ -75,17 +80,33 @@ public class Game extends com.badlogic.gdx.Game { //TODO реализовать 
 */
     }
 
+    public void updatePref(){
+
+        preferences.putInteger(Consts.getCOUNT0(), Consts.getCountOfAllPoints());
+        preferences.putInteger(Consts.getCOUNT1(), Consts.getCountOfPoints1());
+        preferences.putInteger(Consts.getCOUNT2(), Consts.getCountOfPoints2());
+        preferences.putInteger(Consts.getCOUNT3(), Consts.getCountOfPoints3());
+        preferences.putInteger(Consts.getCOUNT4(), Consts.getCountOfPoints4());
+        preferences.flush();
+    }
+
 
     public Levels getLevels() {
         return levels;
     }
 
+    public SpriteBatch getBatch() {
+        return batch;
+    }
 
     @Override
     public void dispose() {
+
+updatePref();
+
+
         //l0.dispose();
         levels.dispose();
-        levelFactory.dispose();
         Loader.dispose();
     }
 }
