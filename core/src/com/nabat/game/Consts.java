@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 public class Consts {
 
     private final static String LOSE = "You lose";
+    private final static String WIN = "You WIN!";
     private final static String ttfPath = "fonts/Terminus.ttf";
     private final static float scaleX = Gdx.app.getGraphics().getWidth() / 1080f;
     private final static String PLAY = "Tap to play";//TODO добавить мигание надписи
@@ -31,6 +32,10 @@ public class Consts {
     Consts() {
 
 
+    }
+
+    public static String getWIN() {
+        return WIN;
     }
 
     public static String getCOUNT1() {

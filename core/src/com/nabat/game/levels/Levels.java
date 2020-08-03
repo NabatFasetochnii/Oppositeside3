@@ -41,14 +41,14 @@ public class Levels implements Screen {
 
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal(Consts.getTtfPath()));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = Gdx.app.getGraphics().getWidth() / 10;
+        parameter.size = Gdx.app.getGraphics().getWidth() / 12;
         parameter.color = Color.CHARTREUSE;
         parameter.borderColor = Color.BLACK;
         parameter.borderWidth = 5;
         font = generator.generateFont(parameter);
         generator.dispose();
 
-        int LEVEL_LEVEL = Consts.getHEIGHT() / 6;
+        int LEVEL_LEVEL =  (Consts.getHEIGHT() / 6);
         l1 = new RectZone(Consts.getWIDTH() / 10,
                 Consts.getHEIGHT() - LEVEL_LEVEL,
                 Consts.getWIDTH() / 10,
@@ -109,11 +109,11 @@ public class Levels implements Screen {
         l4.draw();
 
         game.getBatch().begin();
-
-        font.draw(game.getBatch(), "1", l1.getX() + l1.getWidth() / 3f, l1.getY() + l1.getHeight() / 1.2f);
-        font.draw(game.getBatch(), "2", l2.getX() + l2.getWidth() / 4f, l2.getY() + l2.getHeight() / 1.2f);
-        font.draw(game.getBatch(), "3", l3.getX() + l3.getWidth() / 4f, l3.getY() + l3.getHeight() / 1.2f);
-        font.draw(game.getBatch(), "4", l4.getX() + l4.getWidth() / 4f, l4.getY() + l4.getHeight() / 1.2f);
+float f = 1.3f;
+        font.draw(game.getBatch(), "1", l1.getX() + l1.getWidth() / 3f, l1.getY() + l1.getHeight() / f);
+        font.draw(game.getBatch(), "2", l2.getX() + l2.getWidth() / 4f, l2.getY() + l2.getHeight() / f);
+        font.draw(game.getBatch(), "3", l3.getX() + l3.getWidth() / 4f, l3.getY() + l3.getHeight() / f);
+        font.draw(game.getBatch(), "4", l4.getX() + l4.getWidth() / 4f, l4.getY() + l4.getHeight() / f);
 
 //        font.draw(game.getBatch(), Consts.getCountOfPoints1() + "", l1.getX(),l1.getY() - l1.getHeight());
 

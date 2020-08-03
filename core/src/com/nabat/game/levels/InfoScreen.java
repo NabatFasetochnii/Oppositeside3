@@ -35,7 +35,7 @@ public class InfoScreen implements Screen {
                 Consts.getWIDTH() / 8, Color.CORAL);
 
         info = "INFO: " + '\n' + "Complexity: " + levelFactory.getLvl() + '\n' +
-                "Duration: " + levelFactory.getLevelTime() +" s"+ '\n' +
+                "Duration: " + levelFactory.getLevelTime() +"s"+ '\n' +
                 "Size: " + levelFactory.getSizeOfScreens() + '\n';
 
         switch (levelFactory.getLvl()) {

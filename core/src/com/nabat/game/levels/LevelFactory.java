@@ -1,6 +1,7 @@
 package com.nabat.game.levels;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
@@ -26,9 +27,10 @@ public class LevelFactory implements Screen {
     private final Color color;
     private final ShapeRenderer timeLine;
     private final ShapeRenderer timeLineEnd;
-    private final BitmapFont font;
+    private final BitmapFont fontForLose;
     private final BitmapFont fontForCount;
     private final BitmapFont fontForCountMiss;
+    private final BitmapFont fontForWin;
     private final int sizeOfScreens;
     private final int lvl;
     private final Game game;
@@ -40,6 +42,10 @@ public class LevelFactory implements Screen {
     private float timeSeconds = 0f;
     private int countOfSquare = 0;
     private int countOfMiss = 0;
+    private float text_Y = Consts.getHEIGHT() / 2f;
+    int time = 0;
+    int y;
+
     public LevelFactory(Color color, float levelTime, String pathToFile, int sizeOfScreens, int lvl, Game game) {
         this.levelTime = levelTime;
         MAX_COUNT_OF_PERIOD = (int) (levelTime / period);
@@ -59,9 +65,12 @@ public class LevelFactory implements Screen {
         parameter.color = Color.RED;
         parameter.borderColor = Color.BLACK;
         parameter.borderWidth = 5;
-        font = generator.generateFont(parameter);
+        fontForLose = generator.generateFont(parameter);
 
         parameter.color = Color.GREEN;
+
+        fontForWin = generator.generateFont(parameter);
+
         parameter.size = (int) (Gdx.app.getGraphics().getWidth() / 10f);
         parameter.borderWidth = 3;
         fontForCount = generator.generateFont(parameter);
@@ -69,6 +78,8 @@ public class LevelFactory implements Screen {
         parameter.color = Color.RED;
 
         fontForCountMiss = generator.generateFont(parameter);
+
+
         generator.dispose();
 
 
@@ -138,6 +149,140 @@ public class LevelFactory implements Screen {
 
     }
 
+    public void endLevel(String text, BitmapFont font1) {
+
+
+        game.getBatch().begin();
+        font1.draw(game.getBatch(), text,
+                Consts.getWIDTH() / 3f, text_Y);
+        game.getBatch().end();
+
+        Gdx.input.setInputProcessor(null);
+        int timeMax = 20;
+
+        if (time > timeMax) {
+
+            Gdx.input.setInputProcessor(new InputProcessor() {
+
+
+                @Override
+                public boolean keyDown(int keycode) {
+                    return false;
+                }
+
+                @Override
+                public boolean keyUp(int keycode) {
+                    return false;
+                }
+
+                @Override
+                public boolean keyTyped(char character) {
+                    return false;
+                }
+
+                @Override
+                public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+
+                    y = screenY;
+                    return true;
+                }
+
+                @Override
+                public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+
+
+                    game.setScreen(game.getLevels());
+
+
+
+                    int points = countOfSquare - countOfMiss;
+
+                    if (points > 0) {
+
+                        switch (lvl) {
+
+                            case 1: {
+                                if (points > Consts.getCountOfPoints1()) {
+
+                                    Consts.setCountOfAllPoints(Consts.getCountOfAllPoints() +
+                                            points - Consts.getCountOfPoints1());
+                                    Consts.setCountOfPoints1(points);
+
+                                }
+                                break;
+                            }
+                            case 2: {
+                                if (points > Consts.getCountOfPoints2()) {
+
+                                    Consts.setCountOfAllPoints(Consts.getCountOfAllPoints() +
+                                            points - Consts.getCountOfPoints2());
+                                    Consts.setCountOfPoints2(points);
+                                }
+                                break;
+                            }
+                            case 3: {
+                                if (points > Consts.getCountOfPoints3()) {
+
+                                    Consts.setCountOfAllPoints(Consts.getCountOfAllPoints() +
+                                            points - Consts.getCountOfPoints3());
+                                    Consts.setCountOfPoints3(points);
+                                }
+                                break;
+                            }
+                            case 4: {
+                                if (points > Consts.getCountOfPoints4()) {
+
+                                    Consts.setCountOfAllPoints(Consts.getCountOfAllPoints() +
+                                            points - Consts.getCountOfPoints4());
+                                    Consts.setCountOfPoints4(points);
+                                }
+                                break;
+                            }
+                        }
+
+                        game.updatePref();
+
+                    }
+                    isLose = false;
+                    countOfMiss = 0;
+                    countOfSquare = 0;
+                    countOfPeriod = 0;
+                    i = 0;
+                    arrayLists = null;
+                    time = 0;
+                    text_Y = Consts.getHEIGHT() / 2f;
+
+                    return false;
+                }
+
+                @Override
+                public boolean touchDragged(int screenX, int screenY, int pointer) {
+
+                    int dy = (screenY-y);
+                    text_Y = (text_Y - dy);
+                    y = screenY;
+
+                    return true;
+                }
+
+                @Override
+                public boolean mouseMoved(int screenX, int screenY) {
+                    return false;
+                }
+
+                @Override
+                public boolean scrolled(int amount) {
+                    return false;
+                }
+            });
+
+        } else {
+            time++;
+        }
+
+
+    }
+
     @Override
     public void show() {
         load();
@@ -153,71 +298,11 @@ public class LevelFactory implements Screen {
 
         if (isLose) {
 
-            game.getBatch().begin();
-            font.draw(game.getBatch(), Consts.getLOSE(),
-                    Consts.getWIDTH() / 3f, Consts.getHEIGHT() / 2f);
-            game.getBatch().end();
 
-            if (Gdx.input.isTouched()) {
-
-                game.setScreen(game.getLevels());
-
-                int points = countOfSquare - countOfMiss;
-                if (points > 0) {
-
-                    switch (lvl) {
-
-                        case 1: {
-                            if (points > Consts.getCountOfPoints1()) {
-
-                                Consts.setCountOfAllPoints(Consts.getCountOfAllPoints() +
-                                        points - Consts.getCountOfPoints1());
-                                Consts.setCountOfPoints1(points);
-
-                            }
-                            break;
-                        }
-                        case 2: {
-                            if (points > Consts.getCountOfPoints2()) {
-
-                                Consts.setCountOfAllPoints(Consts.getCountOfAllPoints() +
-                                        points - Consts.getCountOfPoints2());
-                                Consts.setCountOfPoints2(points);
-                            }
-                            break;
-                        }
-                        case 3: {
-                            if (points > Consts.getCountOfPoints3()) {
-
-                                Consts.setCountOfAllPoints(Consts.getCountOfAllPoints() +
-                                        points - Consts.getCountOfPoints3());
-                                Consts.setCountOfPoints3(points);
-                            }
-                            break;
-                        }
-                        case 4: {
-                            if (points > Consts.getCountOfPoints4()) {
-
-                                Consts.setCountOfAllPoints(Consts.getCountOfAllPoints() +
-                                        points - Consts.getCountOfPoints4());
-                                Consts.setCountOfPoints4(points);
-                            }
-                            break;
-                        }
-                    }
-
-                    game.updatePref();
-
-                }
-                isLose = false;
-                countOfMiss = 0;
-                countOfSquare = 0;
-                countOfPeriod = 0;
-                i = 0;
-                arrayLists = null;
-            }
+            endLevel(Consts.getLOSE(), fontForLose);
 
         } else {
+
             if (arrayLists != null) {
 
                 if (i < arrayLists.size()) {
@@ -241,6 +326,8 @@ public class LevelFactory implements Screen {
                         game.getBatch().end();
                         timeLineDraw();
                     }
+                } else {
+                    endLevel(Consts.getWIN(), fontForWin);
                 }
             }
         }
@@ -267,7 +354,7 @@ public class LevelFactory implements Screen {
     }
 
     public void dispose() {
-        font.dispose();
+        fontForLose.dispose();
     }
 
     ArrayList<ArrayList<RectZone>> setLevel(String path, int size, int lvl) {
