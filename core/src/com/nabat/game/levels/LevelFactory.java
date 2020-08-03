@@ -257,7 +257,7 @@ public class LevelFactory implements Screen {
 
             for (int t = 0; t < lvl; t++) {
 
-                u = (t + p * 3) * lvl;
+                u = (t + p * lvl) * 3;
                 int[] b = new int[3];
                 b[0] = (int) (e[u] * Consts.getScaleX());
                 b[1] = (int) (e[u + 1] * Consts.getScaleY());

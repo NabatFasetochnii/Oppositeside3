@@ -10,18 +10,21 @@ public class Consts {
     private final static String PLAY = "Tap to play";//TODO добавить мигание надписи
     private final static float scaleY = Gdx.app.getGraphics().getHeight() / 1920f;
     private final static float scaleXY = ((scaleX + scaleY) / 2f);
-    private final static String PATH_TO_FIRST = "levels/1/1";
-    private final static String PATH_TO_SECOND = "levels/2/2";
-    private final static String PATH_TO_THIRD = "levels/3/1";
+    private final static String PATH_TO_FIRST = "levels/1/2";
+    private final static String PATH_TO_SECOND = "levels/2/1";
+    private final static String PATH_TO_THIRD = "levels/3/2";
+    private final static String PATH_TO_FOURTH = "levels/4/1";
     private static final float LOSE_TO_SCREEN = 7.5f;
     private static final int WIDTH = Gdx.app.getGraphics().getWidth();
     private static final int HEIGHT = Gdx.app.getGraphics().getHeight();
     private static int countOfAllPoints = 0;
-
-
     Consts() {
 
 
+    }
+
+    public static String getPathToFourth() {
+        return PATH_TO_FOURTH;
     }
 
     public static int getWIDTH() {

@@ -17,13 +17,14 @@ public class Levels implements Screen {
     private final RectZone l1;
     private final RectZone l2;
     private final RectZone l3;
+    private final RectZone l4;
     private final LevelFactory lvl1;
     private final LevelFactory lvl2;
     private final LevelFactory lvl3;
+    private final LevelFactory lvl4;
     private final BitmapFont font;
     private final SpriteBatch batch;
     private final Game game;
-
     public Levels(Game game) {//TODO написать менюшку
 //TODO реализовать ласт лвл или изменить концепцию
         this.lvl1 = new LevelFactory(Color.RED,
@@ -34,6 +35,10 @@ public class Levels implements Screen {
 
         this.lvl3 = new LevelFactory(Color.OLIVE,
                 20, Consts.getPathToThird(), 100, 3, game);
+
+        this.lvl4 = new LevelFactory(Color.OLIVE,
+                30, Consts.getPathToFourth(), 100, 4, game);
+
         this.game = game;
         batch = new SpriteBatch();
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal(Consts.getTtfPath()));
@@ -61,10 +66,20 @@ public class Levels implements Screen {
                 Consts.getWIDTH() / 10,
                 Consts.getWIDTH() / 10, Color.RED);
 
+        l4 = new RectZone(Consts.getWIDTH() / 10 + 3 * Consts.getWIDTH() / 5,
+                Consts.getHEIGHT() - LEVEL_LEVEL,
+                Consts.getWIDTH() / 10,
+                Consts.getWIDTH() / 10, Color.RED);
+
+
     }
 
     public static void setLvl(int lvl) {
         Levels.lvl = lvl;
+    }
+
+    public RectZone getL4() {
+        return l4;
     }
 
     public RectZone getL1() {
@@ -106,12 +121,14 @@ public class Levels implements Screen {
         l1.draw();
         l2.draw();
         l3.draw();
+        l4.draw();
 
         batch.begin();
 
         font.draw(batch, "1", l1.getX() + l1.getWidth() / 3f, l1.getY() + l1.getHeight() / 1.2f);
         font.draw(batch, "2", l2.getX() + l2.getWidth() / 4f, l2.getY() + l2.getHeight() / 1.2f);
         font.draw(batch, "3", l3.getX() + l3.getWidth() / 4f, l3.getY() + l3.getHeight() / 1.2f);
+        font.draw(batch, "4", l4.getX() + l4.getWidth() / 4f, l4.getY() + l4.getHeight() / 1.2f);
 
         font.draw(batch, Consts.getCountOfAllPoints() + "", 50, Consts.getHEIGHT() - 50);
 
@@ -130,6 +147,12 @@ public class Levels implements Screen {
             }
             case 3: {
                 game.setScreen(lvl3);
+                lvl = 0;
+                break;
+            }
+            case 4: {
+
+                game.setScreen(lvl4);
                 lvl = 0;
                 break;
             }
