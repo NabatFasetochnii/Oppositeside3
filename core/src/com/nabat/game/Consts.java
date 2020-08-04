@@ -12,9 +12,13 @@ public class Consts {
     private final static float scaleY = Gdx.app.getGraphics().getHeight() / 1920f;
     private final static float scaleXY = ((scaleX + scaleY) / 2f);
     private final static String PATH_TO_FIRST = "levels/1/2";
+    private final static String PATH_TO_FIRST_ROTATION = "levels/1/1_2/1";
     private final static String PATH_TO_SECOND = "levels/2/1";
+    private final static String PATH_TO_SECOND_ROTATION = "levels/2/2_2/1";
     private final static String PATH_TO_THIRD = "levels/3/2";
+    private final static String PATH_TO_THIRD_ROTATION = "levels/3/3_2/1";
     private final static String PATH_TO_FOURTH = "levels/4/1";
+    private final static String PATH_TO_FOURTH_ROTATION = "levels/4/4_2/1";
     private final static float LOSE_TO_SCREEN = 7.5f;
     private final static int WIDTH = Gdx.app.getGraphics().getWidth();
     private final static int HEIGHT = Gdx.app.getGraphics().getHeight();
@@ -32,6 +36,22 @@ public class Consts {
     Consts() {
 
 
+    }
+
+    public static String getPathToSecondRotation() {
+        return PATH_TO_SECOND_ROTATION;
+    }
+
+    public static String getPathToThirdRotation() {
+        return PATH_TO_THIRD_ROTATION;
+    }
+
+    public static String getPathToFourthRotation() {
+        return PATH_TO_FOURTH_ROTATION;
+    }
+
+    public static String getPathToFirstRotation() {
+        return PATH_TO_FIRST_ROTATION;
     }
 
     public static String getWIN() {

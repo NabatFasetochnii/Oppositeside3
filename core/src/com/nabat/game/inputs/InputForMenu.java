@@ -50,6 +50,21 @@ public class InputForMenu implements InputProcessor {
 
             Levels.setLvl(4);
         }
+        if (levels.getL1R().isTouch(screenX, Consts.getHEIGHT() - screenY)){
+            Levels.setLvl(10);
+        }
+
+        if (levels.getL2R().isTouch(screenX, Consts.getHEIGHT() - screenY)){
+            Levels.setLvl(20);
+        }
+
+        if (levels.getL3R().isTouch(screenX, Consts.getHEIGHT() - screenY)){
+            Levels.setLvl(30);
+        }
+
+        if (levels.getL4R().isTouch(screenX, Consts.getHEIGHT() - screenY)){
+            Levels.setLvl(40);
+        }
 
         return true;
     }

@@ -14,7 +14,6 @@ public class Game extends com.badlogic.gdx.Game { //TODO реализовать 
     private SpriteBatch batch;
     private Preferences preferences;
 
-
     @Override
     public void create() {
 
@@ -80,7 +79,7 @@ public class Game extends com.badlogic.gdx.Game { //TODO реализовать 
 */
     }
 
-    public void updatePref(){
+    public void updatePref() {
 
         preferences.putInteger(Consts.getCOUNT0(), Consts.getCountOfAllPoints());
         preferences.putInteger(Consts.getCOUNT1(), Consts.getCountOfPoints1());
@@ -102,7 +101,7 @@ public class Game extends com.badlogic.gdx.Game { //TODO реализовать 
     @Override
     public void dispose() {
 
-updatePref();
+        updatePref();
 
 
         //l0.dispose();

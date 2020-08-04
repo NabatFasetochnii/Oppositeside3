@@ -1,6 +1,7 @@
 package com.nabat.game.inputs;
 
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.math.Vector2;
 import com.nabat.game.Consts;
 import com.nabat.game.RectZone;
 import com.nabat.game.levels.LevelFactory;
@@ -49,7 +50,6 @@ public class InputForGame implements InputProcessor {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-
 
         boolean q = false;
         for (int k = 0; k < size; k++) {
@@ -126,6 +126,14 @@ public class InputForGame implements InputProcessor {
 
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
+
+        /*Vector2 vector21 = new Vector2(screenX, Consts.getHEIGHT() - screenY);
+        Vector2 dv = vector2.sub(vector21);
+        levelFactory.getCamera().translate(dv);
+
+        vector2 = vector21;*/
+
+
         return false;
     }
 

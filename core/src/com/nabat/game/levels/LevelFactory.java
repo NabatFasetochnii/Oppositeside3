@@ -35,6 +35,9 @@ public class LevelFactory implements Screen {
     private final int lvl;
     private final Game game;
     private final float levelTime;
+    int time = 0;
+    int y;
+    private float rotationSpeed; //deg
     private ArrayList<ArrayList<RectZone>> arrayLists;
     private int countOfPeriod = 0;
     private int i = 0;
@@ -43,8 +46,7 @@ public class LevelFactory implements Screen {
     private int countOfSquare = 0;
     private int countOfMiss = 0;
     private float text_Y = Consts.getHEIGHT() / 2f;
-    int time = 0;
-    int y;
+    private boolean isRotation = false;
 
     public LevelFactory(Color color, float levelTime, String pathToFile, int sizeOfScreens, int lvl, Game game) {
         this.levelTime = levelTime;
@@ -81,8 +83,15 @@ public class LevelFactory implements Screen {
 
 
         generator.dispose();
+    }
 
+    public boolean isRotation() {
+        return isRotation;
+    }
 
+    public void setRotation(boolean rotation, float rot) {
+        rotationSpeed = rot;
+        isRotation = rotation;
     }
 
     public int getSizeOfScreens() {
@@ -194,7 +203,6 @@ public class LevelFactory implements Screen {
                     game.setScreen(game.getLevels());
 
 
-
                     int points = countOfSquare - countOfMiss;
 
                     if (points > 0) {
@@ -258,7 +266,7 @@ public class LevelFactory implements Screen {
                 @Override
                 public boolean touchDragged(int screenX, int screenY, int pointer) {
 
-                    int dy = (screenY-y);
+                    int dy = (screenY - y);
                     text_Y = (text_Y - dy);
                     y = screenY;
 
@@ -309,7 +317,10 @@ public class LevelFactory implements Screen {
                     for (int j = 0; j < arrayLists.get(i).size(); j++) {
 
                         try {
+
+
                             arrayLists.get(i).get(j).draw();
+
 
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -376,8 +387,13 @@ public class LevelFactory implements Screen {
 
         try {
             InputStream input = fileHandle.read();
-            input.skip(startPoint);
-            input.read(buf, 0, buf.length);
+
+            long sk = input.skip(startPoint);
+            int sk2 = input.read(buf, 0, buf.length);
+
+            if (sk == 0 && sk2 == -1) {
+                return null;
+            }
 
         } catch (IOException exception) {
             exception.printStackTrace();
@@ -405,7 +421,7 @@ public class LevelFactory implements Screen {
 
                 doubles.add(new RectZone(
                         b[0], b[1], b[2], b[2],
-                        color));
+                        color, isRotation, rotationSpeed));
 
             }
             if (doubles.size() != 0) {
