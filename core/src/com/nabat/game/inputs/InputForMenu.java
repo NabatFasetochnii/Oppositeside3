@@ -32,6 +32,7 @@ public class InputForMenu implements InputProcessor {
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 
+        ////////////////////////////////////////////////////////////////////////
         if (levels.getL1().isTouch(screenX, Consts.getHEIGHT() - screenY)) {
 
             Levels.setLvl(1);
@@ -50,21 +51,61 @@ public class InputForMenu implements InputProcessor {
 
             Levels.setLvl(4);
         }
-        if (levels.getL1R().isTouch(screenX, Consts.getHEIGHT() - screenY)){
+        ////////////////////////////////////////////////////////////////////////
+        if (levels.getL1R().isTouch(screenX, Consts.getHEIGHT() - screenY)) {
             Levels.setLvl(10);
         }
 
-        if (levels.getL2R().isTouch(screenX, Consts.getHEIGHT() - screenY)){
+        if (levels.getL2R().isTouch(screenX, Consts.getHEIGHT() - screenY)) {
             Levels.setLvl(20);
         }
 
-        if (levels.getL3R().isTouch(screenX, Consts.getHEIGHT() - screenY)){
+        if (levels.getL3R().isTouch(screenX, Consts.getHEIGHT() - screenY)) {
             Levels.setLvl(30);
         }
 
-        if (levels.getL4R().isTouch(screenX, Consts.getHEIGHT() - screenY)){
+        if (levels.getL4R().isTouch(screenX, Consts.getHEIGHT() - screenY)) {
             Levels.setLvl(40);
         }
+        ////////////////////////////////////////////////////////////////////////
+        if (levels.getL11().isTouch(screenX, Consts.getHEIGHT() - screenY)) {
+
+            Levels.setLvl(11);
+        }
+        if (levels.getL21().isTouch(screenX, Consts.getHEIGHT() - screenY)) {
+
+            Levels.setLvl(21);
+        }
+
+        if (levels.getL31().isTouch(screenX, Consts.getHEIGHT() - screenY)) {
+
+            Levels.setLvl(31);
+        }
+
+        if (levels.getL41().isTouch(screenX, Consts.getHEIGHT() - screenY)) {
+
+            Levels.setLvl(41);
+        }
+        ////////////////////////////////////////////////////////////////////////
+        if (levels.getL12().isTouch(screenX, Consts.getHEIGHT() - screenY)) {
+
+            Levels.setLvl(12);
+        }
+        if (levels.getL22().isTouch(screenX, Consts.getHEIGHT() - screenY)) {
+
+            Levels.setLvl(22);
+        }
+
+        if (levels.getL32().isTouch(screenX, Consts.getHEIGHT() - screenY)) {
+
+            Levels.setLvl(32);
+        }
+
+        if (levels.getL42().isTouch(screenX, Consts.getHEIGHT() - screenY)) {
+
+            Levels.setLvl(42);
+        }
+        ////////////////////////////////////////////////////////////////////////
 
         return true;
     }

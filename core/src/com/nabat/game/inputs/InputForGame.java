@@ -1,7 +1,6 @@
 package com.nabat.game.inputs;
 
 import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.math.Vector2;
 import com.nabat.game.Consts;
 import com.nabat.game.RectZone;
 import com.nabat.game.levels.LevelFactory;

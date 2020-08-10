@@ -5,7 +5,6 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -35,6 +34,7 @@ public class LevelFactory implements Screen {
     private final int lvl;
     private final Game game;
     private final float levelTime;
+    private final int lvlName;
     int time = 0;
     int y;
     private float rotationSpeed; //deg
@@ -47,14 +47,15 @@ public class LevelFactory implements Screen {
     private int countOfMiss = 0;
     private float text_Y = Consts.getHEIGHT() / 2f;
     private boolean isRotation = false;
-
-    public LevelFactory(Color color, float levelTime, String pathToFile, int sizeOfScreens, int lvl, Game game) {
+    private boolean isDot = false;
+    public LevelFactory(Color color, float levelTime, String pathToFile, int sizeOfScreens, int lvl, Game game, int lvlName) {
         this.levelTime = levelTime;
         MAX_COUNT_OF_PERIOD = (int) (levelTime / period);
         path = pathToFile;
         this.sizeOfScreens = sizeOfScreens;
         this.lvl = lvl;
         this.game = game;
+        this.lvlName = lvlName;
 
         arrayLists = new ArrayList<>();
 
@@ -83,6 +84,11 @@ public class LevelFactory implements Screen {
 
 
         generator.dispose();
+    }
+
+    public void setDot(boolean isDot) {
+        this.isDot = isDot;
+
     }
 
     public boolean isRotation() {
@@ -160,13 +166,12 @@ public class LevelFactory implements Screen {
 
     public void endLevel(String text, BitmapFont font1) {
 
-
+        Gdx.input.setInputProcessor(null);
         game.getBatch().begin();
         font1.draw(game.getBatch(), text,
                 Consts.getWIDTH() / 3f, text_Y);
         game.getBatch().end();
 
-        Gdx.input.setInputProcessor(null);
         int timeMax = 20;
 
         if (time > timeMax) {
@@ -207,9 +212,11 @@ public class LevelFactory implements Screen {
 
                     if (points > 0) {
 
-                        switch (lvl) {
+                        switch (lvlName) {
 
                             case 1: {
+
+
                                 if (points > Consts.getCountOfPoints1()) {
 
                                     Consts.setCountOfAllPoints(Consts.getCountOfAllPoints() +
@@ -217,9 +224,11 @@ public class LevelFactory implements Screen {
                                     Consts.setCountOfPoints1(points);
 
                                 }
+
                                 break;
                             }
                             case 2: {
+
                                 if (points > Consts.getCountOfPoints2()) {
 
                                     Consts.setCountOfAllPoints(Consts.getCountOfAllPoints() +
@@ -229,20 +238,146 @@ public class LevelFactory implements Screen {
                                 break;
                             }
                             case 3: {
+
                                 if (points > Consts.getCountOfPoints3()) {
 
                                     Consts.setCountOfAllPoints(Consts.getCountOfAllPoints() +
                                             points - Consts.getCountOfPoints3());
                                     Consts.setCountOfPoints3(points);
                                 }
+
                                 break;
                             }
                             case 4: {
+
                                 if (points > Consts.getCountOfPoints4()) {
 
                                     Consts.setCountOfAllPoints(Consts.getCountOfAllPoints() +
                                             points - Consts.getCountOfPoints4());
                                     Consts.setCountOfPoints4(points);
+                                }
+                                break;
+                            }
+                            case 11: { //продвинутый набор уровней
+                                if (points > Consts.getCountOfPoints11()) {
+
+                                    Consts.setCountOfAllPoints(Consts.getCountOfAllPoints() +
+                                            points - Consts.getCountOfPoints11());
+                                    Consts.setCountOfPoints11(points);
+
+                                }
+                                break;
+                            }
+                            case 21: {
+                                if (points > Consts.getCountOfPoints21()) {
+
+                                    Consts.setCountOfAllPoints(Consts.getCountOfAllPoints() +
+                                            points - Consts.getCountOfPoints21());
+                                    Consts.setCountOfPoints21(points);
+
+                                }
+                                break;
+                            }
+                            case 31: {
+                                if (points > Consts.getCountOfPoints31()) {
+
+                                    Consts.setCountOfAllPoints(Consts.getCountOfAllPoints() +
+                                            points - Consts.getCountOfPoints31());
+                                    Consts.setCountOfPoints31(points);
+
+                                }
+                                break;
+                            }
+                            case 41: {
+                                if (points > Consts.getCountOfPoints41()) {
+
+                                    Consts.setCountOfAllPoints(Consts.getCountOfAllPoints() +
+                                            points - Consts.getCountOfPoints41());
+                                    Consts.setCountOfPoints41(points);
+
+                                }
+
+                                break;
+                            }
+                            case 12: {
+
+
+                                if (points > Consts.getCountOfPoints12()) {
+
+                                    Consts.setCountOfAllPoints(Consts.getCountOfAllPoints() +
+                                            points - Consts.getCountOfPoints12());
+                                    Consts.setCountOfPoints12(points);
+
+                                }
+
+                                break;
+                            }
+                            case 22: {
+
+                                if (points > Consts.getCountOfPoints22()) {
+
+                                    Consts.setCountOfAllPoints(Consts.getCountOfAllPoints() +
+                                            points - Consts.getCountOfPoints22());
+                                    Consts.setCountOfPoints22(points);
+                                }
+                                break;
+                            }
+                            case 32: {
+
+                                if (points > Consts.getCountOfPoints32()) {
+
+                                    Consts.setCountOfAllPoints(Consts.getCountOfAllPoints() +
+                                            points - Consts.getCountOfPoints32());
+                                    Consts.setCountOfPoints32(points);
+                                }
+
+                                break;
+                            }
+                            case 42: {
+
+                                if (points > Consts.getCountOfPoints42()) {
+
+                                    Consts.setCountOfAllPoints(Consts.getCountOfAllPoints() +
+                                            points - Consts.getCountOfPoints42());
+                                    Consts.setCountOfPoints42(points);
+                                }
+                                break;
+                            }
+                            case 10: { //набор уровней с кручением
+                                if (points > Consts.getCountOfPoints1R())
+                                    Consts.setCountOfAllPoints(Consts.getCountOfAllPoints() +
+                                            points - Consts.getCountOfPoints1R());
+                                Consts.setCountOfPoints1R(points);
+                                break;
+                            }
+                            case 20: {
+
+                                if (points > Consts.getCountOfPoints2R()) {
+
+                                    Consts.setCountOfAllPoints(Consts.getCountOfAllPoints() +
+                                            points - Consts.getCountOfPoints2R());
+                                    Consts.setCountOfPoints2R(points);
+                                }
+                                break;
+                            }
+
+                            case 30: {
+
+                                if (points > Consts.getCountOfPoints3R()) {
+
+                                    Consts.setCountOfAllPoints(Consts.getCountOfAllPoints() +
+                                            points - Consts.getCountOfPoints3R());
+                                    Consts.setCountOfPoints3R(points);
+                                }
+                                break;
+                            }
+                            case 40: {
+
+                                if (points > Consts.getCountOfPoints4R()) {
+
+                                    Consts.setCountOfAllPoints(Consts.getCountOfAllPoints() +
+                                            points - Consts.getCountOfPoints4R());
+                                    Consts.setCountOfPoints4R(points);
                                 }
                                 break;
                             }
@@ -301,8 +436,7 @@ public class LevelFactory implements Screen {
     @Override
     public void render(float delta) {
 
-        Gdx.gl.glClearColor(255, 255, 0, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        Consts.clear();
 
         if (isLose) {
 
@@ -320,6 +454,10 @@ public class LevelFactory implements Screen {
 
 
                             arrayLists.get(i).get(j).draw();
+                            if (arrayLists.get(i).get(j).getHeightS() < 2) {
+
+                                i++;
+                            }
 
 
                         } catch (Exception e) {
@@ -421,7 +559,7 @@ public class LevelFactory implements Screen {
 
                 doubles.add(new RectZone(
                         b[0], b[1], b[2], b[2],
-                        color, isRotation, rotationSpeed));
+                        color, isRotation, rotationSpeed, isDot));
 
             }
             if (doubles.size() != 0) {

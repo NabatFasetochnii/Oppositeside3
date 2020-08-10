@@ -34,28 +34,59 @@ public class InfoScreen implements Screen {
                 Consts.getWIDTH() / 8,
                 Consts.getWIDTH() / 8, Color.CORAL);
 
-        info = "INFO: " + '\n' + "Complexity: " + levelFactory.getLvl() + '\n' +
+        int complexity = levelFactory.getLvl();
+
+        if (levelFactory.isRotation()){
+            complexity *= 2;
+        }
+        info = "INFO: " + '\n' + "Complexity: " + complexity + '\n' +
                 "Duration: " + levelFactory.getLevelTime() +"s"+ '\n' +
                 "Size: " + levelFactory.getSizeOfScreens() + '\n';
 
         switch (levelFactory.getLvl()) {
             case 1: {
-                info += "Best score: " + Consts.getCountOfPoints1();
+
+                if (levelFactory.isRotation()){
+
+                    info += "Best score: " + Consts.getCountOfPoints1R();
+                }else {
+
+                    info += "Best score: " + Consts.getCountOfPoints1();
+                }
+
                 break;
             }
             case 2: {
 
-                info += "Best score: " + Consts.getCountOfPoints2();
+                if (levelFactory.isRotation()){
+
+                    info += "Best score: " + Consts.getCountOfPoints2R();
+                }else {
+
+                    info += "Best score: " + Consts.getCountOfPoints2();
+                }
                 break;
             }
             case 3: {
 
-                info += "Best score: " + Consts.getCountOfPoints3();
+                if (levelFactory.isRotation()){
+
+                    info += "Best score: " + Consts.getCountOfPoints3R();
+                }else {
+
+                    info += "Best score: " + Consts.getCountOfPoints3();
+                }
                 break;
             }
             case 4: {
 
-                info += "Best score: " + Consts.getCountOfPoints4();
+                if (levelFactory.isRotation()){
+
+                    info += "Best score: " + Consts.getCountOfPoints4R();
+                }else {
+
+                    info += "Best score: " + Consts.getCountOfPoints4();
+                }
                 break;
             }
 

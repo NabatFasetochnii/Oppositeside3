@@ -7,10 +7,7 @@ import com.nabat.game.levels.Levels;
 
 public class Game extends com.badlogic.gdx.Game { //TODO реализовать логгер
 
-    Levels levels;
-    //private RectZone l0;
-    //private final boolean startScreen = true;
-    //private BitmapFont font;
+    private Levels levels;
     private SpriteBatch batch;
     private Preferences preferences;
 
@@ -19,29 +16,29 @@ public class Game extends com.badlogic.gdx.Game { //TODO реализовать 
 
         preferences = Gdx.app.getPreferences(Consts.getPrefName());
 
-        Consts.setCountOfAllPoints(preferences.getInteger(Consts.getCOUNT0()));
+        Consts.setCountOfAllPoints(preferences.getInteger(Consts.getCOUNT0()));//сохранение прогресса
+        //
         Consts.setCountOfPoints1(preferences.getInteger(Consts.getCOUNT1()));
         Consts.setCountOfPoints2(preferences.getInteger(Consts.getCOUNT2()));
         Consts.setCountOfPoints3(preferences.getInteger(Consts.getCOUNT3()));
         Consts.setCountOfPoints4(preferences.getInteger(Consts.getCOUNT4()));
+        //
+        Consts.setCountOfPoints11(preferences.getInteger(Consts.getCOUNT11()));
+        Consts.setCountOfPoints21(preferences.getInteger(Consts.getCOUNT21()));
+        Consts.setCountOfPoints31(preferences.getInteger(Consts.getCOUNT31()));
+        Consts.setCountOfPoints41(preferences.getInteger(Consts.getCOUNT41()));
+        //
+        Consts.setCountOfPoints12(preferences.getInteger(Consts.getCOUNT12()));
+        Consts.setCountOfPoints22(preferences.getInteger(Consts.getCOUNT22()));
+        Consts.setCountOfPoints32(preferences.getInteger(Consts.getCOUNT32()));
+        Consts.setCountOfPoints42(preferences.getInteger(Consts.getCOUNT42()));
+        //
+        Consts.setCountOfPoints1R(preferences.getInteger(Consts.getCOUNT1R()));
+        Consts.setCountOfPoints2R(preferences.getInteger(Consts.getCOUNT2R()));
+        Consts.setCountOfPoints3R(preferences.getInteger(Consts.getCOUNT3R()));
+        Consts.setCountOfPoints4R(preferences.getInteger(Consts.getCOUNT4R()));
         batch = new SpriteBatch();
-       /* FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal(Consts.getTtfPath()));
-        FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        float PLAY_SCREEN = 7.5f;
-        parameter.size = (int) (Gdx.app.getGraphics().getWidth() / PLAY_SCREEN);
-        parameter.color = Color.YELLOW;
-        parameter.borderColor = Color.BLACK;
-        parameter.borderWidth = 5;
-        //font = generator.generateFont(parameter);
-        generator.dispose();*/
         levels = new Levels(this);
-
-        //levelFactory = levels.getLvl1();
-
-//        l0 = new RectZone((int) (-Consts.getWIDTH() * 0.2f), Consts.getHEIGHT() / 2,
-//                (int) (Consts.getWIDTH() * 1.3f), Consts.getHEIGHT(), Color.RED);
-//        l0.setPulsar(false);
-
         Loader.load();
 
         setScreen(levels);
@@ -52,40 +49,32 @@ public class Game extends com.badlogic.gdx.Game { //TODO реализовать 
     public void render() {
 
         super.render();
-        /*Gdx.gl.glClearColor(255, 255, 0, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-
-        if (startScreen) {
-
-            l0.draw();
-            batch.begin();
-            font.draw(batch, Consts.getPLAY(),
-                    Gdx.app.getGraphics().getWidth() / 7.5f,
-                    Gdx.app.getGraphics().getHeight() * 0.75f);
-            batch.end();
-
-            if (Gdx.input.isTouched()) {
-
-                if (l0.isTouch(Gdx.input.getX(), Gdx.app.getGraphics().getHeight() - Gdx.input.getY())) {
-
-                    startScreen = false;
-                }
-            }
-        } else {
-            setScreen(levelFactory);
-            super.render();
-        }
-*/
     }
 
     public void updatePref() {
 
         preferences.putInteger(Consts.getCOUNT0(), Consts.getCountOfAllPoints());
+        //
         preferences.putInteger(Consts.getCOUNT1(), Consts.getCountOfPoints1());
         preferences.putInteger(Consts.getCOUNT2(), Consts.getCountOfPoints2());
         preferences.putInteger(Consts.getCOUNT3(), Consts.getCountOfPoints3());
         preferences.putInteger(Consts.getCOUNT4(), Consts.getCountOfPoints4());
+        //
+        preferences.putInteger(Consts.getCOUNT11(), Consts.getCountOfPoints11());
+        preferences.putInteger(Consts.getCOUNT21(), Consts.getCountOfPoints21());
+        preferences.putInteger(Consts.getCOUNT31(), Consts.getCountOfPoints31());
+        preferences.putInteger(Consts.getCOUNT41(), Consts.getCountOfPoints41());
+        //
+        preferences.putInteger(Consts.getCOUNT12(), Consts.getCountOfPoints12());
+        preferences.putInteger(Consts.getCOUNT22(), Consts.getCountOfPoints22());
+        preferences.putInteger(Consts.getCOUNT32(), Consts.getCountOfPoints32());
+        preferences.putInteger(Consts.getCOUNT42(), Consts.getCountOfPoints42());
+        //
+        preferences.putInteger(Consts.getCOUNT1R(), Consts.getCountOfPoints1R());
+        preferences.putInteger(Consts.getCOUNT2R(), Consts.getCountOfPoints2R());
+        preferences.putInteger(Consts.getCOUNT3R(), Consts.getCountOfPoints3R());
+        preferences.putInteger(Consts.getCOUNT4R(), Consts.getCountOfPoints4R());
+
         preferences.flush();
     }
 

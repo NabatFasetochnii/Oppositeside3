@@ -10,33 +10,43 @@ public class RectZone {
     private final int HEIGHT_OF_PERIMETER = (int) (10 * Consts.getScaleY());
     private final int WIDTH_OF_PERIMETER = (int) (10 * Consts.getScaleX());
     private final int PROSAK = (int) (10 * Consts.getScaleXY());
-    private final float DELTA = Gdx.app.getGraphics().getWidth() / 3000f;
-    private final boolean isTranspos;
-    private final Vector2 leftDown;
-    private int x;
-    private int y;
-    private final int width;
-    private final int height;
     private final ShapeRenderer square;
+    private final float DELTA = Gdx.app.getGraphics().getWidth() / 3000f;
+    private boolean isRotation;
+    private Vector2 leftDown;
+    private final int width;
+    private int widthS;
+    private final int height;
+    private int heightS;
+    private int x;
+    private int xS;
+    private int y;
+    private int yS;
     private int countOfPeriodPulsar = 0;
     private float timeSecondsPulsar = 0f;
     private float gain = 0;
     private boolean pulsar = true;
     private float rot; //deg
-
-    public RectZone(int x, int y, int width, int height, Color color, boolean isTranspos, float rot) {
+    private float cX = Consts.getWIDTH() / 3f;
+    private float cY = Consts.getHEIGHT() / 2f;
+    private boolean isDot = false;
+    public RectZone(int x, int y, int width, int height, Color color, boolean isRotation, float rot, boolean isDot) {
 
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
-        this.isTranspos = isTranspos;
+        this.isRotation = isRotation;
         this.rot = rot;
+        this.isDot = isDot;
 
+        /*if (isDot){
+            DELTA = height/15f;
+        }*/
         square = new ShapeRenderer();
         square.setColor(color);
 
-        leftDown = new Vector2(x - Consts.getWIDTH() / 2f, y - Consts.getHEIGHT() / 2f);
+        leftDown = new Vector2(x - cX, y - cY);
         /*leftUp = new Vector2(x, y + height);
         rightDown = new Vector2(x + width,y);
         rightUp = new Vector2(x + width,y+height);*/
@@ -48,7 +58,7 @@ public class RectZone {
         this.y = y;
         this.width = width;
         this.height = height;
-        this.isTranspos = false;
+        this.isRotation = false;
 
         square = new ShapeRenderer();
         square.setColor(color);
@@ -58,6 +68,27 @@ public class RectZone {
         rightDown = new Vector2(x + width,y);
         rightUp = new Vector2(x + width,y+height);*/
 
+    }
+
+    public int getHeightS() {
+        return heightS;
+    }
+
+    public boolean isDot() {
+        return isDot;
+    }
+
+    public void setDot(boolean dot) {
+        isDot = dot;
+    }
+
+    public void setRotation(boolean rotation, float rot) {
+        this.rot = rot;
+        isRotation = rotation;
+
+        cX = x + width / 4f;
+        cY = y + height / 4f;
+        leftDown = new Vector2(x - cX, y - cY);
     }
 
 
@@ -89,19 +120,8 @@ public class RectZone {
             timeSecondsPulsar += Gdx.graphics.getRawDeltaTime();
             float period = 0.005f;
             int MAX_COUNT_OF_PERIOD_PULSAR = 30;
-            if (countOfPeriodPulsar <= MAX_COUNT_OF_PERIOD_PULSAR / 2) {
 
-
-                if (timeSecondsPulsar > period) {
-
-
-                    gain += DELTA;
-
-                    timeSecondsPulsar -= period;
-                    countOfPeriodPulsar++;
-                }
-
-            } else if (countOfPeriodPulsar < MAX_COUNT_OF_PERIOD_PULSAR) {
+            if (isDot) {
 
                 if (timeSecondsPulsar > period) {
 
@@ -109,14 +129,39 @@ public class RectZone {
                     gain -= DELTA;
 
                     timeSecondsPulsar -= period;
-                    countOfPeriodPulsar++;
+
                 }
+            } else {
 
-            } else if (countOfPeriodPulsar == MAX_COUNT_OF_PERIOD_PULSAR) {
+                if (countOfPeriodPulsar <= MAX_COUNT_OF_PERIOD_PULSAR / 2) {
 
-                //gain = 0;
-                gain -= DELTA * 2;
-                countOfPeriodPulsar = 0;
+
+                    if (timeSecondsPulsar > period) {
+
+
+                        gain += DELTA;
+
+                        timeSecondsPulsar -= period;
+                        countOfPeriodPulsar++;
+                    }
+
+                } else if (countOfPeriodPulsar < MAX_COUNT_OF_PERIOD_PULSAR) {
+
+                    if (timeSecondsPulsar > period) {
+
+
+                        gain -= DELTA;
+
+                        timeSecondsPulsar -= period;
+                        countOfPeriodPulsar++;
+                    }
+
+                } else if (countOfPeriodPulsar == MAX_COUNT_OF_PERIOD_PULSAR) {
+
+                    //gain = 0;
+                    gain -= DELTA * 2;
+                    countOfPeriodPulsar = 0;
+                }
             }
 
 
@@ -126,14 +171,18 @@ public class RectZone {
         square.begin(ShapeRenderer.ShapeType.Filled);
 
 
-        if (isTranspos) {
+        if (isRotation) {
 
             leftDown.rotate(rot);
 
-            x = (int) (leftDown.x + Consts.getWIDTH() / 2f);
-            y = (int) (leftDown.y + Consts.getHEIGHT() / 2f);
+            x = (int) (leftDown.x + cX);
+            y = (int) (leftDown.y + cY);
         }
 
+        xS = (int) (x - gain);
+        yS = (int) (y - gain);
+        widthS = (int) (width + gain * 2);
+        heightS = (int) (height + gain * 2);
 
         square.rect(x - gain, y - gain,
                 width + gain * 2, height + gain * 2); //квадрат
@@ -159,6 +208,34 @@ public class RectZone {
                 height + PROSAK * 2 + HEIGHT_OF_PERIMETER * 2 + gain * 2); //правая грань
 
 
+        /*x -= gain;
+        y -= gain;
+        width += (2*gain);
+        height += (2*gain);
+
+        square.rect(x, y, width, height); //квадрат
+
+        square.rect((x - WIDTH_OF_PERIMETER - PROSAK),
+                y + PROSAK + height,
+                width + PROSAK * 2 + WIDTH_OF_PERIMETER * 2,
+                HEIGHT_OF_PERIMETER); // верхняя грань
+
+        square.rect(x - WIDTH_OF_PERIMETER - PROSAK,
+                y - HEIGHT_OF_PERIMETER - PROSAK,
+                width + PROSAK * 2 + WIDTH_OF_PERIMETER * 2,
+                HEIGHT_OF_PERIMETER); // нижняя грань
+
+        square.rect(x - PROSAK - WIDTH_OF_PERIMETER,
+                y - PROSAK - HEIGHT_OF_PERIMETER,
+                WIDTH_OF_PERIMETER,
+                height + PROSAK * 2 + HEIGHT_OF_PERIMETER * 2); //левая грань
+
+        square.rect(x + width + PROSAK,
+                y - PROSAK - HEIGHT_OF_PERIMETER,
+                WIDTH_OF_PERIMETER,
+                height + PROSAK * 2 + HEIGHT_OF_PERIMETER * 2); //правая грань
+*/
+
         square.end();
     }
 
@@ -171,6 +248,6 @@ public class RectZone {
 
     public boolean isTouch(int X, int Y) {
 
-        return ((x <= X) && (X <= x + width) && (y <= Y) && (Y <= y + height));
+        return ((xS <= X) && (X <= xS + widthS) && (yS <= Y) && (Y <= yS + heightS));
     }
 }
