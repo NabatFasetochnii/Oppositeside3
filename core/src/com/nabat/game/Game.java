@@ -52,6 +52,16 @@ public class Game extends com.badlogic.gdx.Game { //TODO реализовать 
         Consts.setCountOfPoints2R(preferences.getInteger(Consts.getCOUNT2R()));
         Consts.setCountOfPoints3R(preferences.getInteger(Consts.getCOUNT3R()));
         Consts.setCountOfPoints4R(preferences.getInteger(Consts.getCOUNT4R()));
+        //
+        Consts.setCountOfPoints1R(preferences.getInteger(Consts.getCOUNT1R1()));
+        Consts.setCountOfPoints2R(preferences.getInteger(Consts.getCOUNT2R1()));
+        Consts.setCountOfPoints3R(preferences.getInteger(Consts.getCOUNT3R1()));
+        Consts.setCountOfPoints4R(preferences.getInteger(Consts.getCOUNT4R1()));
+        //
+        Consts.setCountOfPoints1R(preferences.getInteger(Consts.getCOUNT1R2()));
+        Consts.setCountOfPoints2R(preferences.getInteger(Consts.getCOUNT2R2()));
+        Consts.setCountOfPoints3R(preferences.getInteger(Consts.getCOUNT3R2()));
+        Consts.setCountOfPoints4R(preferences.getInteger(Consts.getCOUNT4R2()));
         batch = new SpriteBatch();
         levels = new Levels(this);
         Loader.load();
@@ -104,6 +114,16 @@ public class Game extends com.badlogic.gdx.Game { //TODO реализовать 
         preferences.putInteger(Consts.getCOUNT2R(), Consts.getCountOfPoints2R());
         preferences.putInteger(Consts.getCOUNT3R(), Consts.getCountOfPoints3R());
         preferences.putInteger(Consts.getCOUNT4R(), Consts.getCountOfPoints4R());
+        //
+        preferences.putInteger(Consts.getCOUNT1R(), Consts.getCountOfPoints1R1());
+        preferences.putInteger(Consts.getCOUNT2R(), Consts.getCountOfPoints2R1());
+        preferences.putInteger(Consts.getCOUNT3R(), Consts.getCountOfPoints3R1());
+        preferences.putInteger(Consts.getCOUNT4R(), Consts.getCountOfPoints4R1());
+        //
+        preferences.putInteger(Consts.getCOUNT1R(), Consts.getCountOfPoints1R2());
+        preferences.putInteger(Consts.getCOUNT2R(), Consts.getCountOfPoints2R2());
+        preferences.putInteger(Consts.getCOUNT3R(), Consts.getCountOfPoints3R2());
+        preferences.putInteger(Consts.getCOUNT4R(), Consts.getCountOfPoints4R2());
 
         preferences.flush();
     }

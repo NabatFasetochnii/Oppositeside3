@@ -67,6 +67,32 @@ public class InputForMenu implements InputProcessor {
             Levels.setLvl(40);
         }
         ////////////////////////////////////////////////////////////////////////
+        if (levels.getL1R1().isTouch(screenX, Consts.getHEIGHT() - screenY)) {
+            Levels.setLvl(101);
+        }
+        if (levels.getL2R1().isTouch(screenX, Consts.getHEIGHT() - screenY)) {
+            Levels.setLvl(201);
+        }
+        if (levels.getL3R1().isTouch(screenX, Consts.getHEIGHT() - screenY)) {
+            Levels.setLvl(301);
+        }
+        if (levels.getL4R1().isTouch(screenX, Consts.getHEIGHT() - screenY)) {
+            Levels.setLvl(401);
+        }
+        ////////////////////////////////////////////////////////////////////////
+        if (levels.getL1R2().isTouch(screenX, Consts.getHEIGHT() - screenY)) {
+            Levels.setLvl(102);
+        }
+        if (levels.getL2R2().isTouch(screenX, Consts.getHEIGHT() - screenY)) {
+            Levels.setLvl(202);
+        }
+        if (levels.getL3R2().isTouch(screenX, Consts.getHEIGHT() - screenY)) {
+            Levels.setLvl(302);
+        }
+        if (levels.getL4R2().isTouch(screenX, Consts.getHEIGHT() - screenY)) {
+            Levels.setLvl(402);
+        }
+        ////////////////////////////////////////////////////////////////////////
         if (levels.getL11().isTouch(screenX, Consts.getHEIGHT() - screenY)) {
 
             Levels.setLvl(11);

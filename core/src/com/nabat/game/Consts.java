@@ -15,15 +15,25 @@ public class Consts {
     private final static float scaleXY = ((scaleX + scaleY) / 2f);
     private final static float LOSE_TO_SCREEN = 7.5f; //константа для подгона кегля под экран, вроде
     //
-    private final static String PATH_TO_FIRST = "levels/1/2";//пути к файлам базовых уровней
+    private final static String PATH_TO_FIRST = "levels/1/1";//пути к файлам базовых уровней
     private final static String PATH_TO_SECOND = "levels/2/1";
-    private final static String PATH_TO_THIRD = "levels/3/2";
+    private final static String PATH_TO_THIRD = "levels/3/1";
     private final static String PATH_TO_FOURTH = "levels/4/1";
+    //
+    private final static String PATH_TO_FIRST_COMPLICATED = "levels/1/2";
+    private final static String PATH_TO_SECOND_COMPLICATED = "levels/2/2";
+    private final static String PATH_TO_THIRD_COMPLICATED = "levels/3/2";
+    private final static String PATH_TO_FOURTH_COMPLICATED = "levels/4/2";
     //
     private final static String PATH_TO_FIRST_ROTATION = "levels/1/1_2/1";//пути к файлам крутящихся уровней
     private final static String PATH_TO_SECOND_ROTATION = "levels/2/2_2/1";
     private final static String PATH_TO_THIRD_ROTATION = "levels/3/3_2/1";
     private final static String PATH_TO_FOURTH_ROTATION = "levels/4/4_2/1";
+    //
+    private final static String PATH_TO_FIRST_ROTATION_COMPLICATED = "levels/1/1_2/2";//пути к файлам крутящихся уровней
+    private final static String PATH_TO_SECOND_ROTATION_COMPLICATED = "levels/2/2_2/2";
+    private final static String PATH_TO_THIRD_ROTATION_COMPLICATED = "levels/3/3_2/2";
+    private final static String PATH_TO_FOURTH_ROTATION_COMPLICATED = "levels/4/4_2/2";
     //
     private final static int WIDTH = Gdx.app.getGraphics().getWidth();//ширина и высота экрана
     private final static int HEIGHT = Gdx.app.getGraphics().getHeight();
@@ -62,6 +72,16 @@ public class Consts {
     private final static String COUNT2R = "countOfPoints2R";
     private final static String COUNT3R = "countOfPoints3R";
     private final static String COUNT4R = "countOfPoints4R";
+    //
+    private final static String COUNT1R1 = "countOfPoints1R1";
+    private final static String COUNT2R1 = "countOfPoints2R1";
+    private final static String COUNT3R1 = "countOfPoints3R1";
+    private final static String COUNT4R1 = "countOfPoints4R1";
+    //
+    private final static String COUNT1R2 = "countOfPoints1R2";
+    private final static String COUNT2R2 = "countOfPoints2R2";
+    private final static String COUNT3R2 = "countOfPoints3R2";
+    private final static String COUNT4R2 = "countOfPoints4R2";
     //
     private final static String COUNT0 = "countOfAllPoints";
     //
@@ -103,10 +123,148 @@ public class Consts {
     private static int countOfPoints2R;
     private static int countOfPoints3R;
     private static int countOfPoints4R;
+    //
+    private static int countOfPoints1R1;
+    private static int countOfPoints2R1;
+    private static int countOfPoints3R1;
+    private static int countOfPoints4R1;
+    //
+    private static int countOfPoints1R2;
+    private static int countOfPoints2R2;
+    private static int countOfPoints3R2;
+    private static int countOfPoints4R2;
 
     Consts() {
 
 
+    }
+
+    public static String getCOUNT1R1() {
+        return COUNT1R1;
+    }
+
+    public static String getCOUNT2R1() {
+        return COUNT2R1;
+    }
+
+    public static String getCOUNT3R1() {
+        return COUNT3R1;
+    }
+
+    public static String getCOUNT4R1() {
+        return COUNT4R1;
+    }
+
+    public static String getCOUNT1R2() {
+        return COUNT1R2;
+    }
+
+    public static String getCOUNT2R2() {
+        return COUNT2R2;
+    }
+
+    public static String getCOUNT3R2() {
+        return COUNT3R2;
+    }
+
+    public static String getCOUNT4R2() {
+        return COUNT4R2;
+    }
+
+    public static int getCountOfPoints1R1() {
+        return countOfPoints1R1;
+    }
+
+    public static void setCountOfPoints1R1(int countOfPoints1R1) {
+        Consts.countOfPoints1R1 = countOfPoints1R1;
+    }
+
+    public static int getCountOfPoints2R1() {
+        return countOfPoints2R1;
+    }
+
+    public static void setCountOfPoints2R1(int countOfPoints2R1) {
+        Consts.countOfPoints2R1 = countOfPoints2R1;
+    }
+
+    public static int getCountOfPoints3R1() {
+        return countOfPoints3R1;
+    }
+
+    public static void setCountOfPoints3R1(int countOfPoints3R1) {
+        Consts.countOfPoints3R1 = countOfPoints3R1;
+    }
+
+    public static int getCountOfPoints4R1() {
+        return countOfPoints4R1;
+    }
+
+    public static void setCountOfPoints4R1(int countOfPoints4R1) {
+        Consts.countOfPoints4R1 = countOfPoints4R1;
+    }
+
+    public static int getCountOfPoints1R2() {
+        return countOfPoints1R2;
+    }
+
+    public static void setCountOfPoints1R2(int countOfPoints1R2) {
+        Consts.countOfPoints1R2 = countOfPoints1R2;
+    }
+
+    public static int getCountOfPoints2R2() {
+        return countOfPoints2R2;
+    }
+
+    public static void setCountOfPoints2R2(int countOfPoints2R2) {
+        Consts.countOfPoints2R2 = countOfPoints2R2;
+    }
+
+    public static int getCountOfPoints3R2() {
+        return countOfPoints3R2;
+    }
+
+    public static void setCountOfPoints3R2(int countOfPoints3R2) {
+        Consts.countOfPoints3R2 = countOfPoints3R2;
+    }
+
+    public static int getCountOfPoints4R2() {
+        return countOfPoints4R2;
+    }
+
+    public static void setCountOfPoints4R2(int countOfPoints4R2) {
+        Consts.countOfPoints4R2 = countOfPoints4R2;
+    }
+
+    public static String getPathToFirstComplicated() {
+        return PATH_TO_FIRST_COMPLICATED;
+    }
+
+    public static String getPathToSecondComplicated() {
+        return PATH_TO_SECOND_COMPLICATED;
+    }
+
+    public static String getPathToThirdComplicated() {
+        return PATH_TO_THIRD_COMPLICATED;
+    }
+
+    public static String getPathToFourthComplicated() {
+        return PATH_TO_FOURTH_COMPLICATED;
+    }
+
+    public static String getPathToFirstRotationComplicated() {
+        return PATH_TO_FIRST_ROTATION_COMPLICATED;
+    }
+
+    public static String getPathToSecondRotationComplicated() {
+        return PATH_TO_SECOND_ROTATION_COMPLICATED;
+    }
+
+    public static String getPathToThirdRotationComplicated() {
+        return PATH_TO_THIRD_ROTATION_COMPLICATED;
+    }
+
+    public static String getPathToFourthRotationComplicated() {
+        return PATH_TO_FOURTH_ROTATION_COMPLICATED;
     }
 
     public static int getCountOfPoints111() {
@@ -351,7 +509,7 @@ public class Consts {
 
     public static void clear() {
 
-        Gdx.gl.glClearColor(242, 255, 0, 1);
+        Gdx.gl.glClearColor(240, 240, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
     }
 

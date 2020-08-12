@@ -214,6 +214,48 @@ public class InfoScreen implements Screen {
                 break;
             }
             ////////////////////////////////////////
+            case 101: { //набор уровней с кручением
+                info += "Best score: " + Consts.getCountOfPoints1R1();
+                break;
+            }
+            case 201: {
+                info += "Best score: " + Consts.getCountOfPoints2R1();
+
+                break;
+            }
+
+            case 301: {
+
+                info += "Best score: " + Consts.getCountOfPoints3R1();
+                break;
+            }
+            case 401: {
+
+                info += "Best score: " + Consts.getCountOfPoints4R1();
+                break;
+            }
+            ////////////////////////////////////////
+            case 102: { //набор уровней с кручением
+                info += "Best score: " + Consts.getCountOfPoints1R2();
+                break;
+            }
+            case 202: {
+                info += "Best score: " + Consts.getCountOfPoints2R2();
+
+                break;
+            }
+
+            case 302: {
+
+                info += "Best score: " + Consts.getCountOfPoints3R2();
+                break;
+            }
+            case 402: {
+
+                info += "Best score: " + Consts.getCountOfPoints4R2();
+                break;
+            }
+            ////////////////////////////////////////
 
         }
 

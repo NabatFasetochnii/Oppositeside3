@@ -48,6 +48,8 @@ public class LevelFactory implements Screen {
     private float text_Y = Consts.getHEIGHT() / 2f;
     private boolean isRotation = false;
     private boolean isDot = false;
+    private int MAX_MISS = 3;
+
     public LevelFactory(Color color, float levelTime, String pathToFile, int sizeOfScreens, int lvl, Game game, int lvlName) {
         this.levelTime = levelTime;
         MAX_COUNT_OF_PERIOD = (int) (levelTime / period);
@@ -56,7 +58,6 @@ public class LevelFactory implements Screen {
         this.lvl = lvl;
         this.game = game;
         this.lvlName = lvlName;
-
         arrayLists = new ArrayList<>();
 
         this.color = color;
@@ -86,6 +87,10 @@ public class LevelFactory implements Screen {
         generator.dispose();
     }
 
+    public void setMAX_MISS(int MAX_MISS) {
+        this.MAX_MISS = MAX_MISS;
+    }
+
     public int getLvlName() {
         return lvlName;
     }
@@ -96,6 +101,19 @@ public class LevelFactory implements Screen {
 
     public void setDot(boolean isDot) {
         this.isDot = isDot;
+        miss();
+
+    }
+
+    private void miss() {
+
+        if (isDot && isRotation) {
+            MAX_MISS = 7;
+        } else if (isDot) {
+            MAX_MISS = 4;
+        }else if (isRotation){
+            MAX_MISS = 5;
+        }
 
     }
 
@@ -106,6 +124,7 @@ public class LevelFactory implements Screen {
     public void setRotation(boolean rotation, float rot) {
         rotationSpeed = rot;
         isRotation = rotation;
+        miss();
     }
 
     public int getSizeOfScreens() {
@@ -128,7 +147,7 @@ public class LevelFactory implements Screen {
     public void upCountOfMiss() {
 
         countOfMiss++;
-        if (countOfMiss == 3) {
+        if (countOfMiss == MAX_MISS) {
             isLose = true;
         }
     }
@@ -520,6 +539,84 @@ public class LevelFactory implements Screen {
                                     Consts.setCountOfAllPoints(Consts.getCountOfAllPoints() +
                                             points - Consts.getCountOfPoints4R());
                                     Consts.setCountOfPoints4R(points);
+                                }
+                                break;
+                            }
+                            ////////////////////////////////////////
+                            case 101: { //набор уровней с кручением
+                                if (points > Consts.getCountOfPoints1R1())
+                                    Consts.setCountOfAllPoints(Consts.getCountOfAllPoints() +
+                                            points - Consts.getCountOfPoints1R1());
+                                Consts.setCountOfPoints1R1(points);
+                                break;
+                            }
+                            case 201: {
+
+                                if (points > Consts.getCountOfPoints2R1()) {
+
+                                    Consts.setCountOfAllPoints(Consts.getCountOfAllPoints() +
+                                            points - Consts.getCountOfPoints2R1());
+                                    Consts.setCountOfPoints2R1(points);
+                                }
+                                break;
+                            }
+
+                            case 301: {
+
+                                if (points > Consts.getCountOfPoints3R1()) {
+
+                                    Consts.setCountOfAllPoints(Consts.getCountOfAllPoints() +
+                                            points - Consts.getCountOfPoints3R1());
+                                    Consts.setCountOfPoints3R1(points);
+                                }
+                                break;
+                            }
+                            case 401: {
+
+                                if (points > Consts.getCountOfPoints4R1()) {
+
+                                    Consts.setCountOfAllPoints(Consts.getCountOfAllPoints() +
+                                            points - Consts.getCountOfPoints4R1());
+                                    Consts.setCountOfPoints4R1(points);
+                                }
+                                break;
+                            }
+                            ////////////////////////////////////////
+                            case 102: { //набор уровней с кручением
+                                if (points > Consts.getCountOfPoints1R2())
+                                    Consts.setCountOfAllPoints(Consts.getCountOfAllPoints() +
+                                            points - Consts.getCountOfPoints1R2());
+                                Consts.setCountOfPoints1R2(points);
+                                break;
+                            }
+                            case 202: {
+
+                                if (points > Consts.getCountOfPoints2R2()) {
+
+                                    Consts.setCountOfAllPoints(Consts.getCountOfAllPoints() +
+                                            points - Consts.getCountOfPoints2R2());
+                                    Consts.setCountOfPoints2R2(points);
+                                }
+                                break;
+                            }
+
+                            case 302: {
+
+                                if (points > Consts.getCountOfPoints3R2()) {
+
+                                    Consts.setCountOfAllPoints(Consts.getCountOfAllPoints() +
+                                            points - Consts.getCountOfPoints3R2());
+                                    Consts.setCountOfPoints3R2(points);
+                                }
+                                break;
+                            }
+                            case 402: {
+
+                                if (points > Consts.getCountOfPoints4R2()) {
+
+                                    Consts.setCountOfAllPoints(Consts.getCountOfAllPoints() +
+                                            points - Consts.getCountOfPoints4R2());
+                                    Consts.setCountOfPoints4R2(points);
                                 }
                                 break;
                             }
