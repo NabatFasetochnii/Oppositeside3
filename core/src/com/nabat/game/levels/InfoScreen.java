@@ -36,61 +36,187 @@ public class InfoScreen implements Screen {
 
         int complexity = levelFactory.getLvl();
 
-        if (levelFactory.isRotation()){
+        if (levelFactory.isRotation()&&levelFactory.isDot()) {
+            complexity *= 4;
+        }else if (levelFactory.isRotation()||levelFactory.isDot()) {
             complexity *= 2;
         }
         info = "INFO: " + '\n' + "Complexity: " + complexity + '\n' +
-                "Duration: " + levelFactory.getLevelTime() +"s"+ '\n' +
+                "Duration: " + levelFactory.getLevelTime() + "s" + '\n' +
                 "Size: " + levelFactory.getSizeOfScreens() + '\n';
 
-        switch (levelFactory.getLvl()) {
+        switch (levelFactory.getLvlName()) {
+
             case 1: {
 
-                if (levelFactory.isRotation()){
 
-                    info += "Best score: " + Consts.getCountOfPoints1R();
-                }else {
-
-                    info += "Best score: " + Consts.getCountOfPoints1();
-                }
+                info += "Best score: " + Consts.getCountOfPoints1();
 
                 break;
             }
             case 2: {
+                info += "Best score: " + Consts.getCountOfPoints2();
 
-                if (levelFactory.isRotation()){
-
-                    info += "Best score: " + Consts.getCountOfPoints2R();
-                }else {
-
-                    info += "Best score: " + Consts.getCountOfPoints2();
-                }
                 break;
             }
             case 3: {
 
-                if (levelFactory.isRotation()){
 
-                    info += "Best score: " + Consts.getCountOfPoints3R();
-                }else {
-
-                    info += "Best score: " + Consts.getCountOfPoints3();
-                }
+                info += "Best score: " + Consts.getCountOfPoints3();
                 break;
             }
             case 4: {
 
-                if (levelFactory.isRotation()){
+                info += "Best score: " + Consts.getCountOfPoints4();
 
-                    info += "Best score: " + Consts.getCountOfPoints4R();
-                }else {
 
-                    info += "Best score: " + Consts.getCountOfPoints4();
-                }
+                break;
+            }
+            ////////////////////////////////////////
+            case 11: { //продвинутый набор уровней
+
+
+                info += "Best score: " + Consts.getCountOfPoints11();
+                break;
+            }
+            case 21: {
+
+
+                info += "Best score: " + Consts.getCountOfPoints21();
+                break;
+            }
+            case 31: {
+
+                info += "Best score: " + Consts.getCountOfPoints31();
+
+                break;
+            }
+            case 41: {
+
+
+                info += "Best score: " + Consts.getCountOfPoints41();
+
+                break;
+            }
+            ////////////////////////////////////////
+
+            case 111: { //продвинутый набор уровней
+
+
+                info += "Best score: " + Consts.getCountOfPoints111();
+                break;
+            }
+            case 211: {
+
+
+                info += "Best score: " + Consts.getCountOfPoints211();
+                break;
+            }
+            case 311: {
+
+
+                info += "Best score: " + Consts.getCountOfPoints311();
+                break;
+            }
+            case 411: {
+
+                info += "Best score: " + Consts.getCountOfPoints411();
                 break;
             }
 
+            ////////////////////////////////////////
+            case 12: {
+
+
+                info += "Best score: " + Consts.getCountOfPoints12();
+
+                break;
+            }
+            case 22: {
+
+
+                info += "Best score: " + Consts.getCountOfPoints22();
+                break;
+            }
+            case 32: {
+
+
+                info += "Best score: " + Consts.getCountOfPoints32();
+                break;
+            }
+            case 42: {
+
+                info += "Best score: " + Consts.getCountOfPoints42();
+
+                break;
+            }
+            ////////////////////////////////////////
+
+            case 121: { //продвинутый набор уровней
+
+                info += "Best score: " + Consts.getCountOfPoints121();
+                break;
+            }
+            case 221: {
+
+                info += "Best score: " + Consts.getCountOfPoints221();
+                break;
+            }
+            case 321: {
+
+                info += "Best score: " + Consts.getCountOfPoints321();
+                break;
+            }
+            case 421: {
+
+                info += "Best score: " + Consts.getCountOfPoints421();
+                break;
+            }
+
+            ////////////////////////////////////////
+            case 122: { //продвинутый набор уровней
+                info += "Best score: " + Consts.getCountOfPoints122();
+                break;
+            }
+            case 222: {
+                info += "Best score: " + Consts.getCountOfPoints222();
+                break;
+            }
+            case 322: {
+                info += "Best score: " + Consts.getCountOfPoints322();
+                break;
+            }
+            case 422: {
+
+                info += "Best score: " + Consts.getCountOfPoints422();
+                break;
+            }
+
+            ////////////////////////////////////////
+            case 10: { //набор уровней с кручением
+                info += "Best score: " + Consts.getCountOfPoints1R();
+                break;
+            }
+            case 20: {
+                info += "Best score: " + Consts.getCountOfPoints2R();
+
+                break;
+            }
+
+            case 30: {
+
+                info += "Best score: " + Consts.getCountOfPoints3R();
+                break;
+            }
+            case 40: {
+
+                info += "Best score: " + Consts.getCountOfPoints4R();
+                break;
+            }
+            ////////////////////////////////////////
+
         }
+
     }
 
     @Override

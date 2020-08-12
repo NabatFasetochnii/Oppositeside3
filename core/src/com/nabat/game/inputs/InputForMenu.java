@@ -7,6 +7,8 @@ import com.nabat.game.levels.Levels;
 public class InputForMenu implements InputProcessor {
 
     Levels levels;
+    int scrollX;
+    int scroll;
 
     public InputForMenu(Levels levels) {
         this.levels = levels;
@@ -32,6 +34,8 @@ public class InputForMenu implements InputProcessor {
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 
+        scrollX = screenX;
+
         ////////////////////////////////////////////////////////////////////////
         if (levels.getL1().isTouch(screenX, Consts.getHEIGHT() - screenY)) {
 
@@ -41,12 +45,10 @@ public class InputForMenu implements InputProcessor {
 
             Levels.setLvl(2);
         }
-
         if (levels.getL3().isTouch(screenX, Consts.getHEIGHT() - screenY)) {
 
             Levels.setLvl(3);
         }
-
         if (levels.getL4().isTouch(screenX, Consts.getHEIGHT() - screenY)) {
 
             Levels.setLvl(4);
@@ -55,15 +57,12 @@ public class InputForMenu implements InputProcessor {
         if (levels.getL1R().isTouch(screenX, Consts.getHEIGHT() - screenY)) {
             Levels.setLvl(10);
         }
-
         if (levels.getL2R().isTouch(screenX, Consts.getHEIGHT() - screenY)) {
             Levels.setLvl(20);
         }
-
         if (levels.getL3R().isTouch(screenX, Consts.getHEIGHT() - screenY)) {
             Levels.setLvl(30);
         }
-
         if (levels.getL4R().isTouch(screenX, Consts.getHEIGHT() - screenY)) {
             Levels.setLvl(40);
         }
@@ -76,12 +75,10 @@ public class InputForMenu implements InputProcessor {
 
             Levels.setLvl(21);
         }
-
         if (levels.getL31().isTouch(screenX, Consts.getHEIGHT() - screenY)) {
 
             Levels.setLvl(31);
         }
-
         if (levels.getL41().isTouch(screenX, Consts.getHEIGHT() - screenY)) {
 
             Levels.setLvl(41);
@@ -95,15 +92,64 @@ public class InputForMenu implements InputProcessor {
 
             Levels.setLvl(22);
         }
-
         if (levels.getL32().isTouch(screenX, Consts.getHEIGHT() - screenY)) {
 
             Levels.setLvl(32);
         }
-
         if (levels.getL42().isTouch(screenX, Consts.getHEIGHT() - screenY)) {
 
             Levels.setLvl(42);
+        }
+        ////////////////////////////////////////////////////////////////////////
+        if (levels.getL121().isTouch(screenX, Consts.getHEIGHT() - screenY)) {
+
+            Levels.setLvl(121);
+        }
+        if (levels.getL221().isTouch(screenX, Consts.getHEIGHT() - screenY)) {
+
+            Levels.setLvl(221);
+        }
+        if (levels.getL321().isTouch(screenX, Consts.getHEIGHT() - screenY)) {
+
+            Levels.setLvl(321);
+        }
+        if (levels.getL421().isTouch(screenX, Consts.getHEIGHT() - screenY)) {
+
+            Levels.setLvl(421);
+        }
+        ////////////////////////////////////////////////////////////////////////
+        if (levels.getL122().isTouch(screenX, Consts.getHEIGHT() - screenY)) {
+
+            Levels.setLvl(122);
+        }
+        if (levels.getL222().isTouch(screenX, Consts.getHEIGHT() - screenY)) {
+
+            Levels.setLvl(222);
+        }
+        if (levels.getL322().isTouch(screenX, Consts.getHEIGHT() - screenY)) {
+
+            Levels.setLvl(322);
+        }
+        if (levels.getL422().isTouch(screenX, Consts.getHEIGHT() - screenY)) {
+
+            Levels.setLvl(422);
+        }
+        ////////////////////////////////////////////////////////////////////////
+        if (levels.getL111().isTouch(screenX, Consts.getHEIGHT() - screenY)) {
+
+            Levels.setLvl(111);
+        }
+        if (levels.getL211().isTouch(screenX, Consts.getHEIGHT() - screenY)) {
+
+            Levels.setLvl(211);
+        }
+        if (levels.getL311().isTouch(screenX, Consts.getHEIGHT() - screenY)) {
+
+            Levels.setLvl(311);
+        }
+        if (levels.getL411().isTouch(screenX, Consts.getHEIGHT() - screenY)) {
+
+            Levels.setLvl(411);
         }
         ////////////////////////////////////////////////////////////////////////
 
@@ -117,7 +163,15 @@ public class InputForMenu implements InputProcessor {
 
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
-        return false;
+
+        int dx = screenX - scrollX;
+
+        scroll = (levels.getScrollX() - dx) / 2;
+        levels.setScrollX(scroll);
+
+        scrollX = screenX;
+
+        return true;
     }
 
     @Override

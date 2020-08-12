@@ -38,15 +38,31 @@ public class Consts {
     private final static String COUNT31 = "countOfPoints31";
     private final static String COUNT41 = "countOfPoints41";
     //
+    private final static String COUNT111 = "countOfPoints111";
+    private final static String COUNT211 = "countOfPoints211";
+    private final static String COUNT311 = "countOfPoints311";
+    private final static String COUNT411 = "countOfPoints411";
+    //
     private final static String COUNT12 = "countOfPoints12";
     private final static String COUNT22 = "countOfPoints22";
     private final static String COUNT32 = "countOfPoints32";
     private final static String COUNT42 = "countOfPoints42";
     //
+    private final static String COUNT121 = "countOfPoints121";
+    private final static String COUNT221 = "countOfPoints221";
+    private final static String COUNT321 = "countOfPoints321";
+    private final static String COUNT421 = "countOfPoints421";
+    //
+    private final static String COUNT122 = "countOfPoints122";
+    private final static String COUNT222 = "countOfPoints222";
+    private final static String COUNT322 = "countOfPoints322";
+    private final static String COUNT422 = "countOfPoints422";
+    //
     private final static String COUNT1R = "countOfPoints1R";
     private final static String COUNT2R = "countOfPoints2R";
     private final static String COUNT3R = "countOfPoints3R";
     private final static String COUNT4R = "countOfPoints4R";
+    //
     private final static String COUNT0 = "countOfAllPoints";
     //
     private final static String PREF_NAME = "data";//имя файла preferences
@@ -63,10 +79,25 @@ public class Consts {
     private static int countOfPoints31;
     private static int countOfPoints41;
     //
+    private static int countOfPoints111;
+    private static int countOfPoints211;
+    private static int countOfPoints311;
+    private static int countOfPoints411;
+    //
     private static int countOfPoints12;
     private static int countOfPoints22;
     private static int countOfPoints32;
     private static int countOfPoints42;
+    //
+    private static int countOfPoints121;
+    private static int countOfPoints221;
+    private static int countOfPoints321;
+    private static int countOfPoints421;
+    //
+    private static int countOfPoints122;
+    private static int countOfPoints222;
+    private static int countOfPoints322;
+    private static int countOfPoints422;
     //
     private static int countOfPoints1R;
     private static int countOfPoints2R;
@@ -76,6 +107,150 @@ public class Consts {
     Consts() {
 
 
+    }
+
+    public static int getCountOfPoints111() {
+        return countOfPoints111;
+    }
+
+    public static void setCountOfPoints111(int countOfPoints111) {
+        Consts.countOfPoints111 = countOfPoints111;
+    }
+
+    public static int getCountOfPoints211() {
+        return countOfPoints211;
+    }
+
+    public static void setCountOfPoints211(int countOfPoints211) {
+        Consts.countOfPoints211 = countOfPoints211;
+    }
+
+    public static int getCountOfPoints311() {
+        return countOfPoints311;
+    }
+
+    public static void setCountOfPoints311(int countOfPoints311) {
+        Consts.countOfPoints311 = countOfPoints311;
+    }
+
+    public static int getCountOfPoints411() {
+        return countOfPoints411;
+    }
+
+    public static void setCountOfPoints411(int countOfPoints411) {
+        Consts.countOfPoints411 = countOfPoints411;
+    }
+
+    public static int getCountOfPoints121() {
+        return countOfPoints121;
+    }
+
+    public static void setCountOfPoints121(int countOfPoints121) {
+        Consts.countOfPoints121 = countOfPoints121;
+    }
+
+    public static int getCountOfPoints221() {
+        return countOfPoints221;
+    }
+
+    public static void setCountOfPoints221(int countOfPoints221) {
+        Consts.countOfPoints221 = countOfPoints221;
+    }
+
+    public static int getCountOfPoints321() {
+        return countOfPoints321;
+    }
+
+    public static void setCountOfPoints321(int countOfPoints321) {
+        Consts.countOfPoints321 = countOfPoints321;
+    }
+
+    public static int getCountOfPoints421() {
+        return countOfPoints421;
+    }
+
+    public static void setCountOfPoints421(int countOfPoints421) {
+        Consts.countOfPoints421 = countOfPoints421;
+    }
+
+    public static int getCountOfPoints122() {
+        return countOfPoints122;
+    }
+
+    public static void setCountOfPoints122(int countOfPoints122) {
+        Consts.countOfPoints122 = countOfPoints122;
+    }
+
+    public static int getCountOfPoints222() {
+        return countOfPoints222;
+    }
+
+    public static void setCountOfPoints222(int countOfPoints222) {
+        Consts.countOfPoints222 = countOfPoints222;
+    }
+
+    public static int getCountOfPoints322() {
+        return countOfPoints322;
+    }
+
+    public static void setCountOfPoints322(int countOfPoints322) {
+        Consts.countOfPoints322 = countOfPoints322;
+    }
+
+    public static int getCountOfPoints422() {
+        return countOfPoints422;
+    }
+
+    public static void setCountOfPoints422(int countOfPoints422) {
+        Consts.countOfPoints422 = countOfPoints422;
+    }
+
+    public static String getCOUNT111() {
+        return COUNT111;
+    }
+
+    public static String getCOUNT211() {
+        return COUNT211;
+    }
+
+    public static String getCOUNT311() {
+        return COUNT311;
+    }
+
+    public static String getCOUNT411() {
+        return COUNT411;
+    }
+
+    public static String getCOUNT121() {
+        return COUNT121;
+    }
+
+    public static String getCOUNT221() {
+        return COUNT221;
+    }
+
+    public static String getCOUNT321() {
+        return COUNT321;
+    }
+
+    public static String getCOUNT421() {
+        return COUNT421;
+    }
+
+    public static String getCOUNT122() {
+        return COUNT122;
+    }
+
+    public static String getCOUNT222() {
+        return COUNT222;
+    }
+
+    public static String getCOUNT322() {
+        return COUNT322;
+    }
+
+    public static String getCOUNT422() {
+        return COUNT422;
     }
 
     public static String getCOUNT12() {

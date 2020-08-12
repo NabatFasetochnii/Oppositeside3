@@ -28,10 +28,25 @@ public class Game extends com.badlogic.gdx.Game { //TODO реализовать 
         Consts.setCountOfPoints31(preferences.getInteger(Consts.getCOUNT31()));
         Consts.setCountOfPoints41(preferences.getInteger(Consts.getCOUNT41()));
         //
+        Consts.setCountOfPoints111(preferences.getInteger(Consts.getCOUNT111()));
+        Consts.setCountOfPoints211(preferences.getInteger(Consts.getCOUNT211()));
+        Consts.setCountOfPoints311(preferences.getInteger(Consts.getCOUNT311()));
+        Consts.setCountOfPoints411(preferences.getInteger(Consts.getCOUNT411()));
+        //
         Consts.setCountOfPoints12(preferences.getInteger(Consts.getCOUNT12()));
         Consts.setCountOfPoints22(preferences.getInteger(Consts.getCOUNT22()));
         Consts.setCountOfPoints32(preferences.getInteger(Consts.getCOUNT32()));
         Consts.setCountOfPoints42(preferences.getInteger(Consts.getCOUNT42()));
+        //
+        Consts.setCountOfPoints121(preferences.getInteger(Consts.getCOUNT121()));
+        Consts.setCountOfPoints221(preferences.getInteger(Consts.getCOUNT221()));
+        Consts.setCountOfPoints321(preferences.getInteger(Consts.getCOUNT321()));
+        Consts.setCountOfPoints421(preferences.getInteger(Consts.getCOUNT421()));
+        //
+        Consts.setCountOfPoints122(preferences.getInteger(Consts.getCOUNT122()));
+        Consts.setCountOfPoints222(preferences.getInteger(Consts.getCOUNT222()));
+        Consts.setCountOfPoints322(preferences.getInteger(Consts.getCOUNT322()));
+        Consts.setCountOfPoints422(preferences.getInteger(Consts.getCOUNT422()));
         //
         Consts.setCountOfPoints1R(preferences.getInteger(Consts.getCOUNT1R()));
         Consts.setCountOfPoints2R(preferences.getInteger(Consts.getCOUNT2R()));
@@ -65,10 +80,25 @@ public class Game extends com.badlogic.gdx.Game { //TODO реализовать 
         preferences.putInteger(Consts.getCOUNT31(), Consts.getCountOfPoints31());
         preferences.putInteger(Consts.getCOUNT41(), Consts.getCountOfPoints41());
         //
+        preferences.putInteger(Consts.getCOUNT111(), Consts.getCountOfPoints111());
+        preferences.putInteger(Consts.getCOUNT211(), Consts.getCountOfPoints211());
+        preferences.putInteger(Consts.getCOUNT311(), Consts.getCountOfPoints311());
+        preferences.putInteger(Consts.getCOUNT411(), Consts.getCountOfPoints411());
+        //
         preferences.putInteger(Consts.getCOUNT12(), Consts.getCountOfPoints12());
         preferences.putInteger(Consts.getCOUNT22(), Consts.getCountOfPoints22());
         preferences.putInteger(Consts.getCOUNT32(), Consts.getCountOfPoints32());
         preferences.putInteger(Consts.getCOUNT42(), Consts.getCountOfPoints42());
+        //
+        preferences.putInteger(Consts.getCOUNT121(), Consts.getCountOfPoints121());
+        preferences.putInteger(Consts.getCOUNT221(), Consts.getCountOfPoints221());
+        preferences.putInteger(Consts.getCOUNT321(), Consts.getCountOfPoints321());
+        preferences.putInteger(Consts.getCOUNT421(), Consts.getCountOfPoints421());
+        //
+        preferences.putInteger(Consts.getCOUNT122(), Consts.getCountOfPoints122());
+        preferences.putInteger(Consts.getCOUNT222(), Consts.getCountOfPoints222());
+        preferences.putInteger(Consts.getCOUNT322(), Consts.getCountOfPoints322());
+        preferences.putInteger(Consts.getCOUNT422(), Consts.getCountOfPoints422());
         //
         preferences.putInteger(Consts.getCOUNT1R(), Consts.getCountOfPoints1R());
         preferences.putInteger(Consts.getCOUNT2R(), Consts.getCountOfPoints2R());

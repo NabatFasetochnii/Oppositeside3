@@ -12,11 +12,11 @@ public class RectZone {
     private final int PROSAK = (int) (10 * Consts.getScaleXY());
     private final ShapeRenderer square;
     private final float DELTA = Gdx.app.getGraphics().getWidth() / 3000f;
-    private boolean isRotation;
-    private Vector2 leftDown;
     private final int width;
-    private int widthS;
     private final int height;
+    private final boolean isRotation;
+    private final Vector2 leftDown;
+    private int widthS;
     private int heightS;
     private int x;
     private int xS;
@@ -25,11 +25,12 @@ public class RectZone {
     private int countOfPeriodPulsar = 0;
     private float timeSecondsPulsar = 0f;
     private float gain = 0;
-    private boolean pulsar = true;
+    private final boolean pulsar = true;
     private float rot; //deg
-    private float cX = Consts.getWIDTH() / 3f;
-    private float cY = Consts.getHEIGHT() / 2f;
+    private final float cX = Consts.getWIDTH() / 3f;
+    private final float cY = Consts.getHEIGHT() / 2f;
     private boolean isDot = false;
+
     public RectZone(int x, int y, int width, int height, Color color, boolean isRotation, float rot, boolean isDot) {
 
         this.x = x;
@@ -74,23 +75,14 @@ public class RectZone {
         return heightS;
     }
 
-    public boolean isDot() {
-        return isDot;
-    }
-
-    public void setDot(boolean dot) {
-        isDot = dot;
-    }
-
-    public void setRotation(boolean rotation, float rot) {
+    /*public void setRotation(boolean rotation, float rot) {
         this.rot = rot;
         isRotation = rotation;
 
         cX = x + width / 4f;
         cY = y + height / 4f;
         leftDown = new Vector2(x - cX, y - cY);
-    }
-
+    }*/
 
     public int getWidth() {
         return width;
@@ -104,12 +96,12 @@ public class RectZone {
         return x;
     }
 
-    public int getY() {
-        return y;
+    public void setX(int x) {
+        this.x = x;
     }
 
-    public void setPulsar(boolean pulsar) {
-        this.pulsar = pulsar;
+    public int getY() {
+        return y;
     }
 
     synchronized public void draw() {

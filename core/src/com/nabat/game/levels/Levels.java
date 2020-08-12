@@ -14,17 +14,26 @@ import java.util.ArrayList;
 
 public class Levels implements Screen {
     private static int lvl = 0;
-    private final RectZone l1, l2, l3, l4; //квадраты на экране, символизирующие кнопки уровней
+    private final RectZone l1, l2, l3, l4; //квадраты на экране, символизирующие кнопки уровней //первая цифра - колво квадратов,  вторая - режим, третья - счётчик
     private final RectZone l11, l21, l31, l41;
+    private final RectZone l111; //уровни меньшей площади
+    private final RectZone l211;
+    private final RectZone l311;
+    private final RectZone l411;
     private final RectZone l12, l22, l32, l42;
+    private final RectZone l121, l221, l321, l421;
+    private final RectZone l122, l222, l322, l422;
     private final RectZone l1R, l2R, l3R, l4R;
-    private final LevelFactory lvl1, lvl11, lvl12, lvl1R;// сами уровни
-    private final LevelFactory lvl2, lvl21, lvl22, lvl2R;
-    private final LevelFactory lvl3, lvl31, lvl32, lvl3R;
-    private final LevelFactory lvl4, lvl41, lvl42, lvl4R;
+    private final LevelFactory lvl1, lvl11, lvl111, lvl12, lvl121, lvl122, lvl1R;// сами уровни
+    private final LevelFactory lvl2, lvl21, lvl211, lvl22, lvl221, lvl222, lvl2R;
+    private final LevelFactory lvl3, lvl31, lvl311, lvl32, lvl321, lvl322, lvl3R;
+    private final LevelFactory lvl4, lvl41, lvl411, lvl42, lvl421, lvl422, lvl4R;
     private final BitmapFont font;
     private final Game game;
     private final ArrayList<RectZone> zoneList;
+    private int scrollX = 0;
+    private final int zeroPoint;
+    private final int endPoint;
 
     public Levels(Game game) {//TODO написать менюшку
         zoneList = new ArrayList<>();
@@ -48,6 +57,15 @@ public class Levels implements Screen {
         lvl41 = new LevelFactory(Color.OLIVE,
                 30, Consts.getPathToFourth(), 200, 4, game, 41);
 
+        lvl111 = new LevelFactory(Color.RED,
+                30, Consts.getPathToFirst(), 200, 1, game, 11);//TODO ПОМЕНЯТЬ ФАЙЛ НА ТОТ, ЧТО С КВАДРАТАМИ МЕНЬШЕЙ ПЛОЩАДИ
+        lvl211 = new LevelFactory(Color.GREEN,
+                30, Consts.getPathToSecond(), 200, 2, game, 21);
+        lvl311 = new LevelFactory(Color.OLIVE,
+                30, Consts.getPathToThird(), 200, 3, game, 31);
+        lvl411 = new LevelFactory(Color.OLIVE,
+                30, Consts.getPathToFourth(), 200, 4, game, 41);
+
         lvl12 = new LevelFactory(Color.RED,
                 20, Consts.getPathToFirst(), 100, 1, game, 12);
         lvl22 = new LevelFactory(Color.GREEN,
@@ -61,6 +79,35 @@ public class Levels implements Screen {
         lvl22.setDot(true);
         lvl32.setDot(true);
         lvl42.setDot(true);
+
+        lvl121 = new LevelFactory(Color.RED,
+                30, Consts.getPathToFirst(), 400, 1, game, 121);
+        lvl221 = new LevelFactory(Color.GREEN,
+                35, Consts.getPathToSecond(), 300, 2, game, 221);
+        lvl321 = new LevelFactory(Color.OLIVE,
+                40, Consts.getPathToThird(), 150, 3, game, 321);
+        lvl421 = new LevelFactory(Color.OLIVE,
+                40, Consts.getPathToFourth(), 100, 4, game, 421);
+
+        lvl121.setDot(true);
+        lvl221.setDot(true);
+        lvl321.setDot(true);
+        lvl421.setDot(true);
+
+        lvl122 = new LevelFactory(Color.RED,
+                30, Consts.getPathToFirst(), 400, 1, game, 122);//TODO ПОМЕНЯТЬ ФАЙЛ НА ТОТ, ЧТО С КВАДРАТАМИ МЕНЬШЕЙ ПЛОЩАДИ
+        lvl222 = new LevelFactory(Color.GREEN,
+                35, Consts.getPathToSecond(), 300, 2, game, 222);
+        lvl322 = new LevelFactory(Color.OLIVE,
+                40, Consts.getPathToThird(), 150, 3, game, 322);
+        lvl422 = new LevelFactory(Color.OLIVE,
+                40, Consts.getPathToFourth(), 100, 4, game, 422);
+
+        lvl122.setDot(true);
+        lvl222.setDot(true);
+        lvl322.setDot(true);
+        lvl422.setDot(true);
+
 
         lvl1R = new LevelFactory(Color.RED,
                 40, Consts.getPathToFirstRotation(), 300, 1, game, 10);
@@ -85,96 +132,183 @@ public class Levels implements Screen {
         font = generator.generateFont(parameter);
         generator.dispose();
 
+        Color color01 = new Color(Color.rgb888(0,207,0));
+        Color color02 = new Color(Color.rgb888(0,186,0));
+        Color color03 = new Color(Color.rgb888(0,165,0));
+
+        Color color11 = new Color(Color.rgb888(0,184,151));
+        Color color12 = new Color(Color.rgb888(0,159,135));
+        Color color13 = new Color(Color.rgb888(0,140,129));
+
+        Color color21 = new Color(Color.rgb888(253,177,0));
+        /*Color color22 = new Color(Color.rgb888(247,170,0));
+        Color color23 = new Color(Color.rgb888(241,163,0));*/
+
+        zeroPoint = Consts.getWIDTH() / 10;
+
         int LEVEL_LEVEL = (Consts.getHEIGHT() / 6);
-        l1 = new RectZone(Consts.getWIDTH() / 10,
+        l1 = new RectZone(scrollX + Consts.getWIDTH() / 10,
                 Consts.getHEIGHT() - LEVEL_LEVEL,
                 Consts.getWIDTH() / 10,
-                Consts.getWIDTH() / 10, Color.RED);
+                Consts.getWIDTH() / 10, color01);
 
-        l2 = new RectZone(Consts.getWIDTH() / 10,//Consts.getWIDTH() / 10 + Consts.getWIDTH() / 5
+        l2 = new RectZone(scrollX + Consts.getWIDTH() / 10,//Consts.getWIDTH() / 10 + Consts.getWIDTH() / 5
                 Consts.getHEIGHT() - LEVEL_LEVEL - Consts.getWIDTH() / 5,
                 Consts.getWIDTH() / 10,
-                Consts.getWIDTH() / 10, Color.RED);
+                Consts.getWIDTH() / 10, color01);
 
-        l3 = new RectZone(Consts.getWIDTH() / 10,//Consts.getWIDTH() / 10 + 2 * Consts.getWIDTH() / 5
+        l3 = new RectZone(scrollX + Consts.getWIDTH() / 10,//Consts.getWIDTH() / 10 + 2 * Consts.getWIDTH() / 5
                 Consts.getHEIGHT() - LEVEL_LEVEL - 2 * Consts.getWIDTH() / 5,
                 Consts.getWIDTH() / 10,
-                Consts.getWIDTH() / 10, Color.RED);
+                Consts.getWIDTH() / 10, color01);
 
-        l4 = new RectZone(Consts.getWIDTH() / 10,//Consts.getWIDTH() / 10 + 3 * Consts.getWIDTH() / 5
+        l4 = new RectZone(scrollX + Consts.getWIDTH() / 10,//Consts.getWIDTH() / 10 + 3 * Consts.getWIDTH() / 5
                 Consts.getHEIGHT() - LEVEL_LEVEL - 3 * Consts.getWIDTH() / 5,
                 Consts.getWIDTH() / 10,
-                Consts.getWIDTH() / 10, Color.RED);
+                Consts.getWIDTH() / 10, color01);
 
         ////////////////////////////////
-        l11 = new RectZone(Consts.getWIDTH() / 10 + Consts.getWIDTH() / 5,
+
+        int c = 1;
+
+
+        l11 = new RectZone(scrollX + Consts.getWIDTH() / 10 + c * Consts.getWIDTH() / 5,
                 Consts.getHEIGHT() - LEVEL_LEVEL,
                 Consts.getWIDTH() / 10,
-                Consts.getWIDTH() / 10, Color.RED);
+                Consts.getWIDTH() / 10, color02);
 
-        l21 = new RectZone(Consts.getWIDTH() / 10 + Consts.getWIDTH() / 5,
+        l21 = new RectZone(scrollX + Consts.getWIDTH() / 10 + c * Consts.getWIDTH() / 5,
                 Consts.getHEIGHT() - LEVEL_LEVEL - Consts.getWIDTH() / 5,
                 Consts.getWIDTH() / 10,
-                Consts.getWIDTH() / 10, Color.RED);
+                Consts.getWIDTH() / 10, color02);
 
-        l31 = new RectZone(Consts.getWIDTH() / 10 + Consts.getWIDTH() / 5,
+        l31 = new RectZone(scrollX + Consts.getWIDTH() / 10 + c * Consts.getWIDTH() / 5,
                 Consts.getHEIGHT() - LEVEL_LEVEL - 2 * Consts.getWIDTH() / 5,
                 Consts.getWIDTH() / 10,
-                Consts.getWIDTH() / 10, Color.RED);
+                Consts.getWIDTH() / 10, color02);
 
-        l41 = new RectZone(Consts.getWIDTH() / 10 + Consts.getWIDTH() / 5,
+        l41 = new RectZone(scrollX + Consts.getWIDTH() / 10 + c * Consts.getWIDTH() / 5,
                 Consts.getHEIGHT() - LEVEL_LEVEL - 3 * Consts.getWIDTH() / 5,
                 Consts.getWIDTH() / 10,
-                Consts.getWIDTH() / 10, Color.RED);
+                Consts.getWIDTH() / 10, color02);
 
         ////////////////////////////////
-        l12 = new RectZone(Consts.getWIDTH() / 10 + 2 * Consts.getWIDTH() / 5,
+        c = 2;
+
+        l111 = new RectZone(scrollX + Consts.getWIDTH() / 10 + c * Consts.getWIDTH() / 5,
                 Consts.getHEIGHT() - LEVEL_LEVEL,
                 Consts.getWIDTH() / 10,
-                Consts.getWIDTH() / 10, Color.RED);
+                Consts.getWIDTH() / 10, color03);
 
-        l22 = new RectZone(Consts.getWIDTH() / 10 + 2 * Consts.getWIDTH() / 5,
+        l211 = new RectZone(scrollX + Consts.getWIDTH() / 10 + c * Consts.getWIDTH() / 5,
                 Consts.getHEIGHT() - LEVEL_LEVEL - Consts.getWIDTH() / 5,
                 Consts.getWIDTH() / 10,
-                Consts.getWIDTH() / 10, Color.RED);
+                Consts.getWIDTH() / 10, color03);
 
-        l32 = new RectZone(Consts.getWIDTH() / 10 + 2 * Consts.getWIDTH() / 5,
+        l311 = new RectZone(scrollX + Consts.getWIDTH() / 10 + c * Consts.getWIDTH() / 5,
                 Consts.getHEIGHT() - LEVEL_LEVEL - 2 * Consts.getWIDTH() / 5,
                 Consts.getWIDTH() / 10,
-                Consts.getWIDTH() / 10, Color.RED);
+                Consts.getWIDTH() / 10, color03);
 
-        l42 = new RectZone(Consts.getWIDTH() / 10 + 2 * Consts.getWIDTH() / 5,
+        l411 = new RectZone(scrollX + Consts.getWIDTH() / 10 + c * Consts.getWIDTH() / 5,
                 Consts.getHEIGHT() - LEVEL_LEVEL - 3 * Consts.getWIDTH() / 5,
                 Consts.getWIDTH() / 10,
-                Consts.getWIDTH() / 10, Color.RED);
+                Consts.getWIDTH() / 10, color03);
 
+        ////////////////////////////////
+        c = 3;
+        l12 = new RectZone(scrollX + Consts.getWIDTH() / 10 + c * Consts.getWIDTH() / 5,
+                Consts.getHEIGHT() - LEVEL_LEVEL,
+                Consts.getWIDTH() / 10,
+                Consts.getWIDTH() / 10, color11);
+
+        l22 = new RectZone(scrollX + Consts.getWIDTH() / 10 + c * Consts.getWIDTH() / 5,
+                Consts.getHEIGHT() - LEVEL_LEVEL - Consts.getWIDTH() / 5,
+                Consts.getWIDTH() / 10,
+                Consts.getWIDTH() / 10, color11);
+
+        l32 = new RectZone(scrollX + Consts.getWIDTH() / 10 + c * Consts.getWIDTH() / 5,
+                Consts.getHEIGHT() - LEVEL_LEVEL - 2 * Consts.getWIDTH() / 5,
+                Consts.getWIDTH() / 10,
+                Consts.getWIDTH() / 10, color11);
+
+        l42 = new RectZone(scrollX + Consts.getWIDTH() / 10 + c * Consts.getWIDTH() / 5,
+                Consts.getHEIGHT() - LEVEL_LEVEL - 3 * Consts.getWIDTH() / 5,
+                Consts.getWIDTH() / 10,
+                Consts.getWIDTH() / 10, color11);
+
+        ////////////////////////////////
+        c = 4;
+
+        l121 = new RectZone(scrollX + Consts.getWIDTH() / 10 + c * Consts.getWIDTH() / 5,
+                Consts.getHEIGHT() - LEVEL_LEVEL,
+                Consts.getWIDTH() / 10,
+                Consts.getWIDTH() / 10, color12);
+
+        l221 = new RectZone(scrollX + Consts.getWIDTH() / 10 + c * Consts.getWIDTH() / 5,
+                Consts.getHEIGHT() - LEVEL_LEVEL - Consts.getWIDTH() / 5,
+                Consts.getWIDTH() / 10,
+                Consts.getWIDTH() / 10, color12);
+
+        l321 = new RectZone(scrollX + Consts.getWIDTH() / 10 + c * Consts.getWIDTH() / 5,
+                Consts.getHEIGHT() - LEVEL_LEVEL - 2 * Consts.getWIDTH() / 5,
+                Consts.getWIDTH() / 10,
+                Consts.getWIDTH() / 10, color12);
+
+        l421 = new RectZone(scrollX + Consts.getWIDTH() / 10 + c * Consts.getWIDTH() / 5,
+                Consts.getHEIGHT() - LEVEL_LEVEL - 3 * Consts.getWIDTH() / 5,
+                Consts.getWIDTH() / 10,
+                Consts.getWIDTH() / 10, color12);
 
         /////////////////////////////////////////////////
-        int d = Consts.getWIDTH()/200;
-        l1R = new RectZone(Consts.getWIDTH() / 10 + 3 * Consts.getWIDTH() / 5,
-                Consts.getHEIGHT() - LEVEL_LEVEL - d,
-                Consts.getWIDTH() / 10,
-                Consts.getWIDTH() / 10, Color.RED);
 
-        l2R = new RectZone(Consts.getWIDTH() / 10 + 3 * Consts.getWIDTH() / 5,
-                Consts.getHEIGHT() - LEVEL_LEVEL - d - Consts.getWIDTH() / 5,
-                Consts.getWIDTH() / 10,
-                Consts.getWIDTH() / 10, Color.RED);
+        c = 5;
 
-        l3R = new RectZone(Consts.getWIDTH() / 10 + 3 * Consts.getWIDTH() / 5,
-                Consts.getHEIGHT() - LEVEL_LEVEL - d - 2 * Consts.getWIDTH() / 5,
+        l122 = new RectZone(scrollX + Consts.getWIDTH() / 10 + c * Consts.getWIDTH() / 5,
+                Consts.getHEIGHT() - LEVEL_LEVEL,
                 Consts.getWIDTH() / 10,
-                Consts.getWIDTH() / 10, Color.RED);
+                Consts.getWIDTH() / 10, color13);
 
-        l4R = new RectZone(Consts.getWIDTH() / 10 + 3 * Consts.getWIDTH() / 5,
-                Consts.getHEIGHT() - LEVEL_LEVEL - d - 3 * Consts.getWIDTH() / 5,
+        l222 = new RectZone(scrollX + Consts.getWIDTH() / 10 + c * Consts.getWIDTH() / 5,
+                Consts.getHEIGHT() - LEVEL_LEVEL - Consts.getWIDTH() / 5,
                 Consts.getWIDTH() / 10,
-                Consts.getWIDTH() / 10, Color.RED);
+                Consts.getWIDTH() / 10, color13);
 
-        l1R.setRotation(true, 0.5f);
-        l2R.setRotation(true, 0.5f);
-        l3R.setRotation(true, 0.5f);
-        l4R.setRotation(true, 0.5f);
+        l322 = new RectZone(scrollX + Consts.getWIDTH() / 10 + c * Consts.getWIDTH() / 5,
+                Consts.getHEIGHT() - LEVEL_LEVEL - 2 * Consts.getWIDTH() / 5,
+                Consts.getWIDTH() / 10,
+                Consts.getWIDTH() / 10, color13);
+
+        l422 = new RectZone(scrollX + Consts.getWIDTH() / 10 + c * Consts.getWIDTH() / 5,
+                Consts.getHEIGHT() - LEVEL_LEVEL - 3 * Consts.getWIDTH() / 5,
+                Consts.getWIDTH() / 10,
+                Consts.getWIDTH() / 10, color13);
+
+        /////////////////////////////////////////////////
+        c = 6;
+
+        l1R = new RectZone(scrollX + Consts.getWIDTH() / 10 + c * Consts.getWIDTH() / 5,
+                Consts.getHEIGHT() - LEVEL_LEVEL,
+                Consts.getWIDTH() / 10,
+                Consts.getWIDTH() / 10, color21);//new Color(116,73,255,100)
+
+
+        l2R = new RectZone(scrollX + Consts.getWIDTH() / 10 + c * Consts.getWIDTH() / 5,
+                Consts.getHEIGHT() - LEVEL_LEVEL - Consts.getWIDTH() / 5,
+                Consts.getWIDTH() / 10,
+                Consts.getWIDTH() / 10, color21);
+
+        l3R = new RectZone(scrollX + Consts.getWIDTH() / 10 + c * Consts.getWIDTH() / 5,
+                Consts.getHEIGHT() - LEVEL_LEVEL - 2 * Consts.getWIDTH() / 5,
+                Consts.getWIDTH() / 10,
+                Consts.getWIDTH() / 10, color21);
+
+        l4R = new RectZone(scrollX + Consts.getWIDTH() / 10 + c * Consts.getWIDTH() / 5,
+                Consts.getHEIGHT() - LEVEL_LEVEL - 3 * Consts.getWIDTH() / 5,
+                Consts.getWIDTH() / 10,
+                Consts.getWIDTH() / 10, color21);
+
+        endPoint = l12.getX();
 
         zoneList.add(l1);
         zoneList.add(l2);
@@ -186,10 +320,25 @@ public class Levels implements Screen {
         zoneList.add(l31);
         zoneList.add(l41);
 
+        zoneList.add(l111);
+        zoneList.add(l211);
+        zoneList.add(l311);
+        zoneList.add(l411);
+
         zoneList.add(l12);
         zoneList.add(l22);
         zoneList.add(l32);
         zoneList.add(l42);
+
+        zoneList.add(l121);
+        zoneList.add(l221);
+        zoneList.add(l321);
+        zoneList.add(l421);
+
+        zoneList.add(l122);
+        zoneList.add(l222);
+        zoneList.add(l322);
+        zoneList.add(l422);
 
         zoneList.add(l1R);
         zoneList.add(l2R);
@@ -199,6 +348,71 @@ public class Levels implements Screen {
 
     public static void setLvl(int lvl) {
         Levels.lvl = lvl;
+    }
+
+
+    public RectZone getL122() {
+        return l122;
+    }
+
+    public RectZone getL222() {
+        return l222;
+    }
+
+    public RectZone getL322() {
+        return l322;
+    }
+
+    public RectZone getL422() {
+        return l422;
+    }
+
+    public RectZone getL111() {
+        return l111;
+    }
+
+    public RectZone getL211() {
+        return l211;
+    }
+
+    public RectZone getL311() {
+        return l311;
+    }
+
+    public RectZone getL411() {
+        return l411;
+    }
+
+    public RectZone getL121() {
+        return l121;
+    }
+
+    public RectZone getL221() {
+        return l221;
+    }
+
+    public RectZone getL321() {
+        return l321;
+    }
+
+    public RectZone getL421() {
+        return l421;
+    }
+
+    public int getScrollX() {
+        return scrollX;
+    }
+
+    public void setScrollX(int scrollX) {
+
+        if (l1.getX() - scrollX < zeroPoint && l1R.getX() - scrollX > endPoint) {
+
+            this.scrollX = scrollX;
+            for (RectZone r : zoneList) {
+                r.setX(r.getX() - scrollX);
+            }
+        }
+
     }
 
     public RectZone getL12() {
@@ -313,6 +527,7 @@ public class Levels implements Screen {
                 lvl = 0;
                 break;
             }
+            ////////////////////////////////////////
             case 11: { //продвинутый набор уровней
                 game.setScreen(new InfoScreen(game, lvl11, font));
                 lvl = 0;
@@ -334,7 +549,30 @@ public class Levels implements Screen {
                 lvl = 0;
                 break;
             }
-            case 12: { /////базовый набор уровней
+            ////////////////////////////////////////
+            case 111: { //продвинутый набор уровней
+                game.setScreen(new InfoScreen(game, lvl111, font));
+                lvl = 0;
+                break;
+            }
+            case 211: {
+                game.setScreen(new InfoScreen(game, lvl211, font));
+                lvl = 0;
+                break;
+            }
+            case 311: {
+                game.setScreen(new InfoScreen(game, lvl311, font));
+                lvl = 0;
+                break;
+            }
+            case 411: {
+
+                game.setScreen(new InfoScreen(game, lvl411, font));
+                lvl = 0;
+                break;
+            }
+            ////////////////////////////////////////
+            case 12: {
                 game.setScreen(new InfoScreen(game, lvl12, font));
                 lvl = 0;
                 break;
@@ -355,7 +593,51 @@ public class Levels implements Screen {
                 lvl = 0;
                 break;
             }
+            ////////////////////////////////////////
+            case 121: {
+                game.setScreen(new InfoScreen(game, lvl121, font));
+                lvl = 0;
+                break;
+            }
+            case 221: {
+                game.setScreen(new InfoScreen(game, lvl221, font));
+                lvl = 0;
+                break;
+            }
+            case 321: {
+                game.setScreen(new InfoScreen(game, lvl321, font));
+                lvl = 0;
+                break;
+            }
+            case 421: {
 
+                game.setScreen(new InfoScreen(game, lvl421, font));
+                lvl = 0;
+                break;
+            }
+            ////////////////////////////////////////
+            case 122: {
+                game.setScreen(new InfoScreen(game, lvl122, font));
+                lvl = 0;
+                break;
+            }
+            case 222: {
+                game.setScreen(new InfoScreen(game, lvl222, font));
+                lvl = 0;
+                break;
+            }
+            case 322: {
+                game.setScreen(new InfoScreen(game, lvl322, font));
+                lvl = 0;
+                break;
+            }
+            case 422: {
+
+                game.setScreen(new InfoScreen(game, lvl422, font));
+                lvl = 0;
+                break;
+            }
+            ////////////////////////////////////////
             case 10: { //набор уровней с кручением
                 game.setScreen(new InfoScreen(game, lvl1R, font));
                 lvl = 0;
