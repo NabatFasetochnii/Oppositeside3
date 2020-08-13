@@ -5,7 +5,6 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.nabat.game.Consts;
 import com.nabat.game.Game;
 import com.nabat.game.RectZone;
@@ -14,18 +13,16 @@ public class InfoScreen implements Screen {
 
     private final Game game;
     private final LevelFactory levelFactory;
-    private final BitmapFont bitmapFont;
     private final RectZone startGame;
     private final RectZone backToMenu;
     private boolean start = false;
     private boolean back = false;
     private String info;
 
-    InfoScreen(Game game, LevelFactory levelFactory, BitmapFont bitmapFont) {
+    InfoScreen(Game game, LevelFactory levelFactory) {
 
         this.game = game;
         this.levelFactory = levelFactory;
-        this.bitmapFont = bitmapFont;
 
         startGame = new RectZone(Consts.getWIDTH() / 20, (int) (Consts.getHEIGHT() * 0.1f),
                 Consts.getWIDTH() / 8, Consts.getWIDTH() / 8, Color.FOREST);
@@ -36,9 +33,9 @@ public class InfoScreen implements Screen {
 
         int complexity = levelFactory.getLvl();
 
-        if (levelFactory.isRotation()&&levelFactory.isDot()) {
+        if (levelFactory.isRotation() && levelFactory.isDot()) {
             complexity *= 4;
-        }else if (levelFactory.isRotation()||levelFactory.isDot()) {
+        } else if (levelFactory.isRotation() || levelFactory.isDot()) {
             complexity *= 2;
         }
         info = "INFO: " + '\n' + "Complexity: " + complexity + '\n' +
@@ -314,7 +311,7 @@ public class InfoScreen implements Screen {
         });
     }
 
-    /**/
+
     @Override
     public void render(float delta) {
 
@@ -327,17 +324,18 @@ public class InfoScreen implements Screen {
         game.getBatch().begin();
 
 
-        bitmapFont.draw(game.getBatch(), info,
+        Consts.getFontForMenu().draw(game.getBatch(), info,
                 Consts.getWIDTH() / 20f, Consts.getHEIGHT() * 0.9f);
         game.getBatch().end();
 
 
         if (start) {
             game.setScreen(levelFactory);
-
+            dispose();
         }
         if (back) {
             game.setScreen(game.getLevels());
+            dispose();
         }
 
     }
@@ -364,8 +362,8 @@ public class InfoScreen implements Screen {
 
     @Override
     public void dispose() {
-
-        game.dispose();
+        startGame.dispose();
+        backToMenu.dispose();
         levelFactory.dispose();
 
     }

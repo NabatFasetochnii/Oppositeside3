@@ -1,7 +1,10 @@
 package com.nabat.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 
 public class Consts {
 
@@ -34,6 +37,8 @@ public class Consts {
     private final static String PATH_TO_SECOND_ROTATION_COMPLICATED = "levels/2/2_2/2";
     private final static String PATH_TO_THIRD_ROTATION_COMPLICATED = "levels/3/3_2/2";
     private final static String PATH_TO_FOURTH_ROTATION_COMPLICATED = "levels/4/4_2/2";
+    //
+    private final static String PATH_TO_MUSIC = "audio/music.mp3";
     //
     private final static int WIDTH = Gdx.app.getGraphics().getWidth();//ширина и высота экрана
     private final static int HEIGHT = Gdx.app.getGraphics().getHeight();
@@ -133,10 +138,40 @@ public class Consts {
     private static int countOfPoints2R2;
     private static int countOfPoints3R2;
     private static int countOfPoints4R2;
+    //
+    private static BitmapFont fontForLose;
+    private static BitmapFont fontForCount;
+    private static BitmapFont fontForCountMiss;
+    private static BitmapFont fontForWin;
+    private static BitmapFont fontForMenu;
 
     Consts() {
 
 
+    }
+
+    public static BitmapFont getFontForMenu() {
+        return fontForMenu;
+    }
+
+    public static String getPathToMusic() {
+        return PATH_TO_MUSIC;
+    }
+
+    public static BitmapFont getFontForLose() {
+        return fontForLose;
+    }
+
+    public static BitmapFont getFontForCount() {
+        return fontForCount;
+    }
+
+    public static BitmapFont getFontForCountMiss() {
+        return fontForCountMiss;
+    }
+
+    public static BitmapFont getFontForWin() {
+        return fontForWin;
     }
 
     public static String getCOUNT1R1() {
@@ -507,10 +542,48 @@ public class Consts {
         Consts.countOfPoints41 = countOfPoints41;
     }
 
+    public static void loadFonts() {
+
+        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal(Consts.getTtfPath()));
+        FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        parameter.size = (int) (WIDTH / LOSE_TO_SCREEN);
+        parameter.color = Color.RED;
+        parameter.borderColor = Color.BLACK;
+        parameter.borderWidth = 5;
+        fontForLose = generator.generateFont(parameter);
+
+        parameter.color = Color.GREEN;
+
+        fontForWin = generator.generateFont(parameter);
+
+        parameter.size = (int) (WIDTH / 10f);
+        parameter.borderWidth = 3;
+        fontForCount = generator.generateFont(parameter);
+
+        parameter.color = Color.RED;
+
+        fontForCountMiss = generator.generateFont(parameter);
+
+        parameter.size = Gdx.app.getGraphics().getWidth() / 12;
+        parameter.color = Color.CHARTREUSE;
+        parameter.borderColor = Color.BLACK;
+        parameter.borderWidth = 5;
+        fontForMenu = generator.generateFont(parameter);
+
+        generator.dispose();
+    }
+
     public static void clear() {
 
         Gdx.gl.glClearColor(240, 240, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+    }
+
+    public static void dispose() {
+        fontForCount.dispose();
+        fontForCountMiss.dispose();
+        fontForLose.dispose();
+        fontForWin.dispose();
     }
 
     public static String getCOUNT1R() {
@@ -649,10 +722,6 @@ public class Consts {
         return HEIGHT;
     }
 
-    public static float getLOSE_TO_SCREEN() {
-        return LOSE_TO_SCREEN;
-    }
-
     public static String getPathToThird() {
         return PATH_TO_THIRD;
     }
@@ -696,4 +765,5 @@ public class Consts {
     public static float getScaleY() {
         return scaleY;
     }
+
 }

@@ -2,6 +2,7 @@ package com.nabat.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.nabat.game.levels.Levels;
 
@@ -10,10 +11,15 @@ public class Game extends com.badlogic.gdx.Game { //TODO реализовать 
     private Levels levels;
     private SpriteBatch batch;
     private Preferences preferences;
+    private Music music;
 
     @Override
     public void create() {
 
+        music = Gdx.audio.newMusic(Gdx.files.internal(Consts.getPathToMusic()));
+        music.setVolume(0.3f);
+        music.setLooping(true);
+        music.play();
         preferences = Gdx.app.getPreferences(Consts.getPrefName());
 
         Consts.setCountOfAllPoints(preferences.getInteger(Consts.getCOUNT0()));//сохранение прогресса
@@ -62,9 +68,12 @@ public class Game extends com.badlogic.gdx.Game { //TODO реализовать 
         Consts.setCountOfPoints2R(preferences.getInteger(Consts.getCOUNT2R2()));
         Consts.setCountOfPoints3R(preferences.getInteger(Consts.getCOUNT3R2()));
         Consts.setCountOfPoints4R(preferences.getInteger(Consts.getCOUNT4R2()));
+
+        Consts.loadFonts();
         batch = new SpriteBatch();
         levels = new Levels(this);
         Loader.load();
+
 
         setScreen(levels);
     }
@@ -72,7 +81,7 @@ public class Game extends com.badlogic.gdx.Game { //TODO реализовать 
 
     @Override
     public void render() {
-
+        Consts.clear();
         super.render();
     }
 
@@ -141,8 +150,8 @@ public class Game extends com.badlogic.gdx.Game { //TODO реализовать 
     public void dispose() {
 
         updatePref();
-
-
+        Consts.dispose();
+        music.dispose();
         //l0.dispose();
         levels.dispose();
         Loader.dispose();

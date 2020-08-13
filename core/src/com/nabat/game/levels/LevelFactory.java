@@ -6,7 +6,6 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.nabat.game.Consts;
 import com.nabat.game.Game;
@@ -26,17 +25,13 @@ public class LevelFactory implements Screen {
     private final Color color;
     private final ShapeRenderer timeLine;
     private final ShapeRenderer timeLineEnd;
-    private final BitmapFont fontForLose;
-    private final BitmapFont fontForCount;
-    private final BitmapFont fontForCountMiss;
-    private final BitmapFont fontForWin;
     private final int sizeOfScreens;
     private final int lvl;
     private final Game game;
     private final float levelTime;
     private final int lvlName;
-    int time = 0;
-    int y;
+    private int time = 0;
+    private int y;
     private float rotationSpeed; //deg
     private ArrayList<ArrayList<RectZone>> arrayLists;
     private int countOfPeriod = 0;
@@ -63,32 +58,7 @@ public class LevelFactory implements Screen {
         this.color = color;
         timeLine = new ShapeRenderer();
         timeLineEnd = new ShapeRenderer();
-        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal(Consts.getTtfPath()));
-        FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = (int) (Gdx.app.getGraphics().getWidth() / Consts.getLOSE_TO_SCREEN());
-        parameter.color = Color.RED;
-        parameter.borderColor = Color.BLACK;
-        parameter.borderWidth = 5;
-        fontForLose = generator.generateFont(parameter);
 
-        parameter.color = Color.GREEN;
-
-        fontForWin = generator.generateFont(parameter);
-
-        parameter.size = (int) (Gdx.app.getGraphics().getWidth() / 10f);
-        parameter.borderWidth = 3;
-        fontForCount = generator.generateFont(parameter);
-
-        parameter.color = Color.RED;
-
-        fontForCountMiss = generator.generateFont(parameter);
-
-
-        generator.dispose();
-    }
-
-    public void setMAX_MISS(int MAX_MISS) {
-        this.MAX_MISS = MAX_MISS;
     }
 
     public int getLvlName() {
@@ -111,7 +81,7 @@ public class LevelFactory implements Screen {
             MAX_MISS = 7;
         } else if (isDot) {
             MAX_MISS = 4;
-        }else if (isRotation){
+        } else if (isRotation) {
             MAX_MISS = 5;
         }
 
@@ -681,7 +651,7 @@ public class LevelFactory implements Screen {
         if (isLose) {
 
 
-            endLevel(Consts.getLOSE(), fontForLose);
+            endLevel(Consts.getLOSE(), Consts.getFontForLose());
 
         } else {
 
@@ -706,9 +676,9 @@ public class LevelFactory implements Screen {
                         }
 
                         game.getBatch().begin();
-                        fontForCount.draw(game.getBatch(), countOfSquare + "",
+                        Consts.getFontForCount().draw(game.getBatch(), countOfSquare + "",
                                 50f, Gdx.app.getGraphics().getHeight() - 50f);
-                        fontForCountMiss.draw(game.getBatch(), countOfMiss + "",
+                        Consts.getFontForCountMiss().draw(game.getBatch(), countOfMiss + "",
                                 Gdx.app.getGraphics().getWidth() - 100f,
                                 Gdx.app.getGraphics().getHeight() - 50f);
 
@@ -716,7 +686,7 @@ public class LevelFactory implements Screen {
                         timeLineDraw();
                     }
                 } else {
-                    endLevel(Consts.getWIN(), fontForWin);
+                    endLevel(Consts.getWIN(), Consts.getFontForWin());
                 }
             }
         }
@@ -743,7 +713,7 @@ public class LevelFactory implements Screen {
     }
 
     public void dispose() {
-        fontForLose.dispose();
+
     }
 
     ArrayList<ArrayList<RectZone>> setLevel(String path, int size, int lvl) {

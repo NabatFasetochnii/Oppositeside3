@@ -16,6 +16,9 @@ public class RectZone {
     private final int height;
     private final boolean isRotation;
     private final Vector2 leftDown;
+    private final boolean pulsar = true;
+    private final float cX = Consts.getWIDTH() / 3f;
+    private final float cY = Consts.getHEIGHT() / 2f;
     private int widthS;
     private int heightS;
     private int x;
@@ -25,10 +28,7 @@ public class RectZone {
     private int countOfPeriodPulsar = 0;
     private float timeSecondsPulsar = 0f;
     private float gain = 0;
-    private final boolean pulsar = true;
     private float rot; //deg
-    private final float cX = Consts.getWIDTH() / 3f;
-    private final float cY = Consts.getHEIGHT() / 2f;
     private boolean isDot = false;
 
     public RectZone(int x, int y, int width, int height, Color color, boolean isRotation, float rot, boolean isDot) {
@@ -198,35 +198,6 @@ public class RectZone {
                 y - PROSAK - HEIGHT_OF_PERIMETER - gain,
                 WIDTH_OF_PERIMETER,
                 height + PROSAK * 2 + HEIGHT_OF_PERIMETER * 2 + gain * 2); //правая грань
-
-
-        /*x -= gain;
-        y -= gain;
-        width += (2*gain);
-        height += (2*gain);
-
-        square.rect(x, y, width, height); //квадрат
-
-        square.rect((x - WIDTH_OF_PERIMETER - PROSAK),
-                y + PROSAK + height,
-                width + PROSAK * 2 + WIDTH_OF_PERIMETER * 2,
-                HEIGHT_OF_PERIMETER); // верхняя грань
-
-        square.rect(x - WIDTH_OF_PERIMETER - PROSAK,
-                y - HEIGHT_OF_PERIMETER - PROSAK,
-                width + PROSAK * 2 + WIDTH_OF_PERIMETER * 2,
-                HEIGHT_OF_PERIMETER); // нижняя грань
-
-        square.rect(x - PROSAK - WIDTH_OF_PERIMETER,
-                y - PROSAK - HEIGHT_OF_PERIMETER,
-                WIDTH_OF_PERIMETER,
-                height + PROSAK * 2 + HEIGHT_OF_PERIMETER * 2); //левая грань
-
-        square.rect(x + width + PROSAK,
-                y - PROSAK - HEIGHT_OF_PERIMETER,
-                WIDTH_OF_PERIMETER,
-                height + PROSAK * 2 + HEIGHT_OF_PERIMETER * 2); //правая грань
-*/
 
         square.end();
     }
