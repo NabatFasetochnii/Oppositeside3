@@ -138,11 +138,12 @@ public class LevelFactory implements Screen {
                 timeLine.begin(ShapeRenderer.ShapeType.Filled);
                 timeLineEnd.begin(ShapeRenderer.ShapeType.Filled);
 
-
-                timeLine.setColor(Color.GREEN);
+                Color right = new Color(Color.rgb888(117, 155, 251));//
+                Color left = new Color(Color.rgb888(46, 111, 200));//
+//                timeLine.setColor(Color.GREEN);
                 timeLine.rect(0, 0,
                         Consts.getWIDTH() * (1f - (float) countOfPeriod / MAX_COUNT_OF_PERIOD),
-                        50 * Consts.getScaleY());
+                        50 * Consts.getScaleY(), left, right, right, left);
 
                 timeLineEnd.setColor(Color.WHITE);
                 timeLineEnd.circle(Consts.getWIDTH() * (1f - (float) countOfPeriod / MAX_COUNT_OF_PERIOD),

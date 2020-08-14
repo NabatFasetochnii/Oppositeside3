@@ -19,7 +19,7 @@ public class Game extends com.badlogic.gdx.Game { //TODO реализовать 
         music = Gdx.audio.newMusic(Gdx.files.internal(Consts.getPathToMusic()));
         music.setVolume(0.3f);
         music.setLooping(true);
-        music.play();
+
         preferences = Gdx.app.getPreferences(Consts.getPrefName());
 
         Consts.setCountOfAllPoints(preferences.getInteger(Consts.getCOUNT0()));//сохранение прогресса
@@ -76,6 +76,8 @@ public class Game extends com.badlogic.gdx.Game { //TODO реализовать 
 
 
         setScreen(levels);
+
+        music.play();
     }
 
 

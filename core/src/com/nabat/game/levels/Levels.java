@@ -14,30 +14,30 @@ public class Levels implements Screen {
     private static int lvl = 0;
     private final RectZone l1, l2, l3, l4; //квадраты на экране, символизирующие кнопки уровней //первая цифра - колво квадратов,  вторая - режим, третья - счётчик
     private final RectZone l11, l21, l31, l41;
-    private final RectZone l111; //уровни меньшей площади
-    private final RectZone l211;
-    private final RectZone l311;
-    private final RectZone l411;
+    private final RectZone l111, l211, l311, l411; //уровни меньшей площади
     private final RectZone l12, l22, l32, l42;
     private final RectZone l121, l221, l321, l421;
     private final RectZone l122, l222, l322, l422;
     private final RectZone l1R, l2R, l3R, l4R;
-    private final RectZone l1R1;
-    private final RectZone l2R1;
-    private final RectZone l3R1;
-    private final RectZone l4R1;
+    private final RectZone l1R1, l2R1, l3R1, l4R1;
     private final RectZone l1R2, l2R2, l3R2, l4R2;
     private final Game game;
     private final ArrayList<RectZone> zoneList;
     private final int zeroPoint;
     private final int endPoint;
     private int scrollX = 0;
+    private final Color color1, color2, color3, color4;
 
     //TODO ДОБАВИТЬ ОЧИВКИ
     //TODO добавить сервисы гугл
     public Levels(Game game) {//TODO написать менюшку
         zoneList = new ArrayList<>();
         this.game = game;
+
+        color1 = Color.FIREBRICK;
+        color2 = Color.RED;//
+        color3 = Color.LIME;
+        color4 = Color.VIOLET;//
 
         Color color01 = new Color(Color.rgb888(0, 207, 0));
         Color color02 = new Color(Color.rgb888(0, 186, 0));
@@ -338,28 +338,28 @@ public class Levels implements Screen {
 
         switch (lvl) {
             case 1: { /////базовый набор уровней
-                LevelFactory lvl1 = new LevelFactory(Color.RED,
+                LevelFactory lvl1 = new LevelFactory(color1,
                         20, Consts.getPathToFirst(), 100, 1, game, 1);
                 game.setScreen(new InfoScreen(game, lvl1));
                 lvl = 0;
                 break;
             }
             case 2: {
-                LevelFactory lvl2 = new LevelFactory(Color.GREEN,
+                LevelFactory lvl2 = new LevelFactory(color2,
                         30, Consts.getPathToSecond(), 100, 2, game, 2);
                 game.setScreen(new InfoScreen(game, lvl2));
                 lvl = 0;
                 break;
             }
             case 3: {
-                LevelFactory lvl3 = new LevelFactory(Color.OLIVE,
+                LevelFactory lvl3 = new LevelFactory(color3,
                         30, Consts.getPathToThird(), 50, 3, game, 3);
                 game.setScreen(new InfoScreen(game, lvl3));
                 lvl = 0;
                 break;
             }
             case 4: {
-                LevelFactory lvl4 = new LevelFactory(Color.OLIVE,
+                LevelFactory lvl4 = new LevelFactory(color4,
                         40, Consts.getPathToFourth(), 50, 4, game, 4);
 
                 game.setScreen(new InfoScreen(game, lvl4));
@@ -368,28 +368,28 @@ public class Levels implements Screen {
             }
             ////////////////////////////////////////
             case 11: { //продвинутый набор уровней
-                LevelFactory lvl11 = new LevelFactory(Color.RED,
+                LevelFactory lvl11 = new LevelFactory(color1,
                         30, Consts.getPathToFirst(), 200, 1, game, 11);
                 game.setScreen(new InfoScreen(game, lvl11));
                 lvl = 0;
                 break;
             }
             case 21: {
-                LevelFactory lvl21 = new LevelFactory(Color.GREEN,
+                LevelFactory lvl21 = new LevelFactory(color2,
                         40, Consts.getPathToSecond(), 200, 2, game, 21);
                 game.setScreen(new InfoScreen(game, lvl21));
                 lvl = 0;
                 break;
             }
             case 31: {
-                LevelFactory lvl31 = new LevelFactory(Color.OLIVE,
+                LevelFactory lvl31 = new LevelFactory(color3,
                         50, Consts.getPathToThird(), 200, 3, game, 31);
                 game.setScreen(new InfoScreen(game, lvl31));
                 lvl = 0;
                 break;
             }
             case 41: {
-                LevelFactory lvl41 = new LevelFactory(Color.OLIVE,
+                LevelFactory lvl41 = new LevelFactory(color4,
                         60, Consts.getPathToFourth(), 200, 4, game, 41);
                 game.setScreen(new InfoScreen(game, lvl41));
                 lvl = 0;
@@ -397,28 +397,28 @@ public class Levels implements Screen {
             }
             ////////////////////////////////////////
             case 111: { //продвинутый набор уровней
-                LevelFactory lvl111 = new LevelFactory(Color.RED,
+                LevelFactory lvl111 = new LevelFactory(color1,
                         30, Consts.getPathToFirstComplicated(), 200, 1, game, 11);
                 game.setScreen(new InfoScreen(game, lvl111));
                 lvl = 0;
                 break;
             }
             case 211: {
-                LevelFactory lvl211 = new LevelFactory(Color.GREEN,
+                LevelFactory lvl211 = new LevelFactory(color2,
                         40, Consts.getPathToSecondComplicated(), 200, 2, game, 21);
                 game.setScreen(new InfoScreen(game, lvl211));
                 lvl = 0;
                 break;
             }
             case 311: {
-                LevelFactory lvl311 = new LevelFactory(Color.OLIVE,
+                LevelFactory lvl311 = new LevelFactory(color3,
                         50, Consts.getPathToThirdComplicated(), 200, 3, game, 31);
                 game.setScreen(new InfoScreen(game, lvl311));
                 lvl = 0;
                 break;
             }
             case 411: {
-                LevelFactory lvl411 = new LevelFactory(Color.OLIVE,
+                LevelFactory lvl411 = new LevelFactory(color4,
                         60, Consts.getPathToFourthComplicated(), 200, 4, game, 41);
                 game.setScreen(new InfoScreen(game, lvl411));
                 lvl = 0;
@@ -427,7 +427,7 @@ public class Levels implements Screen {
             ////////////////////////////////////////
             case 12: {
 
-                LevelFactory lvl12 = new LevelFactory(Color.RED,
+                LevelFactory lvl12 = new LevelFactory(color1,
                         20, Consts.getPathToFirst(), 100, 1, game, 12);
                 lvl12.setDot(true);
                 game.setScreen(new InfoScreen(game, lvl12));
@@ -436,7 +436,7 @@ public class Levels implements Screen {
             }
             case 22: {
 
-                LevelFactory lvl22 = new LevelFactory(Color.GREEN,
+                LevelFactory lvl22 = new LevelFactory(color2,
                         30, Consts.getPathToSecond(), 100, 2, game, 22);
                 lvl22.setDot(true);
                 game.setScreen(new InfoScreen(game, lvl22));
@@ -444,7 +444,7 @@ public class Levels implements Screen {
                 break;
             }
             case 32: {
-                LevelFactory lvl32 = new LevelFactory(Color.OLIVE,
+                LevelFactory lvl32 = new LevelFactory(color3,
                         30, Consts.getPathToThird(), 50, 3, game, 32);
                 lvl32.setDot(true);
                 game.setScreen(new InfoScreen(game, lvl32));
@@ -452,7 +452,7 @@ public class Levels implements Screen {
                 break;
             }
             case 42: {
-                LevelFactory lvl42 = new LevelFactory(Color.OLIVE,
+                LevelFactory lvl42 = new LevelFactory(color3,
                         40, Consts.getPathToFourth(), 50, 4, game, 42);
                 lvl42.setDot(true);
                 game.setScreen(new InfoScreen(game, lvl42));
@@ -461,7 +461,7 @@ public class Levels implements Screen {
             }
             ////////////////////////////////////////
             case 121: {
-                LevelFactory lvl121 = new LevelFactory(Color.RED,
+                LevelFactory lvl121 = new LevelFactory(color1,
                         30, Consts.getPathToFirst(), 400, 1, game, 121);
                 lvl121.setDot(true);
                 game.setScreen(new InfoScreen(game, lvl121));
@@ -469,7 +469,7 @@ public class Levels implements Screen {
                 break;
             }
             case 221: {
-                LevelFactory lvl221 = new LevelFactory(Color.GREEN,
+                LevelFactory lvl221 = new LevelFactory(color2,
                         35, Consts.getPathToSecond(), 300, 2, game, 221);
                 lvl221.setDot(true);
                 game.setScreen(new InfoScreen(game, lvl221));
@@ -477,7 +477,7 @@ public class Levels implements Screen {
                 break;
             }
             case 321: {
-                LevelFactory lvl321 = new LevelFactory(Color.OLIVE,
+                LevelFactory lvl321 = new LevelFactory(color3,
                         40, Consts.getPathToThird(), 150, 3, game, 321);
                 lvl321.setDot(true);
                 game.setScreen(new InfoScreen(game, lvl321));
@@ -485,7 +485,7 @@ public class Levels implements Screen {
                 break;
             }
             case 421: {
-                LevelFactory lvl421 = new LevelFactory(Color.OLIVE,
+                LevelFactory lvl421 = new LevelFactory(color4,
                         40, Consts.getPathToFourth(), 100, 4, game, 421);
                 lvl421.setDot(true);
                 game.setScreen(new InfoScreen(game, lvl421));
@@ -494,7 +494,7 @@ public class Levels implements Screen {
             }
             ////////////////////////////////////////
             case 122: {
-                LevelFactory lvl122 = new LevelFactory(Color.RED,
+                LevelFactory lvl122 = new LevelFactory(color1,
                         30, Consts.getPathToFirstComplicated(), 400, 1, game, 122);
                 lvl122.setDot(true);
                 game.setScreen(new InfoScreen(game, lvl122));
@@ -502,7 +502,7 @@ public class Levels implements Screen {
                 break;
             }
             case 222: {
-                LevelFactory lvl222 = new LevelFactory(Color.GREEN,
+                LevelFactory lvl222 = new LevelFactory(color2,
                         35, Consts.getPathToSecondComplicated(), 300, 2, game, 222);
                 lvl222.setDot(true);
 
@@ -511,7 +511,7 @@ public class Levels implements Screen {
                 break;
             }
             case 322: {
-                LevelFactory lvl322 = new LevelFactory(Color.OLIVE,
+                LevelFactory lvl322 = new LevelFactory(color3,
                         40, Consts.getPathToThirdComplicated(), 150, 3, game, 322);
                 lvl322.setDot(true);
                 game.setScreen(new InfoScreen(game, lvl322));
@@ -519,7 +519,7 @@ public class Levels implements Screen {
                 break;
             }
             case 422: {
-                LevelFactory lvl422 = new LevelFactory(Color.OLIVE,
+                LevelFactory lvl422 = new LevelFactory(color4,
                         40, Consts.getPathToFourthComplicated(), 100, 4, game, 422);
                 lvl422.setDot(true);
                 game.setScreen(new InfoScreen(game, lvl422));
@@ -529,7 +529,7 @@ public class Levels implements Screen {
             ////////////////////////////////////////
             case 10: { //набор уровней с кручением
 
-                LevelFactory lvl1R = new LevelFactory(Color.RED,
+                LevelFactory lvl1R = new LevelFactory(color1,
                         40, Consts.getPathToFirstRotation(), 300, 1, game, 10);
                 lvl1R.setRotation(true, 5);
                 game.setScreen(new InfoScreen(game, lvl1R));
@@ -537,7 +537,7 @@ public class Levels implements Screen {
                 break;
             }
             case 20: {
-                LevelFactory lvl2R = new LevelFactory(Color.GREEN,
+                LevelFactory lvl2R = new LevelFactory(color2,
                         60, Consts.getPathToSecondRotation(), 100, 2, game, 20);
                 lvl2R.setRotation(true, 2);
                 game.setScreen(new InfoScreen(game, lvl2R));
@@ -546,7 +546,7 @@ public class Levels implements Screen {
             }
 
             case 30: {
-                LevelFactory lvl3R = new LevelFactory(Color.OLIVE,
+                LevelFactory lvl3R = new LevelFactory(color3,
                         60, Consts.getPathToThirdRotation(), 100, 3, game, 30);
                 lvl3R.setRotation(true, 1);
                 game.setScreen(new InfoScreen(game, lvl3R));
@@ -554,7 +554,7 @@ public class Levels implements Screen {
                 break;
             }
             case 40: {
-                LevelFactory lvl4R = new LevelFactory(Color.OLIVE,
+                LevelFactory lvl4R = new LevelFactory(color4,
                         50, Consts.getPathToFourthRotation(), 50, 4, game, 40);
                 lvl4R.setRotation(true, 0.5f);
                 game.setScreen(new InfoScreen(game, lvl4R));
@@ -564,7 +564,7 @@ public class Levels implements Screen {
             ////////////////////////////////////////
             case 101: { //набор уровней с кручением
 
-                LevelFactory lvl1R1 = new LevelFactory(Color.RED,
+                LevelFactory lvl1R1 = new LevelFactory(color4,
                         80, Consts.getPathToFirstRotation(), 500, 1, game, 101);
                 lvl1R1.setRotation(true, 4);
                 game.setScreen(new InfoScreen(game, lvl1R1));
@@ -572,7 +572,7 @@ public class Levels implements Screen {
                 break;
             }
             case 201: {
-                LevelFactory lvl2R1 = new LevelFactory(Color.GREEN,
+                LevelFactory lvl2R1 = new LevelFactory(color2,
                         80, Consts.getPathToSecondRotation(), 200, 2, game, 201);
                 lvl2R1.setRotation(true, 2);
                 game.setScreen(new InfoScreen(game, lvl2R1));
@@ -582,7 +582,7 @@ public class Levels implements Screen {
 
             case 301: {
 
-                LevelFactory lvl3R1 = new LevelFactory(Color.OLIVE,
+                LevelFactory lvl3R1 = new LevelFactory(color3,
                         80, Consts.getPathToThirdRotation(), 150, 3, game, 301);
                 lvl3R1.setRotation(true, 1);
                 game.setScreen(new InfoScreen(game, lvl3R1));
@@ -590,7 +590,7 @@ public class Levels implements Screen {
                 break;
             }
             case 401: {
-                LevelFactory lvl4R1 = new LevelFactory(Color.OLIVE,
+                LevelFactory lvl4R1 = new LevelFactory(color4,
                         80, Consts.getPathToFourthRotation(), 100, 4, game, 401);
                 lvl4R1.setRotation(true, 0.5f);
                 game.setScreen(new InfoScreen(game, lvl4R1));
@@ -601,7 +601,7 @@ public class Levels implements Screen {
             case 102: { //набор уровней с кручением
 
                 // сами уровни
-                LevelFactory lvl1R2 = new LevelFactory(Color.RED,
+                LevelFactory lvl1R2 = new LevelFactory(color1,
                         100, Consts.getPathToFirstRotationComplicated(), 600, 1, game, 102);
                 lvl1R2.setRotation(true, 3);
                 game.setScreen(new InfoScreen(game, lvl1R2));
@@ -609,7 +609,7 @@ public class Levels implements Screen {
                 break;
             }
             case 202: {
-                LevelFactory lvl2R2 = new LevelFactory(Color.GREEN,
+                LevelFactory lvl2R2 = new LevelFactory(color2,
                         100, Consts.getPathToSecondRotationComplicated(), 300, 2, game, 202);
                 lvl2R2.setRotation(true, 1);
                 game.setScreen(new InfoScreen(game, lvl2R2));
@@ -618,7 +618,7 @@ public class Levels implements Screen {
             }
 
             case 302: {
-                LevelFactory lvl3R2 = new LevelFactory(Color.OLIVE,
+                LevelFactory lvl3R2 = new LevelFactory(color3,
                         100, Consts.getPathToThirdRotationComplicated(), 200, 3, game, 302);
                 lvl3R2.setRotation(true, 0.5f);
                 game.setScreen(new InfoScreen(game, lvl3R2));
@@ -626,7 +626,7 @@ public class Levels implements Screen {
                 break;
             }
             case 402: {
-                LevelFactory lvl4R2 = new LevelFactory(Color.OLIVE,
+                LevelFactory lvl4R2 = new LevelFactory(color4,
                         100, Consts.getPathToFourthRotationComplicated(), 200, 4, game, 402);
                 lvl4R2.setRotation(true, 0.25f);
                 game.setScreen(new InfoScreen(game, lvl4R2));
