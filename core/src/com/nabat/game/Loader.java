@@ -4,18 +4,28 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-public class Loader {
+public class Loader {//TODO ДОБАВИТЬ САУНД
 
     private static TextureRegion exitButton;
+    private static TextureRegion soundOn;
+    private static TextureRegion soundOff;
     private static TextureRegion shopButton;
     private static TextureRegion settingsButton;
     private static TextureAtlas textureAtlas;
-
     Loader() {
 
 
     }
-    public static void dispose(){
+
+    public static TextureRegion getSoundOn() {
+        return soundOn;
+    }
+
+    public static TextureRegion getSoundOff() {
+        return soundOff;
+    }
+
+    public static void dispose() {
 
         textureAtlas.dispose();
     }
@@ -51,6 +61,13 @@ public class Loader {
         loadExit();
         loadShop();
         loadSettings();
+        loadSounds();
+    }
+
+    private static void loadSounds() {
+
+        soundOn = textureAtlas.findRegion("ic_action_music_note");
+        soundOff = textureAtlas.findRegion("ic_action_music_off");
     }
 
     private static void loadExit() {

@@ -1,0 +1,145 @@
+assets.png
+size: 471, 482
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+ic_action_music_note
+  rotate: false
+  xy: 415, 275
+  size: 50, 74
+  orig: 96, 96
+  offset: 23, 11
+  index: -1
+ic_action_music_off
+  rotate: false
+  xy: 395, 373
+  size: 74, 74
+  orig: 96, 96
+  offset: 11, 11
+  index: -1
+ic_attach_money
+  rotate: false
+  xy: 177, 1
+  size: 100, 174
+  orig: 200, 200
+  offset: 50, 13
+  index: -1
+ic_clear
+  rotate: false
+  xy: 1, 354
+  size: 98, 98
+  orig: 120, 120
+  offset: 11, 11
+  index: -1
+ic_done_outline
+  rotate: false
+  xy: 144, 276
+  size: 98, 83
+  orig: 120, 120
+  offset: 11, 18
+  index: -1
+ic_favorite_border
+  rotate: false
+  xy: 279, 100
+  size: 97, 88
+  orig: 120, 120
+  offset: 12, 16
+  index: -1
+ic_lens
+  rotate: false
+  xy: 144, 177
+  size: 97, 97
+  orig: 120, 120
+  offset: 12, 11
+  index: -1
+ic_list_alt
+  rotate: false
+  xy: 244, 275
+  size: 96, 96
+  orig: 120, 120
+  offset: 12, 12
+  index: -1
+ic_loop
+  rotate: false
+  xy: 342, 275
+  size: 71, 96
+  orig: 120, 120
+  offset: 25, 12
+  index: -1
+ic_more_vert
+  rotate: true
+  xy: 1, 454
+  size: 27, 97
+  orig: 120, 120
+  offset: 47, 11
+  index: -1
+ic_pause_circle_filled
+  rotate: false
+  xy: 279, 1
+  size: 97, 97
+  orig: 120, 120
+  offset: 12, 11
+  index: -1
+ic_pause_circle_outline
+  rotate: false
+  xy: 101, 361
+  size: 97, 97
+  orig: 120, 120
+  offset: 12, 11
+  index: -1
+ic_payment
+  rotate: true
+  xy: 1, 177
+  size: 175, 141
+  orig: 200, 200
+  offset: 13, 29
+  index: -1
+ic_public
+  rotate: false
+  xy: 200, 373
+  size: 97, 97
+  orig: 120, 120
+  offset: 12, 11
+  index: -1
+ic_reorder
+  rotate: false
+  xy: 341, 197
+  size: 96, 76
+  orig: 120, 120
+  offset: 12, 22
+  index: -1
+ic_settings
+  rotate: false
+  xy: 299, 373
+  size: 94, 97
+  orig: 120, 120
+  offset: 13, 11
+  index: -1
+ic_settings_backup_restore
+  rotate: false
+  xy: 243, 190
+  size: 96, 83
+  orig: 120, 120
+  offset: 11, 18
+  index: -1
+ic_shopping_cart
+  rotate: false
+  xy: 1, 1
+  size: 174, 174
+  orig: 200, 200
+  offset: 13, 13
+  index: -1
+ic_star_border
+  rotate: true
+  xy: 378, 1
+  size: 96, 92
+  orig: 120, 120
+  offset: 12, 14
+  index: -1
+ic_thumb_up
+  rotate: true
+  xy: 378, 99
+  size: 96, 88
+  orig: 120, 120
+  offset: 12, 16
+  index: -1

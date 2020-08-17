@@ -24,6 +24,7 @@ allprojects {
     ext {
         appName = "Opposite Side"
         gdxVersion = '1.9.10'
+        gamesvcsVersion = '1.0.2'
         roboVMVersion = '2.3.8'
         box2DLightsVersion = '1.4'
         ashleyVersion = '1.7.0'

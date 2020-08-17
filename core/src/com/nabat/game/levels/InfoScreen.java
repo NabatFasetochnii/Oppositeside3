@@ -6,12 +6,12 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.nabat.game.Consts;
-import com.nabat.game.Game;
+import com.nabat.game.MyGame;
 import com.nabat.game.RectZone;
 
 public class InfoScreen implements Screen {
 
-    private final Game game;
+    private final MyGame myGame;
     private final LevelFactory levelFactory;
     private final RectZone startGame;
     private final RectZone backToMenu;
@@ -19,9 +19,9 @@ public class InfoScreen implements Screen {
     private boolean back = false;
     private String info;
 
-    InfoScreen(Game game, LevelFactory levelFactory) {
+    InfoScreen(MyGame myGame, LevelFactory levelFactory) {
 
-        this.game = game;
+        this.myGame = myGame;
         this.levelFactory = levelFactory;
 
         startGame = new RectZone(Consts.getWIDTH() / 20, (int) (Consts.getHEIGHT() * 0.1f),
@@ -321,20 +321,20 @@ public class InfoScreen implements Screen {
         backToMenu.draw();
         startGame.draw();
 
-        game.getBatch().begin();
+        myGame.getBatch().begin();
 
 
-        Consts.getFontForMenu().draw(game.getBatch(), info,
+        Consts.getFontForMenu().draw(myGame.getBatch(), info,
                 Consts.getWIDTH() / 20f, Consts.getHEIGHT() * 0.9f);
-        game.getBatch().end();
+        myGame.getBatch().end();
 
 
         if (start) {
-            game.setScreen(levelFactory);
+            myGame.setScreen(levelFactory);
             dispose();
         }
         if (back) {
-            game.setScreen(game.getLevels());
+            myGame.setScreen(myGame.getLevels());
             dispose();
         }
 

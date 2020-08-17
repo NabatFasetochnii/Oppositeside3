@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.nabat.game.Consts;
-import com.nabat.game.Game;
+import com.nabat.game.MyGame;
 import com.nabat.game.RectZone;
 import com.nabat.game.inputs.InputForGame;
 
@@ -27,7 +27,7 @@ public class LevelFactory implements Screen {
     private final ShapeRenderer timeLineEnd;
     private final int sizeOfScreens;
     private final int lvl;
-    private final Game game;
+    private final MyGame myGame;
     private final float levelTime;
     private final int lvlName;
     private int time = 0;
@@ -45,13 +45,13 @@ public class LevelFactory implements Screen {
     private boolean isDot = false;
     private int MAX_MISS = 3;
 
-    public LevelFactory(Color color, float levelTime, String pathToFile, int sizeOfScreens, int lvl, Game game, int lvlName) {
+    public LevelFactory(Color color, float levelTime, String pathToFile, int sizeOfScreens, int lvl, MyGame myGame, int lvlName) {
         this.levelTime = levelTime;
         MAX_COUNT_OF_PERIOD = (int) (levelTime / period);
         path = pathToFile;
         this.sizeOfScreens = sizeOfScreens;
         this.lvl = lvl;
-        this.game = game;
+        this.myGame = myGame;
         this.lvlName = lvlName;
         arrayLists = new ArrayList<>();
 
@@ -165,10 +165,10 @@ public class LevelFactory implements Screen {
     public void endLevel(String text, BitmapFont font1) {
 
         Gdx.input.setInputProcessor(null);
-        game.getBatch().begin();
-        font1.draw(game.getBatch(), text,
+        myGame.getBatch().begin();
+        font1.draw(myGame.getBatch(), text,
                 Consts.getWIDTH() / 3f, text_Y);
-        game.getBatch().end();
+        myGame.getBatch().end();
 
         int timeMax = 20;
 
@@ -203,7 +203,7 @@ public class LevelFactory implements Screen {
                 public boolean touchUp(int screenX, int screenY, int pointer, int button) {
 
 
-                    game.setScreen(game.getLevels());
+                    myGame.setScreen(myGame.getLevels());
 
 
                     int points = countOfSquare - countOfMiss;
@@ -594,7 +594,7 @@ public class LevelFactory implements Screen {
                             ////////////////////////////////////////
                         }
 
-                        game.updatePref();
+                        myGame.updatePref();
 
                     }
                     isLose = false;
@@ -676,14 +676,14 @@ public class LevelFactory implements Screen {
 
                         }
 
-                        game.getBatch().begin();
-                        Consts.getFontForCount().draw(game.getBatch(), countOfSquare + "",
+                        myGame.getBatch().begin();
+                        Consts.getFontForCount().draw(myGame.getBatch(), countOfSquare + "",
                                 50f, Gdx.app.getGraphics().getHeight() - 50f);
-                        Consts.getFontForCountMiss().draw(game.getBatch(), countOfMiss + "",
+                        Consts.getFontForCountMiss().draw(myGame.getBatch(), countOfMiss + "",
                                 Gdx.app.getGraphics().getWidth() - 100f,
                                 Gdx.app.getGraphics().getHeight() - 50f);
 
-                        game.getBatch().end();
+                        myGame.getBatch().end();
                         timeLineDraw();
                     }
                 } else {

@@ -16,9 +16,9 @@ public class RectZone {
     private final int height;
     private final boolean isRotation;
     private final Vector2 leftDown;
-    private final boolean pulsar = true;
     private final float cX = Consts.getWIDTH() / 3f;
     private final float cY = Consts.getHEIGHT() / 2f;
+    private boolean pulsar = true;
     private int widthS;
     private int heightS;
     private int x;
@@ -30,7 +30,6 @@ public class RectZone {
     private float gain = 0;
     private float rot; //deg
     private boolean isDot = false;
-
     public RectZone(int x, int y, int width, int height, Color color, boolean isRotation, float rot, boolean isDot) {
 
         this.x = x;
@@ -69,6 +68,10 @@ public class RectZone {
         rightDown = new Vector2(x + width,y);
         rightUp = new Vector2(x + width,y+height);*/
 
+    }
+
+    public void setPulsar(boolean pulsar) {
+        this.pulsar = pulsar;
     }
 
     public int getHeightS() {

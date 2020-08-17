@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 
 public class Consts {
@@ -12,6 +13,11 @@ public class Consts {
     private final static String WIN = "You WIN!";//константа текста проигрыша
     private final static String ttfPath = "fonts/Terminus.ttf";//путь к шрифту
     private final static String PLAY = "Tap to play";//TODO добавить мигание надписи //в игрее этого пока что вообще нет
+    //
+    //private final static String SOUND = "Sound";
+    private final static String GPGS = "Google Play\nGames: ";
+    private final static String OFF = "OFF";
+    private final static String ON = "ON";
     //
     private final static float scaleX = Gdx.app.getGraphics().getWidth() / 1080f; //масштабируем под экран
     private final static float scaleY = Gdx.app.getGraphics().getHeight() / 1920f;
@@ -92,6 +98,12 @@ public class Consts {
     //
     private final static String PREF_NAME = "data";//имя файла preferences
     //
+    private final static String SOUND = "sound";
+    //
+    private static boolean sound;
+    //
+    private static boolean login;
+    //
     private static int countOfAllPoints;//константа sum of best
     //
     private static int countOfPoints1;//константы счёта по уровням
@@ -144,10 +156,47 @@ public class Consts {
     private static BitmapFont fontForCountMiss;
     private static BitmapFont fontForWin;
     private static BitmapFont fontForMenu;
-
     Consts() {
 
 
+    }
+
+    public static boolean isLogin() {
+        return login;
+    }
+
+    public static void setLogin(boolean login) {
+        Consts.login = login;
+    }
+
+    public static boolean isTouch(TextureRegion textureRegion, int X, int Y) {
+
+        return ((textureRegion.getU2() <= X) && (X <= textureRegion.getU())
+                && (textureRegion.getV2() <= Y) && (Y <= textureRegion.getV()));
+    }
+
+    public static String getSOUND() {
+        return SOUND;
+    }
+
+    public static boolean isSound() {
+        return sound;
+    }
+
+    public static void setSound(boolean sound) {
+        Consts.sound = sound;
+    }
+
+    public static String getGPGS() {
+        return GPGS;
+    }
+
+    public static String getOFF() {
+        return OFF;
+    }
+
+    public static String getON() {
+        return ON;
     }
 
     public static BitmapFont getFontForMenu() {
