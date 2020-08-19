@@ -3,20 +3,22 @@ package com.nabat.game.inputs;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.nabat.game.Consts;
-import com.nabat.game.Loader;
 import com.nabat.game.MyGame;
 import com.nabat.game.RectZone;
+import com.nabat.game.Start;
 
 public class InputForStart implements InputProcessor {
 
     private final MyGame myGame;
     private final RectZone rectZone, gpgsZone;
+    Start start;
 
-    public InputForStart(MyGame myGame, RectZone rectZone, RectZone gpgs) {
+    public InputForStart(Start start) {
 
-        this.myGame = myGame;
-        this.rectZone = rectZone;
-        gpgsZone = gpgs;
+        this.start = start;
+        this.myGame = start.getMyGame();
+        this.rectZone = start.getStarZone();
+        gpgsZone = start.getGpgsZone();
     }
 
     @Override
@@ -44,32 +46,47 @@ public class InputForStart implements InputProcessor {
 
         int y = Consts.getHEIGHT() - screenY;
 
-        if (rectZone.isTouch(screenX, y)){
+        if (rectZone.isTouch(screenX, y)) {
 
             myGame.setScreen(myGame.getLevels());
         }
-        if (Consts.isTouch(Loader.getShopButton(), screenX,y)){
+
+        if (Consts.isTouch(start.getShopX(), start.getShopY(), start.getShopW(), start.getShopH(), screenX, y)) {
 
             //TODO SHOP
         }
-        if (Consts.isTouch(Loader.getSoundOn(), screenX, y)){
+
+        if (Consts.isTouch(start.getSoundX(), start.getSoundY(), start.getSoundW(), start.getSoundH(), screenX, y)) {
             Consts.setSound(!Consts.isSound());
+            myGame.changeSoundPlay();
         }
-        if (gpgsZone.isTouch(screenX, y)){
+
+        if (gpgsZone.isTouch(screenX, y)) {
 
             //TODO LOGIN
-            if (myGame.gsClient.isSessionActive())
+            if (myGame.gsClient.isSessionActive()) {
                 myGame.gsClient.logOff();
-            else {
-                if (!myGame.gsClient.logIn())
+            } else {
+                if (!myGame.gsClient.logIn()) {
                     Gdx.app.error("GS_ERROR", "Cannot sign in: No credentials or session id given.");
+                }
+//                myGame.gsClient.refreshStatusLabel();
 
-                //refreshStatusLabel();
             }
 
-            Consts.setLogin(!Consts.isLogin());
+//            Consts.setLogin(!Consts.isLogin());
         }
 
+        if (Consts.isTouch(start.getRateX(), start.getRateY(), start.getShopW(), start.getShopH(), screenX, y)){
+
+            //TODO ОЦЕНИТЕ ПРИЛОЖУХУ ПЖЖЖЖЖЖЖ
+        }
+
+        if (Consts.isTouch(start.getExitX(), start.getExitY(), start.getShopW(), start.getShopH(), screenX, y)){
+
+            myGame.updatePref();
+            Gdx.app.exit();
+        }
 
         return true;
     }

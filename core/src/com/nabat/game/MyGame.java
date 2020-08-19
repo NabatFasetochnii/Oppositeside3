@@ -98,6 +98,15 @@ public class MyGame extends com.badlogic.gdx.Game implements IGameServiceListene
         gsClient.resumeSession();
     }
 
+    public void changeSoundPlay(){
+
+        if (Consts.isSound()){
+            music.play();
+        }else {
+            music.pause();
+        }
+    }
+
     @Override
     public void pause() {
         super.pause();

@@ -3,9 +3,8 @@ package com.nabat.game.levels;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
-import com.nabat.game.Consts;
-import com.nabat.game.MyGame;
-import com.nabat.game.RectZone;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
+import com.nabat.game.*;
 import com.nabat.game.inputs.InputForMenu;
 
 import java.util.ArrayList;
@@ -25,18 +24,29 @@ public class Levels implements Screen {
     private final ArrayList<RectZone> zoneList;
     private final int zeroPoint;
     private final int endPoint;
-    private int scrollX = 0;
     private final Color color1, color2, color3, color4;
+    private final int rectsS;
+    private int scrollX = 0;
+    private final float sumOfBestX;
+    private final float sumOfBestY;
+    private final float scoreW;
+    private String score;
+    private boolean start = false;
+    private int time =0;
+
     //TODO написать менюшку
     //TODO ДОБАВИТЬ ОЧИВКИ
     //TODO добавить сервисы гугл
     //TODO ДОБАВИТЬ МЕХАНИКУ НЕВИДИМЫХ КВАДРАТИКОВ (ИГРА НА ПАМЯТЬ)
     //TODO ДОБАВИТЬ МЕХАНИКУ ПЕРЕСТАНОВКИ КВАДРАТИКОВ, МБ НАЛОЖЕНИЕ ОДНОГО НА ДРУГОГО ИЛИ ДОПОЛНЕНИЕ (НАПРИМЕР СОПОСТАВИТЬ КВАДРАТ И ЕГО РАМКУ)
-    
+
 
     public Levels(MyGame myGame) {
         zoneList = new ArrayList<>();
         this.myGame = myGame;
+
+        sumOfBestX = Consts.getWIDTH() / 22f;
+        sumOfBestY = Consts.getHEIGHT() - sumOfBestX;
 
         color1 = Color.FIREBRICK;
         color2 = Color.RED;//
@@ -55,217 +65,125 @@ public class Levels implements Screen {
         Color color22 = new Color(Color.rgb888(240, 165, 0));
         Color color23 = new Color(Color.rgb888(232, 157, 0));
 
+        GlyphLayout glyphLayout = new GlyphLayout(Consts.getFontForMenu(), "Sum of best: " + Consts.getCountOfAllPoints());
+
+        scoreW = glyphLayout.width;
+        float scoreH = glyphLayout.height;
+
         zeroPoint = Consts.getWIDTH() / 10;
 
-        int LEVEL_LEVEL = (Consts.getHEIGHT() / 6);
-        l1 = new RectZone(scrollX + Consts.getWIDTH() / 10,
-                Consts.getHEIGHT() - LEVEL_LEVEL,
-                Consts.getWIDTH() / 10,
-                Consts.getWIDTH() / 10, color01);
+        int rectsY = (int) (sumOfBestY - scoreH - Consts.getHEIGHT() / 6);
+        int rectsX = Consts.getWIDTH() / 10;
+        rectsS = Consts.getWIDTH() / 10;
+        int rectDelta = Consts.getWIDTH() / 5;
 
-        l2 = new RectZone(scrollX + Consts.getWIDTH() / 10,//Consts.getWIDTH() / 10 + Consts.getWIDTH() / 5
-                Consts.getHEIGHT() - LEVEL_LEVEL - Consts.getWIDTH() / 5,
-                Consts.getWIDTH() / 10,
-                Consts.getWIDTH() / 10, color01);
+        if (scoreW > Consts.getWIDTH() - sumOfBestX * 2 - rectsS) {
 
-        l3 = new RectZone(scrollX + Consts.getWIDTH() / 10,//Consts.getWIDTH() / 10 + 2 * Consts.getWIDTH() / 5
-                Consts.getHEIGHT() - LEVEL_LEVEL - 2 * Consts.getWIDTH() / 5,
-                Consts.getWIDTH() / 10,
-                Consts.getWIDTH() / 10, color01);
+            score = "Sum of best:\n" + Consts.getCountOfAllPoints();
+        } else {
+            score = "Sum of best: " + Consts.getCountOfAllPoints();
 
-        l4 = new RectZone(scrollX + Consts.getWIDTH() / 10,//Consts.getWIDTH() / 10 + 3 * Consts.getWIDTH() / 5
-                Consts.getHEIGHT() - LEVEL_LEVEL - 3 * Consts.getWIDTH() / 5,
-                Consts.getWIDTH() / 10,
-                Consts.getWIDTH() / 10, color01);
+        }
+
+        l1 = new RectZone(rectsX, rectsY, rectsS, rectsS, color01);
+
+        l2 = new RectZone(rectsX, rectsY - rectDelta, rectsS, rectsS, color01);
+
+        l3 = new RectZone(rectsX, rectsY - 2 * rectDelta, rectsS, rectsS, color01);
+
+        l4 = new RectZone(rectsX, rectsY - 3 * rectDelta, rectsS, rectsS, color01);
 
         ////////////////////////////////
 
         int c = 1;
 
+        l11 = new RectZone(rectsX + c * rectDelta, rectsY, rectsS, rectsS, color02);
 
-        l11 = new RectZone(scrollX + Consts.getWIDTH() / 10 + c * Consts.getWIDTH() / 5,
-                Consts.getHEIGHT() - LEVEL_LEVEL,
-                Consts.getWIDTH() / 10,
-                Consts.getWIDTH() / 10, color02);
+        l21 = new RectZone(rectsX + c * rectDelta, rectsY - rectDelta, rectsS, rectsS, color02);
 
-        l21 = new RectZone(scrollX + Consts.getWIDTH() / 10 + c * Consts.getWIDTH() / 5,
-                Consts.getHEIGHT() - LEVEL_LEVEL - Consts.getWIDTH() / 5,
-                Consts.getWIDTH() / 10,
-                Consts.getWIDTH() / 10, color02);
+        l31 = new RectZone(rectsX + c * rectDelta, rectsY - 2 * rectDelta, rectsS, rectsS, color02);
 
-        l31 = new RectZone(scrollX + Consts.getWIDTH() / 10 + c * Consts.getWIDTH() / 5,
-                Consts.getHEIGHT() - LEVEL_LEVEL - 2 * Consts.getWIDTH() / 5,
-                Consts.getWIDTH() / 10,
-                Consts.getWIDTH() / 10, color02);
-
-        l41 = new RectZone(scrollX + Consts.getWIDTH() / 10 + c * Consts.getWIDTH() / 5,
-                Consts.getHEIGHT() - LEVEL_LEVEL - 3 * Consts.getWIDTH() / 5,
-                Consts.getWIDTH() / 10,
-                Consts.getWIDTH() / 10, color02);
+        l41 = new RectZone(rectsX + c * rectDelta, rectsY - 3 * rectDelta, rectsS, rectsS, color02);
 
         ////////////////////////////////
         c = 2;
 
-        l111 = new RectZone(scrollX + Consts.getWIDTH() / 10 + c * Consts.getWIDTH() / 5,
-                Consts.getHEIGHT() - LEVEL_LEVEL,
-                Consts.getWIDTH() / 10,
-                Consts.getWIDTH() / 10, color03);
+        l111 = new RectZone(rectsX + c * rectDelta, rectsY, rectsS, rectsS, color03);
 
-        l211 = new RectZone(scrollX + Consts.getWIDTH() / 10 + c * Consts.getWIDTH() / 5,
-                Consts.getHEIGHT() - LEVEL_LEVEL - Consts.getWIDTH() / 5,
-                Consts.getWIDTH() / 10,
-                Consts.getWIDTH() / 10, color03);
+        l211 = new RectZone(rectsX + c * rectDelta, rectsY - rectDelta, rectsS, rectsS, color03);
 
-        l311 = new RectZone(scrollX + Consts.getWIDTH() / 10 + c * Consts.getWIDTH() / 5,
-                Consts.getHEIGHT() - LEVEL_LEVEL - 2 * Consts.getWIDTH() / 5,
-                Consts.getWIDTH() / 10,
-                Consts.getWIDTH() / 10, color03);
+        l311 = new RectZone(rectsX + c * rectDelta, rectsY - 2 * rectDelta, rectsS, rectsS, color03);
 
-        l411 = new RectZone(scrollX + Consts.getWIDTH() / 10 + c * Consts.getWIDTH() / 5,
-                Consts.getHEIGHT() - LEVEL_LEVEL - 3 * Consts.getWIDTH() / 5,
-                Consts.getWIDTH() / 10,
-                Consts.getWIDTH() / 10, color03);
+        l411 = new RectZone(rectsX + c * rectDelta, rectsY - 3 * rectDelta, rectsS, rectsS, color03);
 
         ////////////////////////////////
         c = 3;
-        l12 = new RectZone(scrollX + Consts.getWIDTH() / 10 + c * Consts.getWIDTH() / 5,
-                Consts.getHEIGHT() - LEVEL_LEVEL,
-                Consts.getWIDTH() / 10,
-                Consts.getWIDTH() / 10, color11);
+        l12 = new RectZone(rectsX + c * rectDelta, rectsY, rectsS, rectsS, color11);
 
-        l22 = new RectZone(scrollX + Consts.getWIDTH() / 10 + c * Consts.getWIDTH() / 5,
-                Consts.getHEIGHT() - LEVEL_LEVEL - Consts.getWIDTH() / 5,
-                Consts.getWIDTH() / 10,
-                Consts.getWIDTH() / 10, color11);
+        l22 = new RectZone(rectsX + c * rectDelta, rectsY - rectDelta, rectsS, rectsS, color11);
 
-        l32 = new RectZone(scrollX + Consts.getWIDTH() / 10 + c * Consts.getWIDTH() / 5,
-                Consts.getHEIGHT() - LEVEL_LEVEL - 2 * Consts.getWIDTH() / 5,
-                Consts.getWIDTH() / 10,
-                Consts.getWIDTH() / 10, color11);
+        l32 = new RectZone(rectsX + c * rectDelta, rectsY - 2 * rectDelta, rectsS, rectsS, color11);
 
-        l42 = new RectZone(scrollX + Consts.getWIDTH() / 10 + c * Consts.getWIDTH() / 5,
-                Consts.getHEIGHT() - LEVEL_LEVEL - 3 * Consts.getWIDTH() / 5,
-                Consts.getWIDTH() / 10,
-                Consts.getWIDTH() / 10, color11);
+        l42 = new RectZone(rectsX + c * rectDelta, rectsY - 3 * rectDelta, rectsS, rectsS, color11);
 
         ////////////////////////////////
         c = 4;
 
-        l121 = new RectZone(scrollX + Consts.getWIDTH() / 10 + c * Consts.getWIDTH() / 5,
-                Consts.getHEIGHT() - LEVEL_LEVEL,
-                Consts.getWIDTH() / 10,
-                Consts.getWIDTH() / 10, color12);
+        l121 = new RectZone(rectsX + c * rectDelta, rectsY, rectsS, rectsS, color12);
 
-        l221 = new RectZone(scrollX + Consts.getWIDTH() / 10 + c * Consts.getWIDTH() / 5,
-                Consts.getHEIGHT() - LEVEL_LEVEL - Consts.getWIDTH() / 5,
-                Consts.getWIDTH() / 10,
-                Consts.getWIDTH() / 10, color12);
+        l221 = new RectZone(rectsX + c * rectDelta, rectsY - rectDelta, rectsS, rectsS, color12);
 
-        l321 = new RectZone(scrollX + Consts.getWIDTH() / 10 + c * Consts.getWIDTH() / 5,
-                Consts.getHEIGHT() - LEVEL_LEVEL - 2 * Consts.getWIDTH() / 5,
-                Consts.getWIDTH() / 10,
-                Consts.getWIDTH() / 10, color12);
+        l321 = new RectZone(rectsX + c * rectDelta, rectsY - 2 * rectDelta, rectsS, rectsS, color12);
 
-        l421 = new RectZone(scrollX + Consts.getWIDTH() / 10 + c * Consts.getWIDTH() / 5,
-                Consts.getHEIGHT() - LEVEL_LEVEL - 3 * Consts.getWIDTH() / 5,
-                Consts.getWIDTH() / 10,
-                Consts.getWIDTH() / 10, color12);
+        l421 = new RectZone(rectsX + c * rectDelta, rectsY - 3 * rectDelta, rectsS, rectsS, color12);
 
         /////////////////////////////////////////////////
 
         c = 5;
 
-        l122 = new RectZone(scrollX + Consts.getWIDTH() / 10 + c * Consts.getWIDTH() / 5,
-                Consts.getHEIGHT() - LEVEL_LEVEL,
-                Consts.getWIDTH() / 10,
-                Consts.getWIDTH() / 10, color13);
+        l122 = new RectZone(rectsX + c * rectDelta, rectsY, rectsS, rectsS, color13);
 
-        l222 = new RectZone(scrollX + Consts.getWIDTH() / 10 + c * Consts.getWIDTH() / 5,
-                Consts.getHEIGHT() - LEVEL_LEVEL - Consts.getWIDTH() / 5,
-                Consts.getWIDTH() / 10,
-                Consts.getWIDTH() / 10, color13);
+        l222 = new RectZone(rectsX + c * rectDelta, rectsY - rectDelta, rectsS, rectsS, color13);
 
-        l322 = new RectZone(scrollX + Consts.getWIDTH() / 10 + c * Consts.getWIDTH() / 5,
-                Consts.getHEIGHT() - LEVEL_LEVEL - 2 * Consts.getWIDTH() / 5,
-                Consts.getWIDTH() / 10,
-                Consts.getWIDTH() / 10, color13);
+        l322 = new RectZone(rectsX + c * rectDelta, rectsY - 2 * rectDelta, rectsS, rectsS, color13);
 
-        l422 = new RectZone(scrollX + Consts.getWIDTH() / 10 + c * Consts.getWIDTH() / 5,
-                Consts.getHEIGHT() - LEVEL_LEVEL - 3 * Consts.getWIDTH() / 5,
-                Consts.getWIDTH() / 10,
-                Consts.getWIDTH() / 10, color13);
+        l422 = new RectZone(rectsX + c * rectDelta, rectsY - 3 * rectDelta, rectsS, rectsS, color13);
 
         /////////////////////////////////////////////////
         c = 6;
 
-        l1R = new RectZone(scrollX + Consts.getWIDTH() / 10 + c * Consts.getWIDTH() / 5,
-                Consts.getHEIGHT() - LEVEL_LEVEL,
-                Consts.getWIDTH() / 10,
-                Consts.getWIDTH() / 10, color21);//new Color(116,73,255,100)
+        l1R = new RectZone(rectsX + c * rectDelta, rectsY, rectsS, rectsS, color21);//new Color(116,73,255,100)
 
 
-        l2R = new RectZone(scrollX + Consts.getWIDTH() / 10 + c * Consts.getWIDTH() / 5,
-                Consts.getHEIGHT() - LEVEL_LEVEL - Consts.getWIDTH() / 5,
-                Consts.getWIDTH() / 10,
-                Consts.getWIDTH() / 10, color21);
+        l2R = new RectZone(rectsX + c * rectDelta, rectsY - rectDelta, rectsS, rectsS, color21);
 
-        l3R = new RectZone(scrollX + Consts.getWIDTH() / 10 + c * Consts.getWIDTH() / 5,
-                Consts.getHEIGHT() - LEVEL_LEVEL - 2 * Consts.getWIDTH() / 5,
-                Consts.getWIDTH() / 10,
-                Consts.getWIDTH() / 10, color21);
+        l3R = new RectZone(rectsX + c * rectDelta, rectsY - 2 * rectDelta, rectsS, rectsS, color21);
 
-        l4R = new RectZone(scrollX + Consts.getWIDTH() / 10 + c * Consts.getWIDTH() / 5,
-                Consts.getHEIGHT() - LEVEL_LEVEL - 3 * Consts.getWIDTH() / 5,
-                Consts.getWIDTH() / 10,
-                Consts.getWIDTH() / 10, color21);
+        l4R = new RectZone(rectsX + c * rectDelta, rectsY - 3 * rectDelta, rectsS, rectsS, color21);
 
         /////////////////////////////////////////////////
         c = 7;
 
-        l1R1 = new RectZone(scrollX + Consts.getWIDTH() / 10 + c * Consts.getWIDTH() / 5,
-                Consts.getHEIGHT() - LEVEL_LEVEL,
-                Consts.getWIDTH() / 10,
-                Consts.getWIDTH() / 10, color22);//new Color(116,73,255,100)
+        l1R1 = new RectZone(rectsX + c * rectDelta, rectsY, rectsS, rectsS, color22);//new Color(116,73,255,100)
 
 
-        l2R1 = new RectZone(scrollX + Consts.getWIDTH() / 10 + c * Consts.getWIDTH() / 5,
-                Consts.getHEIGHT() - LEVEL_LEVEL - Consts.getWIDTH() / 5,
-                Consts.getWIDTH() / 10,
-                Consts.getWIDTH() / 10, color22);
+        l2R1 = new RectZone(rectsX + c * rectDelta, rectsY - rectDelta, rectsS, rectsS, color22);
 
-        l3R1 = new RectZone(scrollX + Consts.getWIDTH() / 10 + c * Consts.getWIDTH() / 5,
-                Consts.getHEIGHT() - LEVEL_LEVEL - 2 * Consts.getWIDTH() / 5,
-                Consts.getWIDTH() / 10,
-                Consts.getWIDTH() / 10, color22);
+        l3R1 = new RectZone(rectsX + c * rectDelta, rectsY - 2 * rectDelta, rectsS, rectsS, color22);
 
-        l4R1 = new RectZone(scrollX + Consts.getWIDTH() / 10 + c * Consts.getWIDTH() / 5,
-                Consts.getHEIGHT() - LEVEL_LEVEL - 3 * Consts.getWIDTH() / 5,
-                Consts.getWIDTH() / 10,
-                Consts.getWIDTH() / 10, color22);
+        l4R1 = new RectZone(rectsX + c * rectDelta, rectsY - 3 * rectDelta, rectsS, rectsS, color22);
 
         /////////////////////////////////////////////////
         c = 8;
 
-        l1R2 = new RectZone(scrollX + Consts.getWIDTH() / 10 + c * Consts.getWIDTH() / 5,
-                Consts.getHEIGHT() - LEVEL_LEVEL,
-                Consts.getWIDTH() / 10,
-                Consts.getWIDTH() / 10, color23);//new Color(116,73,255,100)
+        l1R2 = new RectZone(rectsX + c * rectDelta, rectsY, rectsS, rectsS, color23);//new Color(116,73,255,100)
 
 
-        l2R2 = new RectZone(scrollX + Consts.getWIDTH() / 10 + c * Consts.getWIDTH() / 5,
-                Consts.getHEIGHT() - LEVEL_LEVEL - Consts.getWIDTH() / 5,
-                Consts.getWIDTH() / 10,
-                Consts.getWIDTH() / 10, color23);
+        l2R2 = new RectZone(rectsX + c * rectDelta, rectsY - rectDelta, rectsS, rectsS, color23);
 
-        l3R2 = new RectZone(scrollX + Consts.getWIDTH() / 10 + c * Consts.getWIDTH() / 5,
-                Consts.getHEIGHT() - LEVEL_LEVEL - 2 * Consts.getWIDTH() / 5,
-                Consts.getWIDTH() / 10,
-                Consts.getWIDTH() / 10, color23);
+        l3R2 = new RectZone(rectsX + c * rectDelta, rectsY - 2 * rectDelta, rectsS, rectsS, color23);
 
-        l4R2 = new RectZone(scrollX + Consts.getWIDTH() / 10 + c * Consts.getWIDTH() / 5,
-                Consts.getHEIGHT() - LEVEL_LEVEL - 3 * Consts.getWIDTH() / 5,
-                Consts.getWIDTH() / 10,
-                Consts.getWIDTH() / 10, color23);
+        l4R2 = new RectZone(rectsX + c * rectDelta, rectsY - 3 * rectDelta, rectsS, rectsS, color23);
 
         endPoint = Consts.getWIDTH() - zeroPoint - l1.getWidth();
 
@@ -315,14 +233,37 @@ public class Levels implements Screen {
         zoneList.add(l4R2);
     }
 
+    public void setStart(){
+
+        start = true;
+
+    }
+
     public static void setLvl(int lvl) {
         Levels.lvl = lvl;
+    }
+
+    public int getRectsS() {
+        return rectsS;
     }
 
     @Override
     public void render(float delta) {
 
         Consts.clear();
+
+        if (start){
+
+            int timeMax = 20;
+
+            if (time > timeMax){
+                myGame.setScreen(new Start(myGame));
+                time = 0;
+                start = false;
+            }else {
+                time++;
+            }
+        }
 
         for (RectZone r : zoneList) {
             r.draw();
@@ -336,7 +277,10 @@ public class Levels implements Screen {
         Consts.getFontForMenu().draw(myGame.getBatch(), "3", l3.getX() + l3.getWidth() / 4f, l3.getY() + l3.getHeight() / f);
         Consts.getFontForMenu().draw(myGame.getBatch(), "4", l4.getX() + l4.getWidth() / 4f, l4.getY() + l4.getHeight() / f);
 
-        Consts.getFontForMenu().draw(myGame.getBatch(), "Sum of best: " + Consts.getCountOfAllPoints(), 50, Consts.getHEIGHT() - 50);
+        Consts.getFontForMenu().draw(myGame.getBatch(), score, sumOfBestX, sumOfBestY);
+
+        myGame.getBatch().draw(Loader.getSettingsButton(),
+                Consts.getWIDTH() - rectsS, Consts.getHEIGHT() - rectsS, rectsS, rectsS);
 
         myGame.getBatch().end();
 
@@ -641,22 +585,15 @@ public class Levels implements Screen {
 
     }
 
-    /////////scroll
-    public void setScrollX(int scrollX) {
-
-        if (l1.getX() - scrollX < zeroPoint && l1R2.getX() - scrollX > endPoint) {
-
-            this.scrollX = scrollX;
-            for (RectZone r : zoneList) {
-                r.setX(r.getX() - scrollX);
-            }
-        }
-
-    }
-
-
     @Override
     public void show() {
+        if (scoreW > Consts.getWIDTH() - sumOfBestX * 2 - rectsS) {
+
+            score = "Sum of best:\n" + Consts.getCountOfAllPoints();
+        } else {
+            score = "Sum of best: " + Consts.getCountOfAllPoints();
+
+        }
         Gdx.input.setInputProcessor(new InputForMenu(this));
     }
 
@@ -688,6 +625,7 @@ public class Levels implements Screen {
         l4.dispose();
         l1R.dispose();
     }
+
     public RectZone getL1R1() {
         return l1R1;
     }
@@ -770,6 +708,19 @@ public class Levels implements Screen {
 
     public int getScrollX() {
         return scrollX;
+    }
+
+    /////////scroll
+    public void setScrollX(int scrollX) {
+
+        if (l1.getX() - scrollX < zeroPoint && l1R2.getX() - scrollX > endPoint) {
+
+            this.scrollX = scrollX;
+            for (RectZone r : zoneList) {
+                r.setX(r.getX() - scrollX);
+            }
+        }
+
     }
 
     public RectZone getL12() {

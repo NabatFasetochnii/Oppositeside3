@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 
 public class Consts {
@@ -161,18 +160,9 @@ public class Consts {
 
     }
 
-    public static boolean isLogin() {
-        return login;
-    }
+    public static boolean isTouch(float x, float y, float w, float h, int X, int Y) {
 
-    public static void setLogin(boolean login) {
-        Consts.login = login;
-    }
-
-    public static boolean isTouch(TextureRegion textureRegion, int X, int Y) {
-
-        return ((textureRegion.getU2() <= X) && (X <= textureRegion.getU())
-                && (textureRegion.getV2() <= Y) && (Y <= textureRegion.getV()));
+        return ((x <= X) && (X <= x+w) && (y <= Y) && (Y <= y+h));
     }
 
     public static String getSOUND() {
