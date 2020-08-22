@@ -65,7 +65,7 @@ public class Levels implements Screen {
         Color color22 = new Color(Color.rgb888(240, 165, 0));
         Color color23 = new Color(Color.rgb888(232, 157, 0));
 
-        GlyphLayout glyphLayout = new GlyphLayout(Consts.getFontForMenu(), "Sum of best: " + Consts.getCountOfAllPoints());
+        GlyphLayout glyphLayout = new GlyphLayout(Consts.getFontForMenu(), "Sum of best: " + Consts.getMap().get(Consts.getCOUNT0()));
 
         scoreW = glyphLayout.width;
         float scoreH = glyphLayout.height;
@@ -79,9 +79,9 @@ public class Levels implements Screen {
 
         if (scoreW > Consts.getWIDTH() - sumOfBestX * 2 - rectsS) {
 
-            score = "Sum of best:\n" + Consts.getCountOfAllPoints();
+            score = "Sum of best:\n" + Consts.getMap().get(Consts.getCOUNT0());
         } else {
-            score = "Sum of best: " + Consts.getCountOfAllPoints();
+            score = "Sum of best: " + Consts.getMap().get(Consts.getCOUNT0());
 
         }
 
@@ -587,11 +587,12 @@ public class Levels implements Screen {
 
     @Override
     public void show() {
+
         if (scoreW > Consts.getWIDTH() - sumOfBestX * 2 - rectsS) {
 
-            score = "Sum of best:\n" + Consts.getCountOfAllPoints();
+            score = "Sum of best:\n" + Consts.getMap().get(Consts.getCOUNT0());
         } else {
-            score = "Sum of best: " + Consts.getCountOfAllPoints();
+            score = "Sum of best: " + Consts.getMap().get(Consts.getCOUNT0());
 
         }
         Gdx.input.setInputProcessor(new InputForMenu(this));
@@ -624,6 +625,19 @@ public class Levels implements Screen {
         l3.dispose();
         l4.dispose();
         l1R.dispose();
+    }
+
+    /////////scroll
+    public void setScrollX(int scrollX) {
+
+        if (l1.getX() - scrollX < zeroPoint && l1R2.getX() - scrollX > endPoint) {
+
+            this.scrollX = scrollX;
+            for (RectZone r : zoneList) {
+                r.setX(r.getX() - scrollX);
+            }
+        }
+
     }
 
     public RectZone getL1R1() {
@@ -708,19 +722,6 @@ public class Levels implements Screen {
 
     public int getScrollX() {
         return scrollX;
-    }
-
-    /////////scroll
-    public void setScrollX(int scrollX) {
-
-        if (l1.getX() - scrollX < zeroPoint && l1R2.getX() - scrollX > endPoint) {
-
-            this.scrollX = scrollX;
-            for (RectZone r : zoneList) {
-                r.setX(r.getX() - scrollX);
-            }
-        }
-
     }
 
     public RectZone getL12() {

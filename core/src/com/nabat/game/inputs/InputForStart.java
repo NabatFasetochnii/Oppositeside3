@@ -11,13 +11,13 @@ public class InputForStart implements InputProcessor {
 
     private final MyGame myGame;
     private final RectZone rectZone, gpgsZone;
-    Start start;
+    private final Start start;
 
     public InputForStart(Start start) {
 
         this.start = start;
         this.myGame = start.getMyGame();
-        this.rectZone = start.getStarZone();
+        this.rectZone = start.getStartZone();
         gpgsZone = start.getGpgsZone();
     }
 
@@ -49,6 +49,7 @@ public class InputForStart implements InputProcessor {
         if (rectZone.isTouch(screenX, y)) {
 
             myGame.setScreen(myGame.getLevels());
+            start.dispose();
         }
 
         if (Consts.isTouch(start.getShopX(), start.getShopY(), start.getShopW(), start.getShopH(), screenX, y)) {

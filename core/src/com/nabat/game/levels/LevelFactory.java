@@ -202,392 +202,367 @@ public class LevelFactory implements Screen {
                 @Override
                 public boolean touchUp(int screenX, int screenY, int pointer, int button) {
 
-
-                    myGame.setScreen(myGame.getLevels());
-
-
                     int points = countOfSquare - countOfMiss;
 
                     if (points > 0) {
 
                         switch (lvlName) {
-
                             case 1: {
+                                if (points > Consts.getMap().get(Consts.getCOUNT1())) {
 
-
-                                if (points > Consts.getCountOfPoints1()) {
-
-                                    Consts.setCountOfAllPoints(Consts.getCountOfAllPoints() +
-                                            points - Consts.getCountOfPoints1());
-                                    Consts.setCountOfPoints1(points);
-
+                                    Consts.getMap().put(Consts.getCOUNT0(),
+                                            Consts.getMap().get(Consts.getCOUNT0()) +
+                                                    points - Consts.getMap().get(Consts.getCOUNT1()));
+                                    Consts.getMap().put(Consts.getCOUNT1(), points);
                                 }
 
                                 break;
                             }
                             case 2: {
 
-                                if (points > Consts.getCountOfPoints2()) {
+                                if (points > Consts.getMap().get(Consts.getCOUNT2())) {
 
-                                    Consts.setCountOfAllPoints(Consts.getCountOfAllPoints() +
-                                            points - Consts.getCountOfPoints2());
-                                    Consts.setCountOfPoints2(points);
+                                    Consts.getMap().put(Consts.getCOUNT0(),
+                                            Consts.getMap().get(Consts.getCOUNT0()) +
+                                                    points - Consts.getMap().get(Consts.getCOUNT2()));
+                                    Consts.getMap().put(Consts.getCOUNT2(), points);
                                 }
                                 break;
                             }
                             case 3: {
 
-                                if (points > Consts.getCountOfPoints3()) {
+                                if (points > Consts.getMap().get(Consts.getCOUNT3())) {
 
-                                    Consts.setCountOfAllPoints(Consts.getCountOfAllPoints() +
-                                            points - Consts.getCountOfPoints3());
-                                    Consts.setCountOfPoints3(points);
+                                    Consts.getMap().put(Consts.getCOUNT0(),
+                                            Consts.getMap().get(Consts.getCOUNT0()) +
+                                                    points - Consts.getMap().get(Consts.getCOUNT3()));
+                                    Consts.getMap().put(Consts.getCOUNT3(), points);
                                 }
-
                                 break;
                             }
                             case 4: {
 
-                                if (points > Consts.getCountOfPoints4()) {
+                                if (points > Consts.getMap().get(Consts.getCOUNT4())) {
 
-                                    Consts.setCountOfAllPoints(Consts.getCountOfAllPoints() +
-                                            points - Consts.getCountOfPoints4());
-                                    Consts.setCountOfPoints4(points);
+                                    Consts.getMap().put(Consts.getCOUNT0(),
+                                            Consts.getMap().get(Consts.getCOUNT0()) +
+                                                    points - Consts.getMap().get(Consts.getCOUNT4()));
+                                    Consts.getMap().put(Consts.getCOUNT4(), points);
                                 }
                                 break;
                             }
                             ////////////////////////////////////////
-                            case 11: { //продвинутый набор уровней
-                                if (points > Consts.getCountOfPoints11()) {
+                            case 11: {
+                                if (points > Consts.getMap().get(Consts.getCOUNT11())) {
 
-                                    Consts.setCountOfAllPoints(Consts.getCountOfAllPoints() +
-                                            points - Consts.getCountOfPoints11());
-                                    Consts.setCountOfPoints11(points);
-
+                                    Consts.getMap().put(Consts.getCOUNT0(),
+                                            Consts.getMap().get(Consts.getCOUNT0()) +
+                                                    points - Consts.getMap().get(Consts.getCOUNT11()));
+                                    Consts.getMap().put(Consts.getCOUNT11(), points);
                                 }
+
                                 break;
                             }
                             case 21: {
-                                if (points > Consts.getCountOfPoints21()) {
 
-                                    Consts.setCountOfAllPoints(Consts.getCountOfAllPoints() +
-                                            points - Consts.getCountOfPoints21());
-                                    Consts.setCountOfPoints21(points);
+                                if (points > Consts.getMap().get(Consts.getCOUNT21())) {
 
+                                    Consts.getMap().put(Consts.getCOUNT0(),
+                                            Consts.getMap().get(Consts.getCOUNT0()) +
+                                                    points - Consts.getMap().get(Consts.getCOUNT21()));
+                                    Consts.getMap().put(Consts.getCOUNT21(), points);
                                 }
                                 break;
                             }
                             case 31: {
-                                if (points > Consts.getCountOfPoints31()) {
 
-                                    Consts.setCountOfAllPoints(Consts.getCountOfAllPoints() +
-                                            points - Consts.getCountOfPoints31());
-                                    Consts.setCountOfPoints31(points);
+                                if (points > Consts.getMap().get(Consts.getCOUNT31())) {
 
+                                    Consts.getMap().put(Consts.getCOUNT0(),
+                                            Consts.getMap().get(Consts.getCOUNT0()) +
+                                                    points - Consts.getMap().get(Consts.getCOUNT31()));
+                                    Consts.getMap().put(Consts.getCOUNT31(), points);
                                 }
                                 break;
                             }
                             case 41: {
-                                if (points > Consts.getCountOfPoints41()) {
 
-                                    Consts.setCountOfAllPoints(Consts.getCountOfAllPoints() +
-                                            points - Consts.getCountOfPoints41());
-                                    Consts.setCountOfPoints41(points);
+                                if (points > Consts.getMap().get(Consts.getCOUNT41())) {
 
+                                    Consts.getMap().put(Consts.getCOUNT0(),
+                                            Consts.getMap().get(Consts.getCOUNT0()) +
+                                                    points - Consts.getMap().get(Consts.getCOUNT41()));
+                                    Consts.getMap().put(Consts.getCOUNT41(), points);
                                 }
-
                                 break;
                             }
                             ////////////////////////////////////////
+                            case 111: {
+                                if (points > Consts.getMap().get(Consts.getCOUNT111())) {
 
-                            case 111: { //продвинутый набор уровней
-                                if (points > Consts.getCountOfPoints111()) {
-
-                                    Consts.setCountOfAllPoints(Consts.getCountOfAllPoints() +
-                                            points - Consts.getCountOfPoints111());
-                                    Consts.setCountOfPoints111(points);
-
+                                    Consts.getMap().put(Consts.getCOUNT0(),
+                                            Consts.getMap().get(Consts.getCOUNT0()) +
+                                                    points - Consts.getMap().get(Consts.getCOUNT111()));
+                                    Consts.getMap().put(Consts.getCOUNT111(), points);
                                 }
+
                                 break;
                             }
                             case 211: {
-                                if (points > Consts.getCountOfPoints211()) {
 
-                                    Consts.setCountOfAllPoints(Consts.getCountOfAllPoints() +
-                                            points - Consts.getCountOfPoints211());
-                                    Consts.setCountOfPoints211(points);
+                                if (points > Consts.getMap().get(Consts.getCOUNT211())) {
 
+                                    Consts.getMap().put(Consts.getCOUNT0(),
+                                            Consts.getMap().get(Consts.getCOUNT0()) +
+                                                    points - Consts.getMap().get(Consts.getCOUNT211()));
+                                    Consts.getMap().put(Consts.getCOUNT211(), points);
                                 }
                                 break;
                             }
                             case 311: {
-                                if (points > Consts.getCountOfPoints311()) {
 
-                                    Consts.setCountOfAllPoints(Consts.getCountOfAllPoints() +
-                                            points - Consts.getCountOfPoints311());
-                                    Consts.setCountOfPoints311(points);
+                                if (points > Consts.getMap().get(Consts.getCOUNT311())) {
 
+                                    Consts.getMap().put(Consts.getCOUNT0(),
+                                            Consts.getMap().get(Consts.getCOUNT0()) +
+                                                    points - Consts.getMap().get(Consts.getCOUNT311()));
+                                    Consts.getMap().put(Consts.getCOUNT311(), points);
                                 }
                                 break;
                             }
                             case 411: {
-                                if (points > Consts.getCountOfPoints411()) {
 
-                                    Consts.setCountOfAllPoints(Consts.getCountOfAllPoints() +
-                                            points - Consts.getCountOfPoints411());
-                                    Consts.setCountOfPoints411(points);
+                                if (points > Consts.getMap().get(Consts.getCOUNT411())) {
 
+                                    Consts.getMap().put(Consts.getCOUNT0(),
+                                            Consts.getMap().get(Consts.getCOUNT0()) +
+                                                    points - Consts.getMap().get(Consts.getCOUNT411()));
+                                    Consts.getMap().put(Consts.getCOUNT411(), points);
                                 }
-
                                 break;
                             }
-
                             ////////////////////////////////////////
                             case 12: {
+                                if (points > Consts.getMap().get(Consts.getCOUNT12())) {
 
-
-                                if (points > Consts.getCountOfPoints12()) {
-
-                                    Consts.setCountOfAllPoints(Consts.getCountOfAllPoints() +
-                                            points - Consts.getCountOfPoints12());
-                                    Consts.setCountOfPoints12(points);
-
+                                    Consts.getMap().put(Consts.getCOUNT0(),
+                                            Consts.getMap().get(Consts.getCOUNT0()) +
+                                                    points - Consts.getMap().get(Consts.getCOUNT12()));
+                                    Consts.getMap().put(Consts.getCOUNT12(), points);
                                 }
 
                                 break;
                             }
                             case 22: {
 
-                                if (points > Consts.getCountOfPoints22()) {
+                                if (points > Consts.getMap().get(Consts.getCOUNT22())) {
 
-                                    Consts.setCountOfAllPoints(Consts.getCountOfAllPoints() +
-                                            points - Consts.getCountOfPoints22());
-                                    Consts.setCountOfPoints22(points);
+                                    Consts.getMap().put(Consts.getCOUNT0(),
+                                            Consts.getMap().get(Consts.getCOUNT0()) +
+                                                    points - Consts.getMap().get(Consts.getCOUNT22()));
+                                    Consts.getMap().put(Consts.getCOUNT22(), points);
                                 }
                                 break;
                             }
                             case 32: {
 
-                                if (points > Consts.getCountOfPoints32()) {
+                                if (points > Consts.getMap().get(Consts.getCOUNT32())) {
 
-                                    Consts.setCountOfAllPoints(Consts.getCountOfAllPoints() +
-                                            points - Consts.getCountOfPoints32());
-                                    Consts.setCountOfPoints32(points);
+                                    Consts.getMap().put(Consts.getCOUNT0(),
+                                            Consts.getMap().get(Consts.getCOUNT0()) +
+                                                    points - Consts.getMap().get(Consts.getCOUNT32()));
+                                    Consts.getMap().put(Consts.getCOUNT32(), points);
                                 }
-
                                 break;
                             }
                             case 42: {
 
-                                if (points > Consts.getCountOfPoints42()) {
+                                if (points > Consts.getMap().get(Consts.getCOUNT42())) {
 
-                                    Consts.setCountOfAllPoints(Consts.getCountOfAllPoints() +
-                                            points - Consts.getCountOfPoints42());
-                                    Consts.setCountOfPoints42(points);
+                                    Consts.getMap().put(Consts.getCOUNT0(),
+                                            Consts.getMap().get(Consts.getCOUNT0()) +
+                                                    points - Consts.getMap().get(Consts.getCOUNT42()));
+                                    Consts.getMap().put(Consts.getCOUNT42(), points);
                                 }
                                 break;
                             }
                             ////////////////////////////////////////
+                            case 122: {
+                                if (points > Consts.getMap().get(Consts.getCOUNT122())) {
 
-                            case 121: { //продвинутый набор уровней
-                                if (points > Consts.getCountOfPoints121()) {
-
-                                    Consts.setCountOfAllPoints(Consts.getCountOfAllPoints() +
-                                            points - Consts.getCountOfPoints121());
-                                    Consts.setCountOfPoints121(points);
-
-                                }
-                                break;
-                            }
-                            case 221: {
-                                if (points > Consts.getCountOfPoints221()) {
-
-                                    Consts.setCountOfAllPoints(Consts.getCountOfAllPoints() +
-                                            points - Consts.getCountOfPoints221());
-                                    Consts.setCountOfPoints221(points);
-
-                                }
-                                break;
-                            }
-                            case 321: {
-                                if (points > Consts.getCountOfPoints321()) {
-
-                                    Consts.setCountOfAllPoints(Consts.getCountOfAllPoints() +
-                                            points - Consts.getCountOfPoints321());
-                                    Consts.setCountOfPoints321(points);
-
-                                }
-                                break;
-                            }
-                            case 421: {
-                                if (points > Consts.getCountOfPoints421()) {
-
-                                    Consts.setCountOfAllPoints(Consts.getCountOfAllPoints() +
-                                            points - Consts.getCountOfPoints421());
-                                    Consts.setCountOfPoints421(points);
-
+                                    Consts.getMap().put(Consts.getCOUNT0(),
+                                            Consts.getMap().get(Consts.getCOUNT0()) +
+                                                    points - Consts.getMap().get(Consts.getCOUNT122()));
+                                    Consts.getMap().put(Consts.getCOUNT122(), points);
                                 }
 
-                                break;
-                            }
-
-                            ////////////////////////////////////////
-                            case 122: { //продвинутый набор уровней
-                                if (points > Consts.getCountOfPoints122()) {
-
-                                    Consts.setCountOfAllPoints(Consts.getCountOfAllPoints() +
-                                            points - Consts.getCountOfPoints122());
-                                    Consts.setCountOfPoints122(points);
-
-                                }
                                 break;
                             }
                             case 222: {
-                                if (points > Consts.getCountOfPoints222()) {
 
-                                    Consts.setCountOfAllPoints(Consts.getCountOfAllPoints() +
-                                            points - Consts.getCountOfPoints222());
-                                    Consts.setCountOfPoints222(points);
+                                if (points > Consts.getMap().get(Consts.getCOUNT222())) {
 
+                                    Consts.getMap().put(Consts.getCOUNT0(),
+                                            Consts.getMap().get(Consts.getCOUNT0()) +
+                                                    points - Consts.getMap().get(Consts.getCOUNT222()));
+                                    Consts.getMap().put(Consts.getCOUNT222(), points);
                                 }
                                 break;
                             }
                             case 322: {
-                                if (points > Consts.getCountOfPoints322()) {
 
-                                    Consts.setCountOfAllPoints(Consts.getCountOfAllPoints() +
-                                            points - Consts.getCountOfPoints322());
-                                    Consts.setCountOfPoints322(points);
+                                if (points > Consts.getMap().get(Consts.getCOUNT322())) {
 
+                                    Consts.getMap().put(Consts.getCOUNT0(),
+                                            Consts.getMap().get(Consts.getCOUNT0()) +
+                                                    points - Consts.getMap().get(Consts.getCOUNT322()));
+                                    Consts.getMap().put(Consts.getCOUNT322(), points);
                                 }
                                 break;
                             }
                             case 422: {
-                                if (points > Consts.getCountOfPoints422()) {
 
-                                    Consts.setCountOfAllPoints(Consts.getCountOfAllPoints() +
-                                            points - Consts.getCountOfPoints422());
-                                    Consts.setCountOfPoints422(points);
+                                if (points > Consts.getMap().get(Consts.getCOUNT422())) {
 
+                                    Consts.getMap().put(Consts.getCOUNT0(),
+                                            Consts.getMap().get(Consts.getCOUNT0()) +
+                                                    points - Consts.getMap().get(Consts.getCOUNT422()));
+                                    Consts.getMap().put(Consts.getCOUNT422(), points);
                                 }
-
                                 break;
                             }
-
                             ////////////////////////////////////////
-                            case 10: { //набор уровней с кручением
-                                if (points > Consts.getCountOfPoints1R())
-                                    Consts.setCountOfAllPoints(Consts.getCountOfAllPoints() +
-                                            points - Consts.getCountOfPoints1R());
-                                Consts.setCountOfPoints1R(points);
+                            case 10: {
+                                if (points > Consts.getMap().get(Consts.getCOUNT1R())) {
+
+                                    Consts.getMap().put(Consts.getCOUNT0(),
+                                            Consts.getMap().get(Consts.getCOUNT0()) +
+                                                    points - Consts.getMap().get(Consts.getCOUNT1R()));
+                                    Consts.getMap().put(Consts.getCOUNT1R(), points);
+                                }
+
                                 break;
                             }
                             case 20: {
 
-                                if (points > Consts.getCountOfPoints2R()) {
+                                if (points > Consts.getMap().get(Consts.getCOUNT2R())) {
 
-                                    Consts.setCountOfAllPoints(Consts.getCountOfAllPoints() +
-                                            points - Consts.getCountOfPoints2R());
-                                    Consts.setCountOfPoints2R(points);
+                                    Consts.getMap().put(Consts.getCOUNT0(),
+                                            Consts.getMap().get(Consts.getCOUNT0()) +
+                                                    points - Consts.getMap().get(Consts.getCOUNT2R()));
+                                    Consts.getMap().put(Consts.getCOUNT2R(), points);
                                 }
                                 break;
                             }
-
                             case 30: {
 
-                                if (points > Consts.getCountOfPoints3R()) {
+                                if (points > Consts.getMap().get(Consts.getCOUNT3R())) {
 
-                                    Consts.setCountOfAllPoints(Consts.getCountOfAllPoints() +
-                                            points - Consts.getCountOfPoints3R());
-                                    Consts.setCountOfPoints3R(points);
+                                    Consts.getMap().put(Consts.getCOUNT0(),
+                                            Consts.getMap().get(Consts.getCOUNT0()) +
+                                                    points - Consts.getMap().get(Consts.getCOUNT3R()));
+                                    Consts.getMap().put(Consts.getCOUNT3R(), points);
                                 }
                                 break;
                             }
                             case 40: {
 
-                                if (points > Consts.getCountOfPoints4R()) {
+                                if (points > Consts.getMap().get(Consts.getCOUNT4R())) {
 
-                                    Consts.setCountOfAllPoints(Consts.getCountOfAllPoints() +
-                                            points - Consts.getCountOfPoints4R());
-                                    Consts.setCountOfPoints4R(points);
+                                    Consts.getMap().put(Consts.getCOUNT0(),
+                                            Consts.getMap().get(Consts.getCOUNT0()) +
+                                                    points - Consts.getMap().get(Consts.getCOUNT4R()));
+                                    Consts.getMap().put(Consts.getCOUNT4R(), points);
                                 }
                                 break;
                             }
                             ////////////////////////////////////////
-                            case 101: { //набор уровней с кручением
-                                if (points > Consts.getCountOfPoints1R1())
-                                    Consts.setCountOfAllPoints(Consts.getCountOfAllPoints() +
-                                            points - Consts.getCountOfPoints1R1());
-                                Consts.setCountOfPoints1R1(points);
+                            case 101: {
+                                if (points > Consts.getMap().get(Consts.getCOUNT1R1())) {
+
+                                    Consts.getMap().put(Consts.getCOUNT0(),
+                                            Consts.getMap().get(Consts.getCOUNT0()) +
+                                                    points - Consts.getMap().get(Consts.getCOUNT1R1()));
+                                    Consts.getMap().put(Consts.getCOUNT1R1(), points);
+                                }
+
                                 break;
                             }
                             case 201: {
 
-                                if (points > Consts.getCountOfPoints2R1()) {
+                                if (points > Consts.getMap().get(Consts.getCOUNT2R1())) {
 
-                                    Consts.setCountOfAllPoints(Consts.getCountOfAllPoints() +
-                                            points - Consts.getCountOfPoints2R1());
-                                    Consts.setCountOfPoints2R1(points);
+                                    Consts.getMap().put(Consts.getCOUNT0(),
+                                            Consts.getMap().get(Consts.getCOUNT0()) +
+                                                    points - Consts.getMap().get(Consts.getCOUNT2R1()));
+                                    Consts.getMap().put(Consts.getCOUNT2R1(), points);
                                 }
                                 break;
                             }
-
                             case 301: {
 
-                                if (points > Consts.getCountOfPoints3R1()) {
+                                if (points > Consts.getMap().get(Consts.getCOUNT3R1())) {
 
-                                    Consts.setCountOfAllPoints(Consts.getCountOfAllPoints() +
-                                            points - Consts.getCountOfPoints3R1());
-                                    Consts.setCountOfPoints3R1(points);
+                                    Consts.getMap().put(Consts.getCOUNT0(),
+                                            Consts.getMap().get(Consts.getCOUNT0()) +
+                                                    points - Consts.getMap().get(Consts.getCOUNT3R1()));
+                                    Consts.getMap().put(Consts.getCOUNT3R1(), points);
                                 }
                                 break;
                             }
                             case 401: {
 
-                                if (points > Consts.getCountOfPoints4R1()) {
+                                if (points > Consts.getMap().get(Consts.getCOUNT4R1())) {
 
-                                    Consts.setCountOfAllPoints(Consts.getCountOfAllPoints() +
-                                            points - Consts.getCountOfPoints4R1());
-                                    Consts.setCountOfPoints4R1(points);
+                                    Consts.getMap().put(Consts.getCOUNT0(),
+                                            Consts.getMap().get(Consts.getCOUNT0()) +
+                                                    points - Consts.getMap().get(Consts.getCOUNT4R1()));
+                                    Consts.getMap().put(Consts.getCOUNT4R1(), points);
                                 }
                                 break;
                             }
                             ////////////////////////////////////////
-                            case 102: { //набор уровней с кручением
-                                if (points > Consts.getCountOfPoints1R2())
-                                    Consts.setCountOfAllPoints(Consts.getCountOfAllPoints() +
-                                            points - Consts.getCountOfPoints1R2());
-                                Consts.setCountOfPoints1R2(points);
+                            case 102: {
+                                if (points > Consts.getMap().get(Consts.getCOUNT1R2())) {
+
+                                    Consts.getMap().put(Consts.getCOUNT0(),
+                                            Consts.getMap().get(Consts.getCOUNT0()) +
+                                                    points - Consts.getMap().get(Consts.getCOUNT1R2()));
+                                    Consts.getMap().put(Consts.getCOUNT1R2(), points);
+                                }
+
                                 break;
                             }
                             case 202: {
 
-                                if (points > Consts.getCountOfPoints2R2()) {
+                                if (points > Consts.getMap().get(Consts.getCOUNT2R2())) {
 
-                                    Consts.setCountOfAllPoints(Consts.getCountOfAllPoints() +
-                                            points - Consts.getCountOfPoints2R2());
-                                    Consts.setCountOfPoints2R2(points);
+                                    Consts.getMap().put(Consts.getCOUNT0(),
+                                            Consts.getMap().get(Consts.getCOUNT0()) +
+                                                    points - Consts.getMap().get(Consts.getCOUNT2R2()));
+                                    Consts.getMap().put(Consts.getCOUNT2R2(), points);
                                 }
                                 break;
                             }
-
                             case 302: {
 
-                                if (points > Consts.getCountOfPoints3R2()) {
+                                if (points > Consts.getMap().get(Consts.getCOUNT3R2())) {
 
-                                    Consts.setCountOfAllPoints(Consts.getCountOfAllPoints() +
-                                            points - Consts.getCountOfPoints3R2());
-                                    Consts.setCountOfPoints3R2(points);
+                                    Consts.getMap().put(Consts.getCOUNT0(),
+                                            Consts.getMap().get(Consts.getCOUNT0()) +
+                                                    points - Consts.getMap().get(Consts.getCOUNT3R2()));
+                                    Consts.getMap().put(Consts.getCOUNT3R2(), points);
                                 }
                                 break;
                             }
                             case 402: {
 
-                                if (points > Consts.getCountOfPoints4R2()) {
+                                if (points > Consts.getMap().get(Consts.getCOUNT4R2())) {
 
-                                    Consts.setCountOfAllPoints(Consts.getCountOfAllPoints() +
-                                            points - Consts.getCountOfPoints4R2());
-                                    Consts.setCountOfPoints4R2(points);
+                                    Consts.getMap().put(Consts.getCOUNT0(),
+                                            Consts.getMap().get(Consts.getCOUNT0()) +
+                                                    points - Consts.getMap().get(Consts.getCOUNT4R2()));
+                                    Consts.getMap().put(Consts.getCOUNT4R2(), points);
                                 }
                                 break;
                             }
@@ -605,6 +580,7 @@ public class LevelFactory implements Screen {
                     arrayLists = null;
                     time = 0;
                     text_Y = Consts.getHEIGHT() / 2f;
+                    myGame.setScreen(myGame.getLevels());
 
                     return false;
                 }

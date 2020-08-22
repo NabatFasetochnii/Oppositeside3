@@ -6,6 +6,9 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Consts {
 
     private final static String LOSE = "You lose";//константа текста победы
@@ -95,17 +98,23 @@ public class Consts {
     //
     private final static String COUNT0 = "countOfAllPoints";
     //
-    private final static String PREF_NAME = "data";//имя файла preferences
+    private final static Map<String, Integer> map = new HashMap<>();
+    //
+    private final static String PREF_NAME = "fileForPrefs";//имя файла preferences
     //
     private final static String SOUND = "sound";
     //
     private static boolean sound;
     //
-    private static boolean login;
+    private static BitmapFont fontForLose;
+    private static BitmapFont fontForCount;
+    private static BitmapFont fontForCountMiss;
+    private static BitmapFont fontForWin;
+    private static BitmapFont fontForMenu;
     //
-    private static int countOfAllPoints;//константа sum of best
+//    private static int countOfAllPoints;//константа sum of best
     //
-    private static int countOfPoints1;//константы счёта по уровням
+    /*private static int countOfPoints1;//константы счёта по уровням
     private static int countOfPoints2;
     private static int countOfPoints3;
     private static int countOfPoints4;
@@ -148,21 +157,117 @@ public class Consts {
     private static int countOfPoints1R2;
     private static int countOfPoints2R2;
     private static int countOfPoints3R2;
-    private static int countOfPoints4R2;
+    private static int countOfPoints4R2;*/
     //
-    private static BitmapFont fontForLose;
-    private static BitmapFont fontForCount;
-    private static BitmapFont fontForCountMiss;
-    private static BitmapFont fontForWin;
-    private static BitmapFont fontForMenu;
+    private static boolean isLastSessionFall = false;
+
     Consts() {
 
 
     }
 
+    public static void loadMap() {
+
+        putMap(COUNT0);
+
+        putMap(COUNT1);
+        putMap(COUNT2);
+        putMap(COUNT3);
+        putMap(COUNT4);
+
+        putMap(COUNT11);
+        putMap(COUNT21);
+        putMap(COUNT31);
+        putMap(COUNT41);
+
+        putMap(COUNT111);
+        putMap(COUNT211);
+        putMap(COUNT311);
+        putMap(COUNT411);
+
+        putMap(COUNT12);
+        putMap(COUNT22);
+        putMap(COUNT32);
+        putMap(COUNT42);
+
+        putMap(COUNT121);
+        putMap(COUNT221);
+        putMap(COUNT321);
+        putMap(COUNT421);
+
+        putMap(COUNT122);
+        putMap(COUNT222);
+        putMap(COUNT322);
+        putMap(COUNT422);
+
+        putMap(COUNT1R);
+        putMap(COUNT2R);
+        putMap(COUNT3R);
+        putMap(COUNT4R);
+
+        putMap(COUNT1R1);
+        putMap(COUNT2R1);
+        putMap(COUNT3R1);
+        putMap(COUNT4R1);
+
+        putMap(COUNT1R2);
+        putMap(COUNT2R2);
+        putMap(COUNT3R2);
+        putMap(COUNT4R2);
+
+    }
+
+    public static Map<String, Integer> getMap() {
+        return map;
+    }
+
     public static boolean isTouch(float x, float y, float w, float h, int X, int Y) {
 
-        return ((x <= X) && (X <= x+w) && (y <= Y) && (Y <= y+h));
+        return ((x <= X) && (X <= x + w) && (y <= Y) && (Y <= y + h));
+    }
+
+    public static void loadFonts() {
+
+        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal(Consts.getTtfPath()));
+        FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        parameter.size = (int) (WIDTH / LOSE_TO_SCREEN);
+        parameter.color = Color.RED;
+        parameter.borderColor = Color.BLACK;
+        parameter.borderWidth = 5;
+        fontForLose = generator.generateFont(parameter);
+
+        parameter.color = Color.GREEN;
+
+        fontForWin = generator.generateFont(parameter);
+
+        parameter.size = (int) (WIDTH / 10f);
+        parameter.borderWidth = 3;
+        fontForCount = generator.generateFont(parameter);
+
+        parameter.color = Color.RED;
+
+        fontForCountMiss = generator.generateFont(parameter);
+
+        parameter.size = Gdx.app.getGraphics().getWidth() / 12;
+        parameter.color = Color.CHARTREUSE;
+        parameter.borderColor = Color.BLACK;
+        parameter.borderWidth = 5;
+        fontForMenu = generator.generateFont(parameter);
+
+        generator.dispose();
+    }
+
+    public static void clear() {
+
+        Gdx.gl.glClearColor(240, 240, 0, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+    }
+
+    public static void dispose() {
+        fontForCount.dispose();
+        fontForCountMiss.dispose();
+        fontForLose.dispose();
+        fontForWin.dispose();
     }
 
     public static String getSOUND() {
@@ -245,7 +350,23 @@ public class Consts {
         return COUNT4R2;
     }
 
-    public static int getCountOfPoints1R1() {
+    public static String getPathToFirstComplicated() {
+        return PATH_TO_FIRST_COMPLICATED;
+    }
+
+    public static String getPathToSecondComplicated() {
+        return PATH_TO_SECOND_COMPLICATED;
+    }
+
+    public static String getPathToThirdComplicated() {
+        return PATH_TO_THIRD_COMPLICATED;
+    }
+
+    public static String getPathToFourthComplicated() {
+        return PATH_TO_FOURTH_COMPLICATED;
+    }
+
+    /*public static int getCountOfPoints1R1() {
         return countOfPoints1R1;
     }
 
@@ -307,23 +428,7 @@ public class Consts {
 
     public static void setCountOfPoints4R2(int countOfPoints4R2) {
         Consts.countOfPoints4R2 = countOfPoints4R2;
-    }
-
-    public static String getPathToFirstComplicated() {
-        return PATH_TO_FIRST_COMPLICATED;
-    }
-
-    public static String getPathToSecondComplicated() {
-        return PATH_TO_SECOND_COMPLICATED;
-    }
-
-    public static String getPathToThirdComplicated() {
-        return PATH_TO_THIRD_COMPLICATED;
-    }
-
-    public static String getPathToFourthComplicated() {
-        return PATH_TO_FOURTH_COMPLICATED;
-    }
+    }*/
 
     public static String getPathToFirstRotationComplicated() {
         return PATH_TO_FIRST_ROTATION_COMPLICATED;
@@ -339,102 +444,6 @@ public class Consts {
 
     public static String getPathToFourthRotationComplicated() {
         return PATH_TO_FOURTH_ROTATION_COMPLICATED;
-    }
-
-    public static int getCountOfPoints111() {
-        return countOfPoints111;
-    }
-
-    public static void setCountOfPoints111(int countOfPoints111) {
-        Consts.countOfPoints111 = countOfPoints111;
-    }
-
-    public static int getCountOfPoints211() {
-        return countOfPoints211;
-    }
-
-    public static void setCountOfPoints211(int countOfPoints211) {
-        Consts.countOfPoints211 = countOfPoints211;
-    }
-
-    public static int getCountOfPoints311() {
-        return countOfPoints311;
-    }
-
-    public static void setCountOfPoints311(int countOfPoints311) {
-        Consts.countOfPoints311 = countOfPoints311;
-    }
-
-    public static int getCountOfPoints411() {
-        return countOfPoints411;
-    }
-
-    public static void setCountOfPoints411(int countOfPoints411) {
-        Consts.countOfPoints411 = countOfPoints411;
-    }
-
-    public static int getCountOfPoints121() {
-        return countOfPoints121;
-    }
-
-    public static void setCountOfPoints121(int countOfPoints121) {
-        Consts.countOfPoints121 = countOfPoints121;
-    }
-
-    public static int getCountOfPoints221() {
-        return countOfPoints221;
-    }
-
-    public static void setCountOfPoints221(int countOfPoints221) {
-        Consts.countOfPoints221 = countOfPoints221;
-    }
-
-    public static int getCountOfPoints321() {
-        return countOfPoints321;
-    }
-
-    public static void setCountOfPoints321(int countOfPoints321) {
-        Consts.countOfPoints321 = countOfPoints321;
-    }
-
-    public static int getCountOfPoints421() {
-        return countOfPoints421;
-    }
-
-    public static void setCountOfPoints421(int countOfPoints421) {
-        Consts.countOfPoints421 = countOfPoints421;
-    }
-
-    public static int getCountOfPoints122() {
-        return countOfPoints122;
-    }
-
-    public static void setCountOfPoints122(int countOfPoints122) {
-        Consts.countOfPoints122 = countOfPoints122;
-    }
-
-    public static int getCountOfPoints222() {
-        return countOfPoints222;
-    }
-
-    public static void setCountOfPoints222(int countOfPoints222) {
-        Consts.countOfPoints222 = countOfPoints222;
-    }
-
-    public static int getCountOfPoints322() {
-        return countOfPoints322;
-    }
-
-    public static void setCountOfPoints322(int countOfPoints322) {
-        Consts.countOfPoints322 = countOfPoints322;
-    }
-
-    public static int getCountOfPoints422() {
-        return countOfPoints422;
-    }
-
-    public static void setCountOfPoints422(int countOfPoints422) {
-        Consts.countOfPoints422 = countOfPoints422;
     }
 
     public static String getCOUNT111() {
@@ -501,38 +510,6 @@ public class Consts {
         return COUNT42;
     }
 
-    public static int getCountOfPoints12() {
-        return countOfPoints12;
-    }
-
-    public static void setCountOfPoints12(int countOfPoints12) {
-        Consts.countOfPoints12 = countOfPoints12;
-    }
-
-    public static int getCountOfPoints22() {
-        return countOfPoints22;
-    }
-
-    public static void setCountOfPoints22(int countOfPoints22) {
-        Consts.countOfPoints22 = countOfPoints22;
-    }
-
-    public static int getCountOfPoints32() {
-        return countOfPoints32;
-    }
-
-    public static void setCountOfPoints32(int countOfPoints32) {
-        Consts.countOfPoints32 = countOfPoints32;
-    }
-
-    public static int getCountOfPoints42() {
-        return countOfPoints42;
-    }
-
-    public static void setCountOfPoints42(int countOfPoints42) {
-        Consts.countOfPoints42 = countOfPoints42;
-    }
-
     public static String getCOUNT11() {
         return COUNT11;
     }
@@ -549,82 +526,6 @@ public class Consts {
         return COUNT41;
     }
 
-    public static int getCountOfPoints11() {
-        return countOfPoints11;
-    }
-
-    public static void setCountOfPoints11(int countOfPoints11) {
-        Consts.countOfPoints11 = countOfPoints11;
-    }
-
-    public static int getCountOfPoints21() {
-        return countOfPoints21;
-    }
-
-    public static void setCountOfPoints21(int countOfPoints21) {
-        Consts.countOfPoints21 = countOfPoints21;
-    }
-
-    public static int getCountOfPoints31() {
-        return countOfPoints31;
-    }
-
-    public static void setCountOfPoints31(int countOfPoints31) {
-        Consts.countOfPoints31 = countOfPoints31;
-    }
-
-    public static int getCountOfPoints41() {
-        return countOfPoints41;
-    }
-
-    public static void setCountOfPoints41(int countOfPoints41) {
-        Consts.countOfPoints41 = countOfPoints41;
-    }
-
-    public static void loadFonts() {
-
-        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal(Consts.getTtfPath()));
-        FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = (int) (WIDTH / LOSE_TO_SCREEN);
-        parameter.color = Color.RED;
-        parameter.borderColor = Color.BLACK;
-        parameter.borderWidth = 5;
-        fontForLose = generator.generateFont(parameter);
-
-        parameter.color = Color.GREEN;
-
-        fontForWin = generator.generateFont(parameter);
-
-        parameter.size = (int) (WIDTH / 10f);
-        parameter.borderWidth = 3;
-        fontForCount = generator.generateFont(parameter);
-
-        parameter.color = Color.RED;
-
-        fontForCountMiss = generator.generateFont(parameter);
-
-        parameter.size = Gdx.app.getGraphics().getWidth() / 12;
-        parameter.color = Color.CHARTREUSE;
-        parameter.borderColor = Color.BLACK;
-        parameter.borderWidth = 5;
-        fontForMenu = generator.generateFont(parameter);
-
-        generator.dispose();
-    }
-
-    public static void clear() {
-
-        Gdx.gl.glClearColor(240, 240, 0, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-    }
-
-    public static void dispose() {
-        fontForCount.dispose();
-        fontForCountMiss.dispose();
-        fontForLose.dispose();
-        fontForWin.dispose();
-    }
-
     public static String getCOUNT1R() {
         return COUNT1R;
     }
@@ -639,38 +540,6 @@ public class Consts {
 
     public static String getCOUNT4R() {
         return COUNT4R;
-    }
-
-    public static int getCountOfPoints1R() {
-        return countOfPoints1R;
-    }
-
-    public static void setCountOfPoints1R(int countOfPoints1R) {
-        Consts.countOfPoints1R = countOfPoints1R;
-    }
-
-    public static int getCountOfPoints2R() {
-        return countOfPoints2R;
-    }
-
-    public static void setCountOfPoints2R(int countOfPoints2R) {
-        Consts.countOfPoints2R = countOfPoints2R;
-    }
-
-    public static int getCountOfPoints3R() {
-        return countOfPoints3R;
-    }
-
-    public static void setCountOfPoints3R(int countOfPoints3R) {
-        Consts.countOfPoints3R = countOfPoints3R;
-    }
-
-    public static int getCountOfPoints4R() {
-        return countOfPoints4R;
-    }
-
-    public static void setCountOfPoints4R(int countOfPoints4R) {
-        Consts.countOfPoints4R = countOfPoints4R;
     }
 
     public static String getPathToSecondRotation() {
@@ -717,38 +586,6 @@ public class Consts {
         return PREF_NAME;
     }
 
-    public static int getCountOfPoints1() {
-        return countOfPoints1;
-    }
-
-    public static void setCountOfPoints1(int countOfPoints1) {
-        Consts.countOfPoints1 = countOfPoints1;
-    }
-
-    public static int getCountOfPoints2() {
-        return countOfPoints2;
-    }
-
-    public static void setCountOfPoints2(int countOfPoints2) {
-        Consts.countOfPoints2 = countOfPoints2;
-    }
-
-    public static int getCountOfPoints3() {
-        return countOfPoints3;
-    }
-
-    public static void setCountOfPoints3(int countOfPoints3) {
-        Consts.countOfPoints3 = countOfPoints3;
-    }
-
-    public static int getCountOfPoints4() {
-        return countOfPoints4;
-    }
-
-    public static void setCountOfPoints4(int countOfPoints4) {
-        Consts.countOfPoints4 = countOfPoints4;
-    }
-
     public static String getPathToFourth() {
         return PATH_TO_FOURTH;
     }
@@ -767,14 +604,6 @@ public class Consts {
 
     public static String getPathToSecond() {
         return PATH_TO_SECOND;
-    }
-
-    public static int getCountOfAllPoints() {
-        return countOfAllPoints;
-    }
-
-    public static void setCountOfAllPoints(int countOfAllPoints) {
-        Consts.countOfAllPoints = countOfAllPoints;
     }
 
     public static String getPathToFirst() {
@@ -803,6 +632,18 @@ public class Consts {
 
     public static float getScaleY() {
         return scaleY;
+    }
+
+    private static void putMap(String s) {
+        map.put(s, 0);
+    }
+
+    public static boolean isLastSessionFall() {
+        return isLastSessionFall;
+    }
+
+    public static void setLastSessionFall(boolean lastSessionFall) {
+        isLastSessionFall = lastSessionFall;
     }
 
 }

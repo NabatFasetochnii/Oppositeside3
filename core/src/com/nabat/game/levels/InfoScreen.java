@@ -45,211 +45,161 @@ public class InfoScreen implements Screen {
         switch (levelFactory.getLvlName()) {
 
             case 1: {
-
-
-                info += "Best score: " + Consts.getCountOfPoints1();
-
+                info += "Best score: " + Consts.getMap().get(Consts.getCOUNT1());
                 break;
             }
             case 2: {
-                info += "Best score: " + Consts.getCountOfPoints2();
-
+                info += "Best score: " + Consts.getMap().get(Consts.getCOUNT2());
                 break;
             }
             case 3: {
-
-
-                info += "Best score: " + Consts.getCountOfPoints3();
+                info += "Best score: " + Consts.getMap().get(Consts.getCOUNT3());
                 break;
             }
             case 4: {
-
-                info += "Best score: " + Consts.getCountOfPoints4();
-
-
+                info += "Best score: " + Consts.getMap().get(Consts.getCOUNT4());
                 break;
             }
             ////////////////////////////////////////
-            case 11: { //продвинутый набор уровней
-
-
-                info += "Best score: " + Consts.getCountOfPoints11();
+            case 11: {
+                info += "Best score: " + Consts.getMap().get(Consts.getCOUNT11());
                 break;
             }
             case 21: {
-
-
-                info += "Best score: " + Consts.getCountOfPoints21();
+                info += "Best score: " + Consts.getMap().get(Consts.getCOUNT21());
                 break;
             }
             case 31: {
-
-                info += "Best score: " + Consts.getCountOfPoints31();
-
+                info += "Best score: " + Consts.getMap().get(Consts.getCOUNT31());
                 break;
             }
             case 41: {
 
-
-                info += "Best score: " + Consts.getCountOfPoints41();
-
+                info += "Best score: " + Consts.getMap().get(Consts.getCOUNT41());
                 break;
             }
             ////////////////////////////////////////
 
-            case 111: { //продвинутый набор уровней
-
-
-                info += "Best score: " + Consts.getCountOfPoints111();
+            case 111: {
+                info += "Best score: " + Consts.getMap().get(Consts.getCOUNT111());
                 break;
             }
             case 211: {
-
-
-                info += "Best score: " + Consts.getCountOfPoints211();
+                info += "Best score: " + Consts.getMap().get(Consts.getCOUNT211());
                 break;
             }
             case 311: {
-
-
-                info += "Best score: " + Consts.getCountOfPoints311();
+                info += "Best score: " + Consts.getMap().get(Consts.getCOUNT311());
                 break;
             }
             case 411: {
 
-                info += "Best score: " + Consts.getCountOfPoints411();
+                info += "Best score: " + Consts.getMap().get(Consts.getCOUNT411());
                 break;
             }
-
             ////////////////////////////////////////
             case 12: {
-
-
-                info += "Best score: " + Consts.getCountOfPoints12();
-
+                info += "Best score: " + Consts.getMap().get(Consts.getCOUNT12());
                 break;
             }
             case 22: {
-
-
-                info += "Best score: " + Consts.getCountOfPoints22();
+                info += "Best score: " + Consts.getMap().get(Consts.getCOUNT22());
                 break;
             }
             case 32: {
-
-
-                info += "Best score: " + Consts.getCountOfPoints32();
+                info += "Best score: " + Consts.getMap().get(Consts.getCOUNT32());
                 break;
             }
             case 42: {
 
-                info += "Best score: " + Consts.getCountOfPoints42();
-
+                info += "Best score: " + Consts.getMap().get(Consts.getCOUNT42());
                 break;
             }
             ////////////////////////////////////////
 
-            case 121: { //продвинутый набор уровней
-
-                info += "Best score: " + Consts.getCountOfPoints121();
+            case 121: {
+                info += "Best score: " + Consts.getMap().get(Consts.getCOUNT121());
                 break;
             }
             case 221: {
-
-                info += "Best score: " + Consts.getCountOfPoints221();
+                info += "Best score: " + Consts.getMap().get(Consts.getCOUNT221());
                 break;
             }
             case 321: {
-
-                info += "Best score: " + Consts.getCountOfPoints321();
+                info += "Best score: " + Consts.getMap().get(Consts.getCOUNT321());
                 break;
             }
             case 421: {
 
-                info += "Best score: " + Consts.getCountOfPoints421();
+                info += "Best score: " + Consts.getMap().get(Consts.getCOUNT421());
                 break;
             }
-
             ////////////////////////////////////////
-            case 122: { //продвинутый набор уровней
-                info += "Best score: " + Consts.getCountOfPoints122();
+            case 122: {
+                info += "Best score: " + Consts.getMap().get(Consts.getCOUNT122());
                 break;
             }
             case 222: {
-                info += "Best score: " + Consts.getCountOfPoints222();
+                info += "Best score: " + Consts.getMap().get(Consts.getCOUNT222());
                 break;
             }
             case 322: {
-                info += "Best score: " + Consts.getCountOfPoints322();
+                info += "Best score: " + Consts.getMap().get(Consts.getCOUNT322());
                 break;
             }
             case 422: {
-
-                info += "Best score: " + Consts.getCountOfPoints422();
+                info += "Best score: " + Consts.getMap().get(Consts.getCOUNT422());
                 break;
             }
-
             ////////////////////////////////////////
-            case 10: { //набор уровней с кручением
-                info += "Best score: " + Consts.getCountOfPoints1R();
+            case 10: {
+                info += "Best score: " + Consts.getMap().get(Consts.getCOUNT1R());
                 break;
             }
             case 20: {
-                info += "Best score: " + Consts.getCountOfPoints2R();
-
+                info += "Best score: " + Consts.getMap().get(Consts.getCOUNT2R());
                 break;
             }
-
             case 30: {
-
-                info += "Best score: " + Consts.getCountOfPoints3R();
+                info += "Best score: " + Consts.getMap().get(Consts.getCOUNT3R());
                 break;
             }
             case 40: {
-
-                info += "Best score: " + Consts.getCountOfPoints4R();
+                info += "Best score: " + Consts.getMap().get(Consts.getCOUNT4R());
                 break;
             }
             ////////////////////////////////////////
-            case 101: { //набор уровней с кручением
-                info += "Best score: " + Consts.getCountOfPoints1R1();
+            case 101: {
+                info += "Best score: " + Consts.getMap().get(Consts.getCOUNT1R1());
                 break;
             }
             case 201: {
-                info += "Best score: " + Consts.getCountOfPoints2R1();
-
+                info += "Best score: " + Consts.getMap().get(Consts.getCOUNT2R1());
                 break;
             }
-
             case 301: {
-
-                info += "Best score: " + Consts.getCountOfPoints3R1();
+                info += "Best score: " + Consts.getMap().get(Consts.getCOUNT3R1());
                 break;
             }
             case 401: {
-
-                info += "Best score: " + Consts.getCountOfPoints4R1();
+                info += "Best score: " + Consts.getMap().get(Consts.getCOUNT4R1());
                 break;
             }
             ////////////////////////////////////////
-            case 102: { //набор уровней с кручением
-                info += "Best score: " + Consts.getCountOfPoints1R2();
+            case 102: {
+                info += "Best score: " + Consts.getMap().get(Consts.getCOUNT1R2());
                 break;
             }
             case 202: {
-                info += "Best score: " + Consts.getCountOfPoints2R2();
-
+                info += "Best score: " + Consts.getMap().get(Consts.getCOUNT2R2());
                 break;
             }
-
             case 302: {
-
-                info += "Best score: " + Consts.getCountOfPoints3R2();
+                info += "Best score: " + Consts.getMap().get(Consts.getCOUNT3R2());
                 break;
             }
             case 402: {
-
-                info += "Best score: " + Consts.getCountOfPoints4R2();
+                info += "Best score: " + Consts.getMap().get(Consts.getCOUNT4R2());
                 break;
             }
             ////////////////////////////////////////

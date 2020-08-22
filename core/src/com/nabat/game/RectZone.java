@@ -40,6 +40,11 @@ public class RectZone {
         this.rot = rot;
         this.isDot = isDot;
 
+        widthS = width;
+        heightS = height;
+        xS = x;
+        yS = y;
+
         /*if (isDot){
             DELTA = height/15f;
         }*/
@@ -59,6 +64,11 @@ public class RectZone {
         this.width = width;
         this.height = height;
         this.isRotation = false;
+
+        widthS = width;
+        heightS = height;
+        xS = x;
+        yS = y;
 
         square = new ShapeRenderer();
         square.setColor(color);

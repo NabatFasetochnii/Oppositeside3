@@ -8,7 +8,7 @@ import com.nabat.game.inputs.InputForStart;
 
 public class Start implements Screen {
 
-    private final RectZone starZone, gpgsZone;
+    private final RectZone startZone, gpgsZone;
     private final MyGame myGame;
     private final float startW;
     private final float gpgsW, gpgsH;
@@ -16,14 +16,15 @@ public class Start implements Screen {
     private final float shopX, shopY, shopW, shopH;
     private final float rateX, rateY;
     private final float exitX, exitY;
+    private String onOff;
 
     public Start(MyGame myGame) {
 
         this.myGame = myGame;
 
-        starZone = new RectZone(0, Consts.getHEIGHT() / 2,
+        startZone = new RectZone(0, Consts.getHEIGHT() / 2,
                 Consts.getWIDTH(), Consts.getHEIGHT() / 2, Color.RED);
-        starZone.setPulsar(false);
+        startZone.setPulsar(false);
 
         GlyphLayout glyphLayout = new GlyphLayout(Consts.getFontForMenu(), Consts.getPLAY());
         startW = glyphLayout.width; // получаем ширину текста
@@ -37,7 +38,7 @@ public class Start implements Screen {
 
         shopW = Consts.getWIDTH() / 10f;
         shopH = shopW;
-        shopX = gpgsZone.getX() + gpgsZone.getWidth()/2f - shopW*2 - delta*3/2f;
+        shopX = gpgsZone.getX() + gpgsZone.getWidth() / 2f - shopW * 2 - delta * 3 / 2f;
         shopY = gpgsZone.getY() - shopH - delta * 2;
 
         soundX = shopX + shopW + delta;
@@ -45,7 +46,7 @@ public class Start implements Screen {
         soundW = shopW;
         soundH = shopW;
 
-        rateX = soundX + shopW + delta;
+        rateX = soundX + shopW + delta * 2;
 //        rateX = gpgsZone.getX() + gpgsW/2 + delta*2f;
         rateY = shopY;
 
@@ -64,7 +65,7 @@ public class Start implements Screen {
 
         Consts.clear(); //заполняем экран цветом
 
-        starZone.draw(); //большой квадратик сверху
+        startZone.draw(); //большой квадратик сверху
         gpgsZone.draw();//квадратик gpgs
 
         myGame.getBatch().begin();
@@ -74,15 +75,17 @@ public class Start implements Screen {
 
         if (myGame.gsClient.isSessionActive()) {
 
-            Consts.getFontForMenu().draw(myGame.getBatch(), Consts.getGPGS() +
-                            Consts.getON(), //переключатель аунтификации гугл плэя
-                    Consts.getWIDTH() / 2f - gpgsW / 2, Consts.getHEIGHT() / 3f + gpgsH);
-        } else {
-            Consts.getFontForMenu().draw(myGame.getBatch(), Consts.getGPGS() +
-                            Consts.getOFF(), //переключатель аунтификации гугл плэя
-                    Consts.getWIDTH() / 2f - gpgsW / 2, Consts.getHEIGHT() / 3f + gpgsH);
-        }
+            onOff = Consts.getGPGS() + Consts.getON();
 
+        } else if (myGame.gsClient.isConnectionPending()) {
+
+            onOff = Consts.getGPGS() + "...";
+        } else {
+            onOff = Consts.getGPGS() + Consts.getOFF();
+
+        }
+        Consts.getFontForMenu().draw(myGame.getBatch(), onOff, //переключатель аунтификации гугл плэя
+                Consts.getWIDTH() / 2f - gpgsW / 2, Consts.getHEIGHT() / 3f + gpgsH);
 
         myGame.getBatch().draw(Loader.getShopButton(), // кнопка магазина
                 shopX, shopY,
@@ -132,7 +135,7 @@ public class Start implements Screen {
 
     @Override
     public void dispose() {
-        starZone.dispose();
+        startZone.dispose();
     }
 
     public float getExitX() {
@@ -167,8 +170,8 @@ public class Start implements Screen {
         return shopH;
     }
 
-    public RectZone getStarZone() {
-        return starZone;
+    public RectZone getStartZone() {
+        return startZone;
     }
 
     public RectZone getGpgsZone() {
