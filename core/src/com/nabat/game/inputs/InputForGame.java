@@ -1,5 +1,6 @@
 package com.nabat.game.inputs;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.nabat.game.Consts;
 import com.nabat.game.RectZone;
@@ -97,9 +98,14 @@ public class InputForGame implements InputProcessor {
                     }
 
                     if (b) {
+                        if (Consts.isVibrate()) {
+                            Gdx.input.vibrate(25);
+                        }
+
                         levelFactory.setI(i + 1);//TODO написать функцию смены уровня
-                        i++;
+                        i++;//TODO ВИБРАЦИЯ + ЗВУК ТЫКА
                         levelFactory.upCountOfSquare();
+
                     }
                 }
             }

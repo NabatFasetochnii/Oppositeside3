@@ -13,11 +13,21 @@ public class Loader {
     private static TextureRegion shopButton;
     private static TextureRegion settingsButton;
     private static TextureRegion rateButton;
+    private static TextureRegion vibrateButton;
+    private static TextureRegion noVibrateButton;
     private static TextureAtlas textureAtlas;
 
     Loader() {
 
 
+    }
+
+    public static TextureRegion getVibrateButton() {
+        return vibrateButton;
+    }
+
+    public static TextureRegion getNoVibrateButton() {
+        return noVibrateButton;
     }
 
     public static TextureRegion getExitButton() {
@@ -62,6 +72,8 @@ public class Loader {
         loadSoundOn();
         loadSoundOff();
         loadRate();
+        loadVibrate();
+
     }
 
     private static void loadSoundOn() {
@@ -95,5 +107,14 @@ public class Loader {
 
         settingsButton = textureAtlas.findRegion("ic_settings");
         settingsButton.getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+    }
+
+    private static void loadVibrate() {
+
+        vibrateButton = textureAtlas.findRegion("ic_action_vibration");
+        noVibrateButton = textureAtlas.findRegion("ic_action_no_vibration");
+
+        vibrateButton.getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        noVibrateButton.getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
     }
 }

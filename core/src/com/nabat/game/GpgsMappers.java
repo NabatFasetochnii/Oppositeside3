@@ -6,7 +6,7 @@ public class GpgsMappers {
         String gpgsId = null;
 
         if (leaderboardId != null) {
-            if (leaderboardId.equals(MyGame.LEADERBOARD1))
+            if (leaderboardId.equals(Consts.LEADERBOARD1))
                 gpgsId = "CgkIpq7zg9UYEAIQAg";
         }
 
@@ -17,7 +17,7 @@ public class GpgsMappers {
         String gpgsId = null;
 
         if (achievementId != null) {
-            if (achievementId.equals(MyGame.ACHIEVEMENT1))
+            if (achievementId.equals(Consts.ACHIEVEMENT1))
                 gpgsId = "CgkIpq7zg9UYEAIQAQ";
         }
 

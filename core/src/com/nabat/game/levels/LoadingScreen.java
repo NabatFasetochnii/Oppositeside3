@@ -13,7 +13,6 @@ import java.util.Map;
 public class LoadingScreen implements Screen {
 
     private final MyGame myGame;
-    private boolean isRead = true;
 
     public LoadingScreen(MyGame myGame) {
 
@@ -38,7 +37,7 @@ public class LoadingScreen implements Screen {
                 myGame.gsClient.loadGameState(Consts.getPrefName(), new ILoadGameStateResponseListener() {
                     @Override
                     public void gsGameStateLoaded(byte[] gameState) {
-                        if (isRead) {
+                        if (Consts.isRead()) {
                             if (gameState != null) {
 
                                 int i = 0;
@@ -54,7 +53,8 @@ public class LoadingScreen implements Screen {
                                     Consts.getMap().put(integerEntry.getKey(), myGame.bytesToInt(load));
                                 }
 
-                                Consts.setSound(gameState[Consts.getMap().size()] == 1);
+                                Consts.setSound(gameState[Consts.getMap().size()] == (byte) 1);
+                                Consts.setVibrate(gameState[Consts.getMap().size() + 1] == (byte) 1);
 
                             } else {
 
@@ -62,7 +62,8 @@ public class LoadingScreen implements Screen {
                                 myGame.initPref();
 
                             }
-                            isRead = false;
+
+                            Consts.setRead(false);
                             myGame.setScreen(new Prosak(myGame));
 
                         }
@@ -73,11 +74,15 @@ public class LoadingScreen implements Screen {
 
                 unsupportedOperationException.printStackTrace();
                 myGame.initPref();
-                isRead = false;
+                Consts.setRead(false);
                 myGame.setScreen(new Start(myGame));
             }
 
 
+        } else if (!myGame.gsClient.isConnectionPending()) {
+            Gdx.app.log("Loading screen", "problem with connect");
+            myGame.initPref();
+            myGame.setScreen(new Start(myGame));
         }
 
     }

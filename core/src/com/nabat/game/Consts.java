@@ -15,7 +15,6 @@ public class Consts {
     private final static String WIN = "You WIN!";//константа текста проигрыша
     private final static String ttfPath = "fonts/Terminus.ttf";//путь к шрифту
     private final static String PLAY = "Tap to play";//TODO добавить мигание надписи //в игрее этого пока что вообще нет
-    //
     //private final static String SOUND = "Sound";
     private final static String GPGS = "Google Play\nGames: ";
     private final static String OFF = "OFF";
@@ -103,8 +102,11 @@ public class Consts {
     private final static String PREF_NAME = "fileForPrefs";//имя файла preferences
     //
     private final static String SOUND = "sound";
+    private final static String VIBRATE = "vib";
     //
-    private static boolean sound;
+    private static boolean isVibrate = true;
+    //
+    private static boolean sound = true;
     //
     private static BitmapFont fontForLose;
     private static BitmapFont fontForCount;
@@ -112,58 +114,35 @@ public class Consts {
     private static BitmapFont fontForWin;
     private static BitmapFont fontForMenu;
     //
-//    private static int countOfAllPoints;//константа sum of best
-    //
-    /*private static int countOfPoints1;//константы счёта по уровням
-    private static int countOfPoints2;
-    private static int countOfPoints3;
-    private static int countOfPoints4;
-    //
-    private static int countOfPoints11;
-    private static int countOfPoints21;
-    private static int countOfPoints31;
-    private static int countOfPoints41;
-    //
-    private static int countOfPoints111;
-    private static int countOfPoints211;
-    private static int countOfPoints311;
-    private static int countOfPoints411;
-    //
-    private static int countOfPoints12;
-    private static int countOfPoints22;
-    private static int countOfPoints32;
-    private static int countOfPoints42;
-    //
-    private static int countOfPoints121;
-    private static int countOfPoints221;
-    private static int countOfPoints321;
-    private static int countOfPoints421;
-    //
-    private static int countOfPoints122;
-    private static int countOfPoints222;
-    private static int countOfPoints322;
-    private static int countOfPoints422;
-    //
-    private static int countOfPoints1R;
-    private static int countOfPoints2R;
-    private static int countOfPoints3R;
-    private static int countOfPoints4R;
-    //
-    private static int countOfPoints1R1;
-    private static int countOfPoints2R1;
-    private static int countOfPoints3R1;
-    private static int countOfPoints4R1;
-    //
-    private static int countOfPoints1R2;
-    private static int countOfPoints2R2;
-    private static int countOfPoints3R2;
-    private static int countOfPoints4R2;*/
-    //
     private static boolean isLastSessionFall = false;
+    private static boolean isRead = true;
+    //
+    public static final String LEADERBOARD1 = "BOARD1";
+    public static final String ACHIEVEMENT1 = "ACH1";
 
     Consts() {
 
 
+    }
+
+    public static boolean isRead() {
+        return isRead;
+    }
+
+    public static void setRead(boolean isRead) {
+        Consts.isRead = isRead;
+    }
+
+    public static String getVIBRATE() {
+        return VIBRATE;
+    }
+
+    public static boolean isVibrate() {
+        return isVibrate;
+    }
+
+    public static void setVibrate(boolean isVibrate) {
+        Consts.isVibrate = isVibrate;
     }
 
     public static void loadMap() {
@@ -365,70 +344,6 @@ public class Consts {
     public static String getPathToFourthComplicated() {
         return PATH_TO_FOURTH_COMPLICATED;
     }
-
-    /*public static int getCountOfPoints1R1() {
-        return countOfPoints1R1;
-    }
-
-    public static void setCountOfPoints1R1(int countOfPoints1R1) {
-        Consts.countOfPoints1R1 = countOfPoints1R1;
-    }
-
-    public static int getCountOfPoints2R1() {
-        return countOfPoints2R1;
-    }
-
-    public static void setCountOfPoints2R1(int countOfPoints2R1) {
-        Consts.countOfPoints2R1 = countOfPoints2R1;
-    }
-
-    public static int getCountOfPoints3R1() {
-        return countOfPoints3R1;
-    }
-
-    public static void setCountOfPoints3R1(int countOfPoints3R1) {
-        Consts.countOfPoints3R1 = countOfPoints3R1;
-    }
-
-    public static int getCountOfPoints4R1() {
-        return countOfPoints4R1;
-    }
-
-    public static void setCountOfPoints4R1(int countOfPoints4R1) {
-        Consts.countOfPoints4R1 = countOfPoints4R1;
-    }
-
-    public static int getCountOfPoints1R2() {
-        return countOfPoints1R2;
-    }
-
-    public static void setCountOfPoints1R2(int countOfPoints1R2) {
-        Consts.countOfPoints1R2 = countOfPoints1R2;
-    }
-
-    public static int getCountOfPoints2R2() {
-        return countOfPoints2R2;
-    }
-
-    public static void setCountOfPoints2R2(int countOfPoints2R2) {
-        Consts.countOfPoints2R2 = countOfPoints2R2;
-    }
-
-    public static int getCountOfPoints3R2() {
-        return countOfPoints3R2;
-    }
-
-    public static void setCountOfPoints3R2(int countOfPoints3R2) {
-        Consts.countOfPoints3R2 = countOfPoints3R2;
-    }
-
-    public static int getCountOfPoints4R2() {
-        return countOfPoints4R2;
-    }
-
-    public static void setCountOfPoints4R2(int countOfPoints4R2) {
-        Consts.countOfPoints4R2 = countOfPoints4R2;
-    }*/
 
     public static String getPathToFirstRotationComplicated() {
         return PATH_TO_FIRST_ROTATION_COMPLICATED;

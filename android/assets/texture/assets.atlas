@@ -6,14 +6,28 @@ filter: Nearest,Nearest
 repeat: none
 ic_action_music_note
   rotate: false
-  xy: 1052, 26
+  xy: 1150, 26
   size: 96, 96
   orig: 96, 96
   offset: 0, 0
   index: -1
 ic_action_music_off
   rotate: false
-  xy: 1150, 26
+  xy: 1248, 26
+  size: 96, 96
+  orig: 96, 96
+  offset: 0, 0
+  index: -1
+ic_action_no_vibration
+  rotate: false
+  xy: 1346, 26
+  size: 96, 96
+  orig: 96, 96
+  offset: 0, 0
+  index: -1
+ic_action_vibration
+  rotate: false
+  xy: 1052, 26
   size: 96, 96
   orig: 96, 96
   offset: 0, 0
@@ -69,7 +83,7 @@ ic_settings
   index: -1
 ic_shopping_cart
   rotate: false
-  xy: 1248, 26
+  xy: 1444, 26
   size: 96, 96
   orig: 96, 96
   offset: 0, 0

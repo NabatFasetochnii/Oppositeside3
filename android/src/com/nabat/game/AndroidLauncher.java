@@ -48,6 +48,11 @@ public class AndroidLauncher extends AndroidApplication {
             gpgsClient.onGpgsActivityResult(requestCode, resultCode, data);
     }
 
+    @Override
+    public void finish() {
+        super.finish();
+        System.exit(0);
+    }
 }
 
 

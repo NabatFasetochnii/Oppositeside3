@@ -16,6 +16,7 @@ public class Start implements Screen {
     private final float shopX, shopY, shopW, shopH;
     private final float rateX, rateY;
     private final float exitX, exitY;
+    private final float vibX, vibY;
     private String onOff;
 
     public Start(MyGame myGame) {
@@ -38,7 +39,7 @@ public class Start implements Screen {
 
         shopW = Consts.getWIDTH() / 10f;
         shopH = shopW;
-        shopX = gpgsZone.getX() + gpgsZone.getWidth() / 2f - shopW * 2 - delta * 3 / 2f;
+        shopX = gpgsZone.getX() + gpgsZone.getWidth() / 2f - shopW * 5 / 2f - delta * 3 / 2f;
         shopY = gpgsZone.getY() - shopH - delta * 2;
 
         soundX = shopX + shopW + delta;
@@ -46,13 +47,24 @@ public class Start implements Screen {
         soundW = shopW;
         soundH = shopW;
 
-        rateX = soundX + shopW + delta * 2;
-//        rateX = gpgsZone.getX() + gpgsW/2 + delta*2f;
+        rateX = soundX + shopW + delta;
         rateY = shopY;
 
-        exitX = rateX + shopW + delta;
-        exitY = shopY;
+        vibX = rateX + shopW + delta;
+        vibY = shopY;
 
+        exitX = vibX + shopW + delta;//rateX + shopW + delta;
+        exitY = shopY;//shopY;
+
+
+    }
+
+    public float getVibX() {
+        return vibX;
+    }
+
+    public float getVibY() {
+        return vibY;
     }
 
     @Override
@@ -101,6 +113,12 @@ public class Start implements Screen {
             myGame.getBatch().draw(Loader.getSoundOff(),
                     soundX, soundY,
                     soundW, soundH);
+        }
+
+        if (Consts.isVibrate()) {
+            myGame.getBatch().draw(Loader.getVibrateButton(), vibX, vibY, shopW, shopH);
+        } else {
+            myGame.getBatch().draw(Loader.getNoVibrateButton(), vibX, vibY, shopW, shopH);
         }
 
         myGame.getBatch().draw(Loader.getRateButton(), rateX, rateY, //кнопка оценки приложения

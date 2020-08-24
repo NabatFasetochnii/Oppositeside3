@@ -62,9 +62,14 @@ public class InputForStart implements InputProcessor {
             myGame.changeSoundPlay();
         }
 
+        if (Consts.isTouch(start.getVibX(), start.getVibY(), start.getSoundW(), start.getSoundH(), screenX, y)) {
+
+            Consts.setVibrate(!Consts.isVibrate());
+        }
+
         if (gpgsZone.isTouch(screenX, y)) {
 
-            //TODO LOGIN
+
             if (myGame.gsClient.isSessionActive()) {
                 myGame.gsClient.logOff();
             } else {
@@ -86,6 +91,7 @@ public class InputForStart implements InputProcessor {
         if (Consts.isTouch(start.getExitX(), start.getExitY(), start.getShopW(), start.getShopH(), screenX, y)){
 
             myGame.updatePref();
+            Consts.setRead(true);
             Gdx.app.exit();
         }
 

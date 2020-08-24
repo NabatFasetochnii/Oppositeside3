@@ -580,9 +580,11 @@ public class LevelFactory implements Screen {
                     arrayLists = null;
                     time = 0;
                     text_Y = Consts.getHEIGHT() / 2f;
-                    myGame.setScreen(myGame.getLevels());
 
-                    return false;
+                    myGame.updatePref();
+
+                    myGame.setScreen(myGame.getLevels());
+                    return true;
                 }
 
                 @Override
