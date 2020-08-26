@@ -27,7 +27,7 @@ public class MyGame extends com.badlogic.gdx.Game implements IGameServiceListene
     public void create() {
 
         Consts.setRead(true);
-
+//        gsClient.submitToLeaderboard(Consts.getLEADERBOARD1(),0, gsClient.getGameServiceId());
         music = Gdx.audio.newMusic(Gdx.files.internal(Consts.getPathToMusic()));
         music.setVolume(0.3f);
         music.setLooping(true);
@@ -35,7 +35,7 @@ public class MyGame extends com.badlogic.gdx.Game implements IGameServiceListene
         preferences = Gdx.app.getPreferences(Consts.getPrefName());
 
         Consts.loadFonts();
-        Consts.loadMap();
+        Consts.loadMaps();
         batch = new SpriteBatch();
         levels = new Levels(this);
         Loader.load();
@@ -60,10 +60,7 @@ public class MyGame extends com.badlogic.gdx.Game implements IGameServiceListene
             }
         }
 
-        if (Consts.isSound()) {
-            music.play();
-        }
-        //setScreen(new Start(this));
+//        gsClient.incrementAchievement()
 
     }
 
@@ -88,15 +85,19 @@ public class MyGame extends com.badlogic.gdx.Game implements IGameServiceListene
 
                 Consts.getMap().put(integerEntry.getKey(), preferences.getInteger(integerEntry.getKey()));
             }
-            Consts.setSound(preferences.getBoolean(Consts.getSOUND()));
-            Consts.setVibrate(preferences.getBoolean(Consts.getVIBRATE()));
+
+            for (Map.Entry<String, Boolean> integerEntry : Consts.getBool().entrySet()) {
+
+                Consts.getBool().put(integerEntry.getKey(), preferences.getBoolean(integerEntry.getKey()));
+            }
         }
+        changeMusicPlay();
 
     }
 
-    public void changeSoundPlay() {
+    public void changeMusicPlay() {
 
-        if (Consts.isSound()) {
+        if (Consts.getBool().get(Consts.getSOUND())) {
             music.play();
         } else {
             music.pause();
@@ -125,15 +126,8 @@ public class MyGame extends com.badlogic.gdx.Game implements IGameServiceListene
 
     private void savePref() {
 
-        for (Map.Entry<String, Integer> integerEntry : Consts.getMap().entrySet()) {
-
-            preferences.putInteger(integerEntry.getKey(), integerEntry.getValue());
-
-        }
-
-        //
-        preferences.putBoolean(Consts.getSOUND(), Consts.isSound());
-        preferences.putBoolean(Consts.getVIBRATE(), Consts.isVibrate());
+        preferences.put(Consts.getMap());
+        preferences.put(Consts.getBool());
 
         preferences.flush();
     }
@@ -141,7 +135,7 @@ public class MyGame extends com.badlogic.gdx.Game implements IGameServiceListene
     private void saveDataToCloud() {
 
         if (gsClient.isSessionActive()) {
-
+///data/user/0/com.nabat.game/shared_prefs/fileForPrefs.xml.bak
             try {
 
                 byte[] save = new byte[Consts.getMap().size() * 4 + 2];
@@ -158,8 +152,8 @@ public class MyGame extends com.badlogic.gdx.Game implements IGameServiceListene
                     i += 4;
                 }
 
-                save[Consts.getMap().size() * 4] = (byte) (Consts.isSound() ? 1 : 0);
-                save[Consts.getMap().size() * 4 + 1] = (byte) (Consts.isVibrate() ? 1 : 0);
+                save[Consts.getMap().size() * 4] = (byte) (Consts.getBool().get(Consts.getSOUND()) ? 1 : 0);
+                save[Consts.getMap().size() * 4 + 1] = (byte) (Consts.getBool().get(Consts.getVIBRATE()) ? 1 : 0);
 
                 gsClient.saveGameState(Consts.getPrefName(),
                         save, 0, null);
@@ -181,7 +175,6 @@ public class MyGame extends com.badlogic.gdx.Game implements IGameServiceListene
 
         savePref();
         saveDataToCloud();
-
     }
 
 

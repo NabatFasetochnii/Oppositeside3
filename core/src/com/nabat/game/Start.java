@@ -14,9 +14,12 @@ public class Start implements Screen {
     private final float gpgsW, gpgsH;
     private final float soundX, soundY, soundW, soundH;
     private final float shopX, shopY, shopW, shopH;
-    private final float rateX, rateY;
+    //    private final float rateX, rateY;
     private final float exitX, exitY;
     private final float vibX, vibY;
+    private final float achX, achY;
+    private final float leaderBX, leaderBY;
+
     private String onOff;
 
     public Start(MyGame myGame) {
@@ -39,7 +42,7 @@ public class Start implements Screen {
 
         shopW = Consts.getWIDTH() / 10f;
         shopH = shopW;
-        shopX = gpgsZone.getX() + gpgsZone.getWidth() / 2f - shopW * 5 / 2f - delta * 3 / 2f;
+        shopX = gpgsZone.getX() + gpgsZone.getWidth() / 2f - shopW * 3f - delta * 2f;
         shopY = gpgsZone.getY() - shopH - delta * 2;
 
         soundX = shopX + shopW + delta;
@@ -47,15 +50,20 @@ public class Start implements Screen {
         soundW = shopW;
         soundH = shopW;
 
-        rateX = soundX + shopW + delta;
-        rateY = shopY;
+        /*rateX = soundX + shopW + delta;
+        rateY = shopY;*/
 
-        vibX = rateX + shopW + delta;
+        vibX = soundX + shopW + delta;
         vibY = shopY;
 
-        exitX = vibX + shopW + delta;//rateX + shopW + delta;
-        exitY = shopY;//shopY;
+        achX = vibX + shopW + delta;
+        achY = shopY;
 
+        leaderBX = achX + shopW + delta;
+        leaderBY = shopY;
+
+        exitX = leaderBX + shopW + delta;//rateX + shopW + delta;
+        exitY = shopY;//shopY;
 
     }
 
@@ -103,7 +111,7 @@ public class Start implements Screen {
                 shopX, shopY,
                 shopW, shopH);
 
-        if (Consts.isSound()) { // переключатель музыки
+        if (Consts.getBool().get(Consts.getSOUND())) { // переключатель музыки
 
             myGame.getBatch().draw(Loader.getSoundOn(),
                     soundX, soundY,
@@ -114,17 +122,18 @@ public class Start implements Screen {
                     soundX, soundY,
                     soundW, soundH);
         }
-
-        if (Consts.isVibrate()) {
+        if (Consts.getBool().get(Consts.getVIBRATE())) {
             myGame.getBatch().draw(Loader.getVibrateButton(), vibX, vibY, shopW, shopH);
         } else {
             myGame.getBatch().draw(Loader.getNoVibrateButton(), vibX, vibY, shopW, shopH);
         }
 
-        myGame.getBatch().draw(Loader.getRateButton(), rateX, rateY, //кнопка оценки приложения
-                shopW, shopH);
+        /*myGame.getBatch().draw(Loader.getRateButton(), rateX, rateY, //кнопка оценки приложения
+                shopW, shopH);*/
 
         myGame.getBatch().draw(Loader.getExitButton(), exitX, exitY, shopW, shopH);
+        myGame.getBatch().draw(Loader.getAchievementsButton(), achX, achY, shopW, shopH);
+        myGame.getBatch().draw(Loader.getLeaderBoardButton(), leaderBX, leaderBY, shopW, shopH);
 
         myGame.getBatch().end();
 
@@ -164,13 +173,13 @@ public class Start implements Screen {
         return exitY;
     }
 
-    public float getRateX() {
-        return rateX;
-    }
-
-    public float getRateY() {
-        return rateY;
-    }
+//    public float getRateX() {
+//        return rateX;
+//    }
+//
+//    public float getRateY() {
+//        return rateY;
+//    }
 
     public float getShopX() {
         return shopX;

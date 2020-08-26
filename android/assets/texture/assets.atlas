@@ -4,101 +4,73 @@ size: 2048,128
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
+achievement3
+  rotate: false
+  xy: 124, 9
+  size: 113, 113
+  orig: 113, 113
+  offset: 0, 0
+  index: -1
 ic_action_music_note
   rotate: false
-  xy: 1150, 26
+  xy: 537, 26
   size: 96, 96
   orig: 96, 96
   offset: 0, 0
   index: -1
 ic_action_music_off
   rotate: false
-  xy: 1248, 26
+  xy: 635, 26
   size: 96, 96
   orig: 96, 96
   offset: 0, 0
   index: -1
 ic_action_no_vibration
   rotate: false
-  xy: 1346, 26
+  xy: 733, 26
   size: 96, 96
   orig: 96, 96
   offset: 0, 0
   index: -1
 ic_action_vibration
   rotate: false
-  xy: 1052, 26
+  xy: 439, 26
   size: 96, 96
   orig: 96, 96
   offset: 0, 0
   index: -1
 ic_attach_money
   rotate: false
-  xy: 954, 26
+  xy: 341, 26
   size: 96, 96
   orig: 96, 96
   offset: 0, 0
   index: -1
 ic_clear
   rotate: false
-  xy: 856, 26
+  xy: 831, 26
   size: 96, 96
   orig: 96, 96
   offset: 0, 0
   index: -1
-ic_more_vert
-  rotate: false
-  xy: 734, 2
-  size: 120, 120
-  orig: 120, 120
-  offset: 0, 0
-  index: -1
-ic_pause_circle_filled
-  rotate: false
-  xy: 124, 2
-  size: 120, 120
-  orig: 120, 120
-  offset: 0, 0
-  index: -1
-ic_pause_circle_outline
+ic_settings
   rotate: false
   xy: 2, 2
   size: 120, 120
   orig: 120, 120
   offset: 0, 0
   index: -1
-ic_reorder
-  rotate: false
-  xy: 368, 2
-  size: 120, 120
-  orig: 120, 120
-  offset: 0, 0
-  index: -1
-ic_settings
-  rotate: false
-  xy: 490, 2
-  size: 120, 120
-  orig: 120, 120
-  offset: 0, 0
-  index: -1
 ic_shopping_cart
   rotate: false
-  xy: 1444, 26
+  xy: 929, 26
   size: 96, 96
   orig: 96, 96
   offset: 0, 0
   index: -1
-ic_star_border
+icons8-leaderboard-100-2
   rotate: false
-  xy: 246, 2
-  size: 120, 120
-  orig: 120, 120
-  offset: 0, 0
-  index: -1
-ic_thumb_up
-  rotate: false
-  xy: 612, 2
-  size: 120, 120
-  orig: 120, 120
+  xy: 239, 22
+  size: 100, 100
+  orig: 100, 100
   offset: 0, 0
   index: -1

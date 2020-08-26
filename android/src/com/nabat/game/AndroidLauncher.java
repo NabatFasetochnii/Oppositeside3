@@ -19,19 +19,31 @@ public class AndroidLauncher extends AndroidApplication {
         config.useAccelerometer = false;
         config.useCompass = false;
 
-
-//        gpgsClient = new GpgsClient().initialize(this, true);
-
-        this.gpgsClient = new GpgsClient()
+        this.gpgsClient = new GpgsClient() {
+            @Override
+            public boolean submitEvent(String eventId, int increment) {
+                return super.submitEvent(Consts.getEvents().get(eventId), increment);
+            }
+        }
                 .setGpgsAchievementIdMapper(new IGameServiceIdMapper<String>() {
                     @Override
                     public String mapToGsId(String independantId) {
-                        return GpgsMappers.mapToGpgsAchievement(independantId);
+                        if (independantId != null) {
+                            return Consts.getAchievements().get(independantId);
+                        } else {
+                            return null;
+                        }
+
                     }
                 }).setGpgsLeaderboardIdMapper(new IGameServiceIdMapper<String>() {
                     @Override
                     public String mapToGsId(String independantId) {
-                        return GpgsMappers.mapToGpgsLeaderboard(independantId);
+                        if (independantId != null) {
+                            if (independantId.equals(Consts.getLEADERBOARD1())) {
+                                return Consts.getLeaderBoard();
+                            }
+                        }
+                        return null;
                     }
                 }).initialize(this, true);
 

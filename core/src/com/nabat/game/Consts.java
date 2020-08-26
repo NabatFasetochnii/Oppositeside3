@@ -11,6 +11,24 @@ import java.util.Map;
 
 public class Consts {
 
+    //
+    private static final String LEADERBOARD1 = "BOARD1";
+    private static final String LEADER_BOARD = "CgkIpq7zg9UYEAIQAg";
+    private static final String PRIME = "Prime";
+    private static final String FAST_START = "FastStart";
+    private static final String FASTEST_FINGERS_IN_THE_WILD_WEST = "FastestFingersInTheWildWest";
+    private static final String NICE = "Nice";
+    private static final String NICE2 = "Nice2";
+    private static final String IS_IT_YOU_AGAIN = "IsItYouAgain";
+    private static final String THE_DEVIL_HIMSELF = "TheDevilHimself";
+    private static final String IM_AT_HOME = "ImAtHome";
+    private static final String TAKE_THOUGHT = "TakeThought";
+    private static final String IMPOSSIBLE = "Impossible";
+    private static final String IS_THIS_AN_RPG = "IsThisAnRPG";
+    private static final String SPEED_RUN = "SpeedRun";
+    private static final Map<String, String> achievements = new HashMap<>();
+    private static final Map<String, String> events = new HashMap<>();
+    //
     private final static String LOSE = "You lose";//константа текста победы
     private final static String WIN = "You WIN!";//константа текста проигрыша
     private final static String ttfPath = "fonts/Terminus.ttf";//путь к шрифту
@@ -46,6 +64,7 @@ public class Consts {
     private final static String PATH_TO_FOURTH_ROTATION_COMPLICATED = "levels/4/4_2/2";
     //
     private final static String PATH_TO_MUSIC = "audio/music.mp3";
+    private final static String PATH_TO_SOUND = "audio/sounds/JYKD_kick_chick.wav";
     //
     private final static int WIDTH = Gdx.app.getGraphics().getWidth();//ширина и высота экрана
     private final static int HEIGHT = Gdx.app.getGraphics().getHeight();
@@ -104,9 +123,9 @@ public class Consts {
     private final static String SOUND = "sound";
     private final static String VIBRATE = "vib";
     //
-    private static boolean isVibrate = true;
-    //
-    private static boolean sound = true;
+    private static final Map<String, Boolean> bool = new HashMap<>();
+    //    private static boolean isVibrate = true;
+//    private static boolean sound = true;
     //
     private static BitmapFont fontForLose;
     private static BitmapFont fontForCount;
@@ -116,13 +135,201 @@ public class Consts {
     //
     private static boolean isLastSessionFall = false;
     private static boolean isRead = true;
-    //
-    public static final String LEADERBOARD1 = "BOARD1";
-    public static final String ACHIEVEMENT1 = "ACH1";
 
     Consts() {
 
 
+    }
+
+    public static String getLeaderBoard() {
+        return LEADER_BOARD;
+    }
+
+    public static String getLEADERBOARD1() {
+        return LEADERBOARD1;
+    }
+
+    public static String getPRIME() {
+        return PRIME;
+    }
+
+    public static String getFastStart() {
+        return FAST_START;
+    }
+
+    public static String getFastestFingersInTheWildWest() {
+        return FASTEST_FINGERS_IN_THE_WILD_WEST;
+    }
+
+    public static String getNICE() {
+        return NICE;
+    }
+
+    public static String getNICE2() {
+        return NICE2;
+    }
+
+    public static String getIsItYouAgain() {
+        return IS_IT_YOU_AGAIN;
+    }
+
+    public static String getTheDevilHimself() {
+        return THE_DEVIL_HIMSELF;
+    }
+
+    public static String getImAtHome() {
+        return IM_AT_HOME;
+    }
+
+    public static String getTakeThought() {
+        return TAKE_THOUGHT;
+    }
+
+    public static String getIMPOSSIBLE() {
+        return IMPOSSIBLE;
+    }
+
+    public static String getIsThisAnRpg() {
+        return IS_THIS_AN_RPG;
+    }
+
+    public static String getSpeedRun() {
+        return SPEED_RUN;
+    }
+
+    public static Map<String, String> getAchievements() {
+        return achievements;
+    }
+
+    public static Map<String, String> getEvents() {
+        return events;
+    }
+
+    private static void loadAch() {
+
+        achievements.put(PRIME, "CgkIpq7zg9UYEAIQAQ");
+        achievements.put(FAST_START, "CgkIpq7zg9UYEAIQCw");
+        achievements.put(FASTEST_FINGERS_IN_THE_WILD_WEST, "CgkIpq7zg9UYEAIQDA");
+        achievements.put(NICE, "CgkIpq7zg9UYEAIQDQ");
+        achievements.put(NICE2, "CgkIpq7zg9UYEAIQDg");
+        achievements.put(IS_IT_YOU_AGAIN, "CgkIpq7zg9UYEAIQDw");
+        achievements.put(THE_DEVIL_HIMSELF, "CgkIpq7zg9UYEAIQEA");
+        achievements.put(IM_AT_HOME, "CgkIpq7zg9UYEAIQEQ");
+        achievements.put(TAKE_THOUGHT, "CgkIpq7zg9UYEAIQEg");
+        achievements.put(IMPOSSIBLE, "CgkIpq7zg9UYEAIQEw");
+        achievements.put(IS_THIS_AN_RPG, "CgkIpq7zg9UYEAIQFA");
+        achievements.put(SPEED_RUN, "CgkIpq7zg9UYEAIQFQ");
+    }
+
+    private static void loadEvents() {
+
+        events.put("1", "CgkIpq7zg9UYEAIQBA");
+        events.put("-1", "CgkIpq7zg9UYEAIQAw");
+        events.put("2", "CgkIpq7zg9UYEAIQBg");
+        events.put("-2", "CgkIpq7zg9UYEAIQBQ");
+        events.put("3", "CgkIpq7zg9UYEAIQCA");
+        events.put("-3", "CgkIpq7zg9UYEAIQBw");
+        events.put("4", "CgkIpq7zg9UYEAIQCg");
+        events.put("-4", "CgkIpq7zg9UYEAIQCQ");
+
+        events.put("11", "CgkIpq7zg9UYEAIQFw");
+        events.put("-11", "CgkIpq7zg9UYEAIQFg");
+        events.put("21", "CgkIpq7zg9UYEAIQGQ");
+        events.put("-21", "CgkIpq7zg9UYEAIQGA");
+        events.put("31", "CgkIpq7zg9UYEAIQGw");
+        events.put("-31", "CgkIpq7zg9UYEAIQGg");
+        events.put("41", "CgkIpq7zg9UYEAIQHQ");
+        events.put("-41", "CgkIpq7zg9UYEAIQHA");
+
+        events.put("111", "CgkIpq7zg9UYEAIQHg");
+        events.put("-111", "CgkIpq7zg9UYEAIQHw");
+        events.put("211", "CgkIpq7zg9UYEAIQIA");
+        events.put("-211", "CgkIpq7zg9UYEAIQIQ");
+        events.put("311", "CgkIpq7zg9UYEAIQIg");
+        events.put("-311", "CgkIpq7zg9UYEAIQIw");
+        events.put("411", "CgkIpq7zg9UYEAIQJA");
+        events.put("-411", "CgkIpq7zg9UYEAIQJQ");
+
+        events.put("12", "CgkIpq7zg9UYEAIQJg");
+        events.put("-12", "CgkIpq7zg9UYEAIQJw");
+        events.put("22", "CgkIpq7zg9UYEAIQKA");
+        events.put("-22", "CgkIpq7zg9UYEAIQKQ");
+        events.put("32", "CgkIpq7zg9UYEAIQKg");
+        events.put("-32", "CgkIpq7zg9UYEAIQKw");
+        events.put("42", "CgkIpq7zg9UYEAIQLA");
+        events.put("-42", "CgkIpq7zg9UYEAIQLQ");
+
+        events.put("121", "CgkIpq7zg9UYEAIQLg");
+        events.put("-121", "CgkIpq7zg9UYEAIQLw");
+        events.put("221", "CgkIpq7zg9UYEAIQMA");
+        events.put("-221", "CgkIpq7zg9UYEAIQMQ");
+        events.put("321", "CgkIpq7zg9UYEAIQMg");
+        events.put("-321", "CgkIpq7zg9UYEAIQMw");
+        events.put("421", "CgkIpq7zg9UYEAIQNA");
+        events.put("-421", "CgkIpq7zg9UYEAIQNQ");
+
+        events.put("122", "CgkIpq7zg9UYEAIQNg");
+        events.put("-122", "CgkIpq7zg9UYEAIQNw");
+        events.put("222", "CgkIpq7zg9UYEAIQOA");
+        events.put("-222", "CgkIpq7zg9UYEAIQOQ");
+        events.put("322", "CgkIpq7zg9UYEAIQOg");
+        events.put("-322", "CgkIpq7zg9UYEAIQOw");
+        events.put("422", "CgkIpq7zg9UYEAIQPA");
+        events.put("-422", "CgkIpq7zg9UYEAIQPQ");
+
+        events.put("10", "CgkIpq7zg9UYEAIQPg");
+        events.put("-10", "CgkIpq7zg9UYEAIQPw");
+        events.put("20", "CgkIpq7zg9UYEAIQQA");
+        events.put("-20", "CgkIpq7zg9UYEAIQQQ");
+        events.put("30", "CgkIpq7zg9UYEAIQQg");
+        events.put("-30", "CgkIpq7zg9UYEAIQQw");
+        events.put("40", "CgkIpq7zg9UYEAIQRA");
+        events.put("-40", "CgkIpq7zg9UYEAIQRQ");
+//////////////////////
+        events.put("101", "CgkIpq7zg9UYEAIQRg");
+        events.put("-101", "CgkIpq7zg9UYEAIQRw");
+        events.put("201", "CgkIpq7zg9UYEAIQSA");
+        events.put("-201", "CgkIpq7zg9UYEAIQSQ");
+        events.put("301", "CgkIpq7zg9UYEAIQSg");
+        events.put("-301", "CgkIpq7zg9UYEAIQSw");
+        events.put("401", "CgkIpq7zg9UYEAIQTA");
+        events.put("-401", "CgkIpq7zg9UYEAIQTQ");
+
+        events.put("102", "CgkIpq7zg9UYEAIQTg");
+        events.put("-102", "CgkIpq7zg9UYEAIQTw");
+        events.put("202", "CgkIpq7zg9UYEAIQUA");
+        events.put("-202", "CgkIpq7zg9UYEAIQUQ");
+        events.put("302", "CgkIpq7zg9UYEAIQUg");
+        events.put("-302", "CgkIpq7zg9UYEAIQUw");
+        events.put("402", "CgkIpq7zg9UYEAIQVA");
+        events.put("-402", "CgkIpq7zg9UYEAIQVQ");
+    }
+
+    /*
+
+
+     * */
+
+    public static Map<String, Boolean> getBool() {
+        return bool;
+    }
+
+    public static void loadMaps() {
+
+        loadMap();
+        loadBool();
+        loadAch();
+        loadEvents();
+    }
+
+    private static void loadBool() {
+
+        bool.put(SOUND, true);
+        bool.put(VIBRATE, true);
+    }
+
+    public static String getPathToSound() {
+        return PATH_TO_SOUND;
     }
 
     public static boolean isRead() {
@@ -137,15 +344,15 @@ public class Consts {
         return VIBRATE;
     }
 
-    public static boolean isVibrate() {
-        return isVibrate;
-    }
+//    public static boolean isVibrate() {
+//        return isVibrate;
+//    }
+//
+//    public static void setVibrate(boolean isVibrate) {
+//        Consts.isVibrate = isVibrate;
+//    }
 
-    public static void setVibrate(boolean isVibrate) {
-        Consts.isVibrate = isVibrate;
-    }
-
-    public static void loadMap() {
+    private static void loadMap() {
 
         putMap(COUNT0);
 
@@ -252,14 +459,14 @@ public class Consts {
     public static String getSOUND() {
         return SOUND;
     }
-
-    public static boolean isSound() {
-        return sound;
-    }
-
-    public static void setSound(boolean sound) {
-        Consts.sound = sound;
-    }
+//
+//    public static boolean isSound() {
+//        return sound;
+//    }
+//
+//    public static void setSound(boolean sound) {
+//        Consts.sound = sound;
+//    }
 
     public static String getGPGS() {
         return GPGS;

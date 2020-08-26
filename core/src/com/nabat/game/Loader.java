@@ -12,14 +12,24 @@ public class Loader {
     private static TextureRegion soundOff;
     private static TextureRegion shopButton;
     private static TextureRegion settingsButton;
-    private static TextureRegion rateButton;
+    //    private static TextureRegion rateButton;
     private static TextureRegion vibrateButton;
     private static TextureRegion noVibrateButton;
+    private static TextureRegion leaderBoardButton;
+    private static TextureRegion achievementsButton;
     private static TextureAtlas textureAtlas;
 
     Loader() {
 
 
+    }
+
+    public static TextureRegion getLeaderBoardButton() {
+        return leaderBoardButton;
+    }
+
+    public static TextureRegion getAchievementsButton() {
+        return achievementsButton;
     }
 
     public static TextureRegion getVibrateButton() {
@@ -39,9 +49,9 @@ public class Loader {
         return settingsButton;
     }
 
-    public static TextureRegion getRateButton() {
-        return rateButton;
-    }
+//    public static TextureRegion getRateButton() {
+//        return rateButton;
+//    }
 
     public static TextureRegion getSoundOn() {
         return soundOn;
@@ -54,7 +64,6 @@ public class Loader {
     public static void dispose() {
 
         textureAtlas.dispose();
-
     }
 
     public static TextureRegion getShopButton() {
@@ -71,9 +80,10 @@ public class Loader {
         loadSettings();
         loadSoundOn();
         loadSoundOff();
-        loadRate();
+//        loadRate();
         loadVibrate();
-
+        loadAch();
+        loadLeaderBoard();
     }
 
     private static void loadSoundOn() {
@@ -98,15 +108,27 @@ public class Loader {
         shopButton.getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
     }
 
-    private static void loadRate() {
-        rateButton = textureAtlas.findRegion("ic_thumb_up");
-        rateButton.getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-    }
+//    private static void loadRate() {
+//        rateButton = textureAtlas.findRegion("ic_thumb_up");
+//        rateButton.getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+//    }
 
     private static void loadSettings() {
 
         settingsButton = textureAtlas.findRegion("ic_settings");
         settingsButton.getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+    }
+
+    private static void loadAch() {
+
+        achievementsButton = textureAtlas.findRegion("achievement3");
+        achievementsButton.getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+    }
+
+    private static void loadLeaderBoard() {
+
+        leaderBoardButton = textureAtlas.findRegion("icons8-leaderboard-100-2");
+        leaderBoardButton.getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
     }
 
     private static void loadVibrate() {

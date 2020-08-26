@@ -58,13 +58,15 @@ public class InputForStart implements InputProcessor {
         }
 
         if (Consts.isTouch(start.getSoundX(), start.getSoundY(), start.getSoundW(), start.getSoundH(), screenX, y)) {
-            Consts.setSound(!Consts.isSound());
-            myGame.changeSoundPlay();
+            Consts.getBool().put(Consts.getSOUND(), !Consts.getBool().get(Consts.getSOUND()));
+//            Consts.setSound(!Consts.isSound());
+            myGame.changeMusicPlay();
         }
 
         if (Consts.isTouch(start.getVibX(), start.getVibY(), start.getSoundW(), start.getSoundH(), screenX, y)) {
 
-            Consts.setVibrate(!Consts.isVibrate());
+//            Consts.setVibrate(!Consts.isVibrate());
+            Consts.getBool().put(Consts.getVIBRATE(), !Consts.getBool().get(Consts.getVIBRATE()));
         }
 
         if (gpgsZone.isTouch(screenX, y)) {
@@ -83,10 +85,10 @@ public class InputForStart implements InputProcessor {
 //            Consts.setLogin(!Consts.isLogin());
         }
 
-        if (Consts.isTouch(start.getRateX(), start.getRateY(), start.getShopW(), start.getShopH(), screenX, y)){
+        /*if (Consts.isTouch(start.getRateX(), start.getRateY(), start.getShopW(), start.getShopH(), screenX, y)){
 
             //TODO ОЦЕНИТЕ ПРИЛОЖУХУ ПЖЖЖЖЖЖЖ
-        }
+        }*/
 
         if (Consts.isTouch(start.getExitX(), start.getExitY(), start.getShopW(), start.getShopH(), screenX, y)){
 

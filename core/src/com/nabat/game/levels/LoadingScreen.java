@@ -21,13 +21,10 @@ public class LoadingScreen implements Screen {
 
     @Override
     public void show() {
-
-
     }
 
     @Override
     public void render(float delta) {
-
         Consts.clear();//TODO ГИФОЧКУ БЫ КАКУЮНИТЬ ИЛИ ЛОГОТИП ХЗ
 
         if (myGame.gsClient.isSessionActive()) {
@@ -53,19 +50,19 @@ public class LoadingScreen implements Screen {
                                     Consts.getMap().put(integerEntry.getKey(), myGame.bytesToInt(load));
                                 }
 
-                                Consts.setSound(gameState[Consts.getMap().size()] == (byte) 1);
-                                Consts.setVibrate(gameState[Consts.getMap().size() + 1] == (byte) 1);
+                                Consts.getBool().put(Consts.getSOUND(),
+                                        gameState[Consts.getMap().size() * 4] == (byte) 1);
+                                Consts.getBool().put(Consts.getVIBRATE(),
+                                        gameState[Consts.getMap().size() * 4 + 1] == (byte) 1);
+                                myGame.changeMusicPlay();
 
                             } else {
-
                                 Gdx.app.log("Loading", "gameState is null");
                                 myGame.initPref();
-
                             }
 
                             Consts.setRead(false);
                             myGame.setScreen(new Prosak(myGame));
-
                         }
                     }
                 });
@@ -78,13 +75,11 @@ public class LoadingScreen implements Screen {
                 myGame.setScreen(new Start(myGame));
             }
 
-
         } else if (!myGame.gsClient.isConnectionPending()) {
             Gdx.app.log("Loading screen", "problem with connect");
             myGame.initPref();
             myGame.setScreen(new Start(myGame));
         }
-
     }
 
     @Override
