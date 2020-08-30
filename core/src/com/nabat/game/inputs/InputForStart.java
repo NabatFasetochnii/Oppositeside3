@@ -2,10 +2,16 @@ package com.nabat.game.inputs;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.utils.Array;
 import com.nabat.game.Consts;
 import com.nabat.game.MyGame;
 import com.nabat.game.RectZone;
-import com.nabat.game.Start;
+import com.nabat.game.levels.LeaderBoardScreen;
+import com.nabat.game.levels.Start;
+import de.golfgl.gdxgamesvcs.GameServiceException;
+import de.golfgl.gdxgamesvcs.IGameServiceClient;
+import de.golfgl.gdxgamesvcs.leaderboard.IFetchLeaderBoardEntriesResponseListener;
+import de.golfgl.gdxgamesvcs.leaderboard.ILeaderBoardEntry;
 
 public class InputForStart implements InputProcessor {
 
@@ -90,7 +96,90 @@ public class InputForStart implements InputProcessor {
             //TODO ОЦЕНИТЕ ПРИЛОЖУХУ ПЖЖЖЖЖЖЖ
         }*/
 
-        if (Consts.isTouch(start.getExitX(), start.getExitY(), start.getShopW(), start.getShopH(), screenX, y)){
+        if (Consts.isTouch(start.getAchX(), start.getAchY(), start.getShopW(), start.getShopH(), screenX, y)) {
+
+            start.setLoad(true);
+            try {
+
+                myGame.gsClient.showAchievements();
+                start.setLoad(false);
+
+            } catch (GameServiceException e) {
+                e.printStackTrace();
+                start.setLoad(false);
+            }
+
+            /*if (myGame.gsClient.isFeatureSupported(IGameServiceClient.GameServiceFeature.FetchAchievements)) {
+
+                myGame.gsClient.fetchAchievements(new IFetchAchievementsResponseListener() {
+                    @Override
+                    public void onFetchAchievementsResponse(final Array<IAchievement> achievements) {
+                        Gdx.app.postRunnable(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (achievements != null) {
+                                    if (achievements.size > 0) {
+                                        start.setLoad(false);
+                                        myGame.setScreen(new AchievementsScreen(myGame, achievements));
+                                    }
+                                }else {
+                                    Gdx.input.vibrate(30);
+                                    start.setLoad(false);
+                                }
+                            }
+                        });
+                    }
+                });
+            }else {
+                Gdx.input.vibrate(30);
+                start.setLoad(false);
+            }*/
+        }
+
+
+        if (Consts.isTouch(start.getLeaderBX(), start.getLeaderBY(), start.getShopW(), start.getShopH(), screenX, y)) {
+
+            start.setLoad(true);
+            if (myGame.gsClient.isFeatureSupported(IGameServiceClient.GameServiceFeature.FetchLeaderBoardEntries)) {
+
+                if (!myGame.gsClient.fetchLeaderboardEntries(Consts.getLEADERBOARD1(),
+                        10, false,
+                        new IFetchLeaderBoardEntriesResponseListener() {
+                            @Override
+                            public void onLeaderBoardResponse(final Array<ILeaderBoardEntry> leaderBoard) {
+                                if (leaderBoard != null) {
+
+                                    if (leaderBoard.size > 0) {
+
+                                        Gdx.app.postRunnable(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                start.setLoad(false);
+                                                myGame.setScreen(new LeaderBoardScreen(myGame, leaderBoard));
+                                            }
+                                        });
+                                    } else {
+                                        Gdx.app.log("leaderB", "leaderBoard.size = 0");
+                                        start.setLoad(false);
+                                    }
+
+                                } else {
+                                    Gdx.input.vibrate(30);
+                                    start.setLoad(false);
+                                }
+
+                            }
+                        })) {
+                    Gdx.app.log("inputForStart", "problem leaderBoard");
+                    start.setLoad(false);
+                }
+            } else {
+                Gdx.input.vibrate(30);
+                start.setLoad(false);
+            }
+        }
+
+        if (Consts.isTouch(start.getExitX(), start.getExitY(), start.getShopW(), start.getShopH(), screenX, y)) {
 
             myGame.updatePref();
             Consts.setRead(true);

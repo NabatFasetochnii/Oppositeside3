@@ -6,6 +6,7 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.nabat.game.levels.Levels;
 import com.nabat.game.levels.LoadingScreen;
+import com.nabat.game.levels.Start;
 import de.golfgl.gdxgamesvcs.IGameServiceClient;
 import de.golfgl.gdxgamesvcs.IGameServiceListener;
 
@@ -19,9 +20,6 @@ public class MyGame extends com.badlogic.gdx.Game implements IGameServiceListene
     private SpriteBatch batch;
     private Preferences preferences;
     private Music music;
-//    public static final String EVENT1 = "EVENT1";
-//    public static final String REPOLINK = "https://github.com/MrStahlfelge/gdx-gamesvcs";
-//    public static final String FILE_ID = "cloud";
 
     @Override
     public void create() {

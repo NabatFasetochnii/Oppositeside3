@@ -4,7 +4,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
-import com.nabat.game.*;
+import com.nabat.game.Consts;
+import com.nabat.game.Loader;
+import com.nabat.game.MyGame;
+import com.nabat.game.RectZone;
 import com.nabat.game.inputs.InputForMenu;
 
 import java.util.ArrayList;
@@ -31,8 +34,6 @@ public class Levels implements Screen {
     private final float sumOfBestY;
     private final float scoreW;
     private String score;
-    private boolean start = false;
-    private int time =0;
 
     //TODO написать менюшку
     //TODO ДОБАВИТЬ ОЧИВКИ
@@ -233,10 +234,10 @@ public class Levels implements Screen {
         zoneList.add(l4R2);
     }
 
-    public void setStart(){
+    public void setStart() {
 
-        start = true;
-
+//        start = true;
+        myGame.setScreen(new Start(myGame));
     }
 
     public static void setLvl(int lvl) {
@@ -252,18 +253,16 @@ public class Levels implements Screen {
 
         Consts.clear();
 
-        if (start){
+        /*if (start){
 
-            int timeMax = 20;
-
-            if (time > timeMax){
+            if (time > 20){
                 myGame.setScreen(new Start(myGame));
                 time = 0;
                 start = false;
             }else {
                 time++;
             }
-        }
+        }*/
 
         for (RectZone r : zoneList) {
             r.draw();

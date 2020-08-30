@@ -20,7 +20,7 @@ android {
         applicationId "com.nabat.game"
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 1
+        versionCode 3
         versionName "1.0"
     }
     buildTypes {

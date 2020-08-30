@@ -3,9 +3,8 @@ package com.nabat.game.levels;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.nabat.game.Consts;
+import com.nabat.game.Loader;
 import com.nabat.game.MyGame;
-import com.nabat.game.Prosak;
-import com.nabat.game.Start;
 import de.golfgl.gdxgamesvcs.gamestate.ILoadGameStateResponseListener;
 
 import java.util.Map;
@@ -13,6 +12,7 @@ import java.util.Map;
 public class LoadingScreen implements Screen {
 
     private final MyGame myGame;
+    private final float size = Consts.getWIDTH() / 2f;
 
     public LoadingScreen(MyGame myGame) {
 
@@ -21,11 +21,77 @@ public class LoadingScreen implements Screen {
 
     @Override
     public void show() {
+        /*Gdx.app.postRunnable(new Runnable() {
+            @Override
+            public void run() {
+                if (myGame.gsClient.isSessionActive()) {
+
+                    try {
+
+                        myGame.gsClient.loadGameState(Consts.getPrefName(), new ILoadGameStateResponseListener() {
+                            @Override
+                            public void gsGameStateLoaded(byte[] gameState) {
+                                if (Consts.isRead()) {
+                                    if (gameState != null) {
+
+                                        int i = 0;
+                                        for (Map.Entry<String, Integer> integerEntry : Consts.getMap().entrySet()) {
+
+                                            byte[] load = new byte[4];
+
+                                            load[0] = gameState[i];
+                                            load[1] = gameState[i + 1];
+                                            load[2] = gameState[i + 2];
+                                            load[3] = gameState[i + 3];
+                                            i += 4;
+                                            Consts.getMap().put(integerEntry.getKey(), myGame.bytesToInt(load));
+                                        }
+
+                                        Consts.getBool().put(Consts.getSOUND(),
+                                                gameState[Consts.getMap().size() * 4] == (byte) 1);
+                                        Consts.getBool().put(Consts.getVIBRATE(),
+                                                gameState[Consts.getMap().size() * 4 + 1] == (byte) 1);
+                                        myGame.changeMusicPlay();
+
+                                    } else {
+                                        Gdx.app.log("Loading", "gameState is null");
+                                        myGame.initPref();
+                                    }
+
+                                    Consts.setRead(false);
+                                    myGame.setScreen(new Prosak(myGame));
+                                }
+                            }
+                        });
+
+                    } catch (UnsupportedOperationException unsupportedOperationException) {
+
+                        unsupportedOperationException.printStackTrace();
+                        myGame.initPref();
+                        Consts.setRead(false);
+                        myGame.setScreen(new Start(myGame));
+                    }
+
+                } else if (!myGame.gsClient.isConnectionPending()) {
+                    Gdx.app.log("Loading screen", "problem with connect");
+                    myGame.initPref();
+                    myGame.setScreen(new Start(myGame));
+                }
+            }
+        });*/
     }
 
     @Override
     public void render(float delta) {
-        Consts.clear();//TODO ГИФОЧКУ БЫ КАКУЮНИТЬ ИЛИ ЛОГОТИП ХЗ
+        Consts.clear();
+
+        myGame.getBatch().begin();
+
+        myGame.getBatch().draw(Loader.getLoadIcon(),//TODO МБ ПОТОМ СДЕЛАЮ ГИФ ОЧ КУ
+                Consts.getWIDTH() / 2f - size / 2f,
+                Consts.getHEIGHT() / 2f - size / 2f, size, size);
+
+        myGame.getBatch().end();
 
         if (myGame.gsClient.isSessionActive()) {
 

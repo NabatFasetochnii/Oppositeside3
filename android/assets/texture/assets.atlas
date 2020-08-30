@@ -1,75 +1,82 @@
 
 assets.png
-size: 2048,128
+size: 1024,1024
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
 achievement3
   rotate: false
-  xy: 124, 9
+  xy: 516, 723
   size: 113, 113
   orig: 113, 113
   offset: 0, 0
   index: -1
 ic_action_music_note
   rotate: false
-  xy: 537, 26
+  xy: 631, 740
   size: 96, 96
   orig: 96, 96
   offset: 0, 0
   index: -1
 ic_action_music_off
   rotate: false
-  xy: 635, 26
+  xy: 2, 2
   size: 96, 96
   orig: 96, 96
   offset: 0, 0
   index: -1
 ic_action_no_vibration
   rotate: false
-  xy: 733, 26
+  xy: 222, 226
   size: 96, 96
   orig: 96, 96
   offset: 0, 0
   index: -1
 ic_action_vibration
   rotate: false
-  xy: 439, 26
+  xy: 516, 625
   size: 96, 96
   orig: 96, 96
   offset: 0, 0
   index: -1
 ic_attach_money
   rotate: false
-  xy: 341, 26
+  xy: 124, 226
   size: 96, 96
   orig: 96, 96
   offset: 0, 0
   index: -1
 ic_clear
   rotate: false
-  xy: 831, 26
+  xy: 516, 527
   size: 96, 96
   orig: 96, 96
   offset: 0, 0
   index: -1
 ic_settings
   rotate: false
-  xy: 2, 2
+  xy: 2, 202
   size: 120, 120
   orig: 120, 120
   offset: 0, 0
   index: -1
 ic_shopping_cart
   rotate: false
-  xy: 929, 26
+  xy: 729, 740
   size: 96, 96
   orig: 96, 96
   offset: 0, 0
   index: -1
+icon2
+  rotate: false
+  xy: 2, 324
+  size: 512, 512
+  orig: 512, 512
+  offset: 0, 0
+  index: -1
 icons8-leaderboard-100-2
   rotate: false
-  xy: 239, 22
+  xy: 2, 100
   size: 100, 100
   orig: 100, 100
   offset: 0, 0

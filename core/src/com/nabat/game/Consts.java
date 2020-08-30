@@ -132,6 +132,7 @@ public class Consts {
     private static BitmapFont fontForCountMiss;
     private static BitmapFont fontForWin;
     private static BitmapFont fontForMenu;
+    private static BitmapFont fontForBoards;
     //
     private static boolean isLastSessionFall = false;
     private static boolean isRead = true;
@@ -139,6 +140,10 @@ public class Consts {
     Consts() {
 
 
+    }
+
+    public static BitmapFont getFontForBoards() {
+        return fontForBoards;
     }
 
     public static String getLeaderBoard() {
@@ -434,11 +439,14 @@ public class Consts {
 
         fontForCountMiss = generator.generateFont(parameter);
 
-        parameter.size = Gdx.app.getGraphics().getWidth() / 12;
+        parameter.size = WIDTH / 12;
         parameter.color = Color.CHARTREUSE;
         parameter.borderColor = Color.BLACK;
         parameter.borderWidth = 5;
         fontForMenu = generator.generateFont(parameter);
+
+        parameter.size = WIDTH / 15;
+        fontForBoards = generator.generateFont(parameter);
 
         generator.dispose();
     }
@@ -459,14 +467,6 @@ public class Consts {
     public static String getSOUND() {
         return SOUND;
     }
-//
-//    public static boolean isSound() {
-//        return sound;
-//    }
-//
-//    public static void setSound(boolean sound) {
-//        Consts.sound = sound;
-//    }
 
     public static String getGPGS() {
         return GPGS;

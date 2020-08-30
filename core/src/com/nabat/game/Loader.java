@@ -17,11 +17,16 @@ public class Loader {
     private static TextureRegion noVibrateButton;
     private static TextureRegion leaderBoardButton;
     private static TextureRegion achievementsButton;
+    private static TextureRegion loadIcon;
     private static TextureAtlas textureAtlas;
 
     Loader() {
 
 
+    }
+
+    public static TextureRegion getLoadIcon() {
+        return loadIcon;
     }
 
     public static TextureRegion getLeaderBoardButton() {
@@ -84,6 +89,13 @@ public class Loader {
         loadVibrate();
         loadAch();
         loadLeaderBoard();
+        loadIcon();
+    }
+
+    private static void loadIcon() {
+
+        loadIcon = textureAtlas.findRegion("icon2");
+        loadIcon.getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
     }
 
     private static void loadSoundOn() {

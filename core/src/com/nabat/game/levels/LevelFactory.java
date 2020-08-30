@@ -541,8 +541,11 @@ public class LevelFactory implements Screen {
             }
 
             myGame.updatePref();
-            myGame.gsClient.submitToLeaderboard(Consts.getLEADERBOARD1(),
-                    Consts.getMap().get(Consts.getCOUNT0()), myGame.gsClient.getGameServiceId());
+            if (!myGame.gsClient.submitToLeaderboard(Consts.getLEADERBOARD1(),
+                    Consts.getMap().get(Consts.getCOUNT0()), myGame.gsClient.getGameServiceId())) {
+                Gdx.app.log("lvlfact", "problem leaderboard");
+            }
+
         }
 
 //        int timeMax = 20;
