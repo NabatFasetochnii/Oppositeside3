@@ -31,6 +31,7 @@ public class LevelFactory implements Screen {
     private final MyGame myGame;
     private final float levelTime;
     private final int lvlName;
+    public Sound sound;
     private int time = 0;
     private int y;
     private float rotationSpeed; //deg
@@ -45,7 +46,6 @@ public class LevelFactory implements Screen {
     private boolean isRotation = false;
     private boolean isDot = false;
     private int MAX_MISS = 3;
-    public Sound sound;
 
     public LevelFactory(Color color, float levelTime, String pathToFile,
                         int sizeOfScreens, int lvl, MyGame myGame, int lvlName) {
@@ -580,7 +580,7 @@ public class LevelFactory implements Screen {
                 @Override
                 public boolean touchUp(int screenX, int screenY, int pointer, int button) {
 
-
+                    myGame.getAdsController().showBannerAd();
                     isLose = false;
                     countOfMiss = 0;
                     countOfSquare = 0;
@@ -589,7 +589,6 @@ public class LevelFactory implements Screen {
                     arrayLists = null;
                     time = 0;
                     text_Y = Consts.getHEIGHT() / 2f;
-
                     myGame.setScreen(myGame.getLevels());
 
                     sound.dispose();
@@ -762,12 +761,15 @@ public class LevelFactory implements Screen {
         return list;
 
     }
+
     public ArrayList<ArrayList<RectZone>> getArrayLists() {
         return arrayLists;
     }
+
     public int getI() {
         return i;
     }
+
     public void setI(int i) {
         this.i = i;
     }

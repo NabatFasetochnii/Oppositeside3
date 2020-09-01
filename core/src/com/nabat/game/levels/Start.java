@@ -27,7 +27,6 @@ public class Start implements Screen {
     private String onOff;
     private int time = 0;
     private boolean isInput = true;
-    private boolean isLoad = false;
 
     public Start(MyGame myGame) {
 
@@ -74,15 +73,6 @@ public class Start implements Screen {
 
     }
 
-    public void setLoad(boolean load) {
-        isLoad = load;
-        if (load) {
-            Gdx.input.setInputProcessor(null);
-        } else {
-            isInput = true;
-        }
-
-    }
 
     public float getAchX() {
         return achX;
@@ -131,64 +121,56 @@ public class Start implements Screen {
         }
 
 
-        if (isLoad) {
-            myGame.getBatch().begin();
-            myGame.getBatch().draw(Loader.getLoadIcon(),//TODO МБ ПОТОМ СДЕЛАЮ ГИФ ОЧ КУ
-                    Consts.getWIDTH() / 2f - size / 2f,
-                    Consts.getHEIGHT() / 2f - size / 2f, size, size);
+        startZone.draw(); //большой квадратик сверху
+        gpgsZone.draw();//квадратик gpgs
 
+        myGame.getBatch().begin();
+        Consts.getFontForMenu().draw(myGame.getBatch(), Consts.getPLAY(),//призыв начать играть
+                Consts.getWIDTH() / 2f - startW / 2, Consts.getHEIGHT() * 3 / 4f);
+
+        if (myGame.gsClient.isSessionActive()) {
+
+            onOff = Consts.getGPGS() + Consts.getON();
+
+        } else if (myGame.gsClient.isConnectionPending()) {
+
+            onOff = Consts.getGPGS() + "...";
+        } else {
+            onOff = Consts.getGPGS() + Consts.getOFF();
+
+        }
+        Consts.getFontForMenu().draw(myGame.getBatch(), onOff, //переключатель аунтификации гугл плэя
+                Consts.getWIDTH() / 2f - gpgsW / 2, Consts.getHEIGHT() / 3f + gpgsH);
+
+        myGame.getBatch().draw(Loader.getShopButton(), // кнопка магазина
+                shopX, shopY,
+                shopW, shopH);
+
+        if (Consts.getBool().get(Consts.getSOUND())) { // переключатель музыки
+
+            myGame.getBatch().draw(Loader.getSoundOn(),
+                    soundX, soundY,
+                    soundW, soundH);
         } else {
 
-            startZone.draw(); //большой квадратик сверху
-            gpgsZone.draw();//квадратик gpgs
-
-            myGame.getBatch().begin();
-            Consts.getFontForMenu().draw(myGame.getBatch(), Consts.getPLAY(),//призыв начать играть
-                    Consts.getWIDTH() / 2f - startW / 2, Consts.getHEIGHT() * 3 / 4f);
-
-            if (myGame.gsClient.isSessionActive()) {
-
-                onOff = Consts.getGPGS() + Consts.getON();
-
-            } else if (myGame.gsClient.isConnectionPending()) {
-
-                onOff = Consts.getGPGS() + "...";
-            } else {
-                onOff = Consts.getGPGS() + Consts.getOFF();
-
-            }
-            Consts.getFontForMenu().draw(myGame.getBatch(), onOff, //переключатель аунтификации гугл плэя
-                    Consts.getWIDTH() / 2f - gpgsW / 2, Consts.getHEIGHT() / 3f + gpgsH);
-
-            myGame.getBatch().draw(Loader.getShopButton(), // кнопка магазина
-                    shopX, shopY,
-                    shopW, shopH);
-
-            if (Consts.getBool().get(Consts.getSOUND())) { // переключатель музыки
-
-                myGame.getBatch().draw(Loader.getSoundOn(),
-                        soundX, soundY,
-                        soundW, soundH);
-            } else {
-
-                myGame.getBatch().draw(Loader.getSoundOff(),
-                        soundX, soundY,
-                        soundW, soundH);
-            }
-            if (Consts.getBool().get(Consts.getVIBRATE())) {
-                myGame.getBatch().draw(Loader.getVibrateButton(), vibX, vibY, shopW, shopH);
-            } else {
-                myGame.getBatch().draw(Loader.getNoVibrateButton(), vibX, vibY, shopW, shopH);
-            }
+            myGame.getBatch().draw(Loader.getSoundOff(),
+                    soundX, soundY,
+                    soundW, soundH);
+        }
+        if (Consts.getBool().get(Consts.getVIBRATE())) {
+            myGame.getBatch().draw(Loader.getVibrateButton(), vibX, vibY, shopW, shopH);
+        } else {
+            myGame.getBatch().draw(Loader.getNoVibrateButton(), vibX, vibY, shopW, shopH);
+        }
 
         /*myGame.getBatch().draw(Loader.getRateButton(), rateX, rateY, //кнопка оценки приложения
                 shopW, shopH);*/
 
-            myGame.getBatch().draw(Loader.getExitButton(), exitX, exitY, shopW, shopH);
-            myGame.getBatch().draw(Loader.getAchievementsButton(), achX, achY, shopW, shopH);
-            myGame.getBatch().draw(Loader.getLeaderBoardButton(), leaderBX, leaderBY, shopW, shopH);
+        myGame.getBatch().draw(Loader.getExitButton(), exitX, exitY, shopW, shopH);
+        myGame.getBatch().draw(Loader.getAchievementsButton(), achX, achY, shopW, shopH);
+        myGame.getBatch().draw(Loader.getLeaderBoardButton(), leaderBX, leaderBY, shopW, shopH);
 
-        }
+
         myGame.getBatch().end();
 
 

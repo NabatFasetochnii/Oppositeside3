@@ -280,6 +280,7 @@ public class InfoScreen implements Screen {
 
 
         if (start) {
+            myGame.getAdsController().loadBanner();
             myGame.setScreen(levelFactory);
             dispose();
         }

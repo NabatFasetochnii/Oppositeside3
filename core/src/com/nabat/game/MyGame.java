@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.pay.PurchaseManager;
 import com.nabat.game.levels.Levels;
 import com.nabat.game.levels.LoadingScreen;
 import com.nabat.game.levels.Start;
@@ -15,11 +16,22 @@ import java.util.Map;
 public class MyGame extends com.badlogic.gdx.Game implements IGameServiceListener { //TODO реализовать логгер
 
     private final String GAME_TAG = "MY_GAME";
+    private final AdsController adsController;
     public IGameServiceClient gsClient;
     private Levels levels;
     private SpriteBatch batch;
     private Preferences preferences;
     private Music music;
+    PurchaseManager purchaseManager;
+
+    public MyGame(AdsController adsController) {
+
+        this.adsController = adsController;
+    }
+
+    public AdsController getAdsController() {
+        return adsController;
+    }
 
     @Override
     public void create() {
@@ -29,6 +41,15 @@ public class MyGame extends com.badlogic.gdx.Game implements IGameServiceListene
         music = Gdx.audio.newMusic(Gdx.files.internal(Consts.getPathToMusic()));
         music.setVolume(0.3f);
         music.setLooping(true);
+
+/*        PurchaseManagerConfig pmc = new PurchaseManagerConfig();
+        pmc.addOffer(new Offer().setType(OfferType.ENTITLEMENT).setIdentifier(YOUR_ITEM_SKU));
+        pmc.addOffer(new Offer().setType(OfferType.CONSUMABLE).setIdentifier(YOUR_ITEM_SKU));
+        pmc.addOffer(new Offer().setType(OfferType.SUBSCRIPTION).setIdentifier(YOUR_ITEM_SKU));
+// some payment services might need special parameters, see documentation
+        pmc.addStoreParam(storename, param);
+
+        purchaseManager.install(new MyPurchaseObserver(), pmc, true);*/
 
         preferences = Gdx.app.getPreferences(Consts.getPrefName());
 
