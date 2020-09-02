@@ -281,6 +281,7 @@ public class InfoScreen implements Screen {
 
         if (start) {
             myGame.getAdsController().loadBanner();
+            myGame.getAdsController().hideBannerForStart();
             myGame.setScreen(levelFactory);
             dispose();
         }

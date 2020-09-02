@@ -23,7 +23,7 @@ public class Start implements Screen {
     private final float vibX, vibY;
     private final float achX, achY;
     private final float leaderBX, leaderBY;
-    private final float size = Consts.getWIDTH() / 2f;
+//    private final float size = Consts.getWIDTH() / 2f;
     private String onOff;
     private int time = 0;
     private boolean isInput = true;
@@ -100,6 +100,16 @@ public class Start implements Screen {
 
     @Override
     public void show() {
+        if (Consts.getBool().get(Consts.getIsFirst())) {
+            Consts.getBool().put(Consts.getIsFirst(), false);
+        } else {
+            myGame.gsClient.unlockAchievement(Consts.getIsItYouAgain());
+        }
+        Consts.getMap().put(Consts.getImAtHome(), Consts.getMap().get(Consts.getImAtHome()) + 1);
+        if (Consts.getMap().get(Consts.getImAtHome()) <= 421) {
+
+            myGame.gsClient.incrementAchievement(Consts.getImAtHome(), 1, Consts.getMap().get(Consts.getImAtHome()) / 421f);
+        }
 
     }
 

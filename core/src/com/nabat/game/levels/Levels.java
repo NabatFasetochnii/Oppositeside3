@@ -35,12 +35,9 @@ public class Levels implements Screen {
     private final float scoreW;
     private String score;
 
-    //TODO написать менюшку
-    //TODO ДОБАВИТЬ ОЧИВКИ
-    //TODO добавить сервисы гугл
+
     //TODO ДОБАВИТЬ МЕХАНИКУ НЕВИДИМЫХ КВАДРАТИКОВ (ИГРА НА ПАМЯТЬ)
     //TODO ДОБАВИТЬ МЕХАНИКУ ПЕРЕСТАНОВКИ КВАДРАТИКОВ, МБ НАЛОЖЕНИЕ ОДНОГО НА ДРУГОГО ИЛИ ДОПОЛНЕНИЕ (НАПРИМЕР СОПОСТАВИТЬ КВАДРАТ И ЕГО РАМКУ)
-
 
     public Levels(MyGame myGame) {
         zoneList = new ArrayList<>();
@@ -52,7 +49,7 @@ public class Levels implements Screen {
         color1 = Color.FIREBRICK;
         color2 = Color.RED;//
         color3 = Color.LIME;
-        color4 = Color.VIOLET;//
+        color4 = Color.FOREST;//
 
         Color color01 = new Color(Color.rgb888(0, 207, 0));
         Color color02 = new Color(Color.rgb888(0, 186, 0));
@@ -232,6 +229,8 @@ public class Levels implements Screen {
         zoneList.add(l2R2);
         zoneList.add(l3R2);
         zoneList.add(l4R2);
+
+
     }
 
     public void setStart() {

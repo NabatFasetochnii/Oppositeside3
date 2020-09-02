@@ -80,6 +80,29 @@ public class RectZone {
 
     }
 
+    public RectZone(float x, float y, float width, float height, Color color) {
+
+        this.x = (int) x;
+        this.y = (int) y;
+        this.width = (int) width;
+        this.height = (int) height;
+        this.isRotation = false;
+
+        widthS = (int) width;
+        heightS = (int) height;
+        xS = (int) x;
+        yS = (int) y;
+
+        square = new ShapeRenderer();
+        square.setColor(color);
+
+        leftDown = new Vector2(x, y);
+        /*leftUp = new Vector2(x, y + height);
+        rightDown = new Vector2(x + width,y);
+        rightUp = new Vector2(x + width,y+height);*/
+
+    }
+
     public void setPulsar(boolean pulsar) {
         this.pulsar = pulsar;
     }

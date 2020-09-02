@@ -33,7 +33,7 @@ public class InputForMenu implements InputProcessor {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-
+        Consts.time = 0;
         scrollX = screenX;
         int y = Consts.getHEIGHT() - screenY;
 

@@ -124,6 +124,11 @@ public class Consts {
     private final static String VIBRATE = "vib";
     //
     private static final Map<String, Boolean> bool = new HashMap<>();
+    //
+    private final static String isFirst = "isFirstRan";
+    //
+    public static float time = 0;
+    public static float timeSpeed = 0;
     //    private static boolean isVibrate = true;
 //    private static boolean sound = true;
     //
@@ -132,7 +137,6 @@ public class Consts {
     private static BitmapFont fontForCountMiss;
     private static BitmapFont fontForWin;
     private static BitmapFont fontForMenu;
-    private static BitmapFont fontForBoards;
     //
     private static boolean isLastSessionFall = false;
     private static boolean isRead = true;
@@ -142,9 +146,10 @@ public class Consts {
 
     }
 
-    public static BitmapFont getFontForBoards() {
-        return fontForBoards;
+    public static String getIsFirst() {
+        return isFirst;
     }
+
 
     public static String getLeaderBoard() {
         return LEADER_BOARD;
@@ -331,6 +336,7 @@ public class Consts {
 
         bool.put(SOUND, true);
         bool.put(VIBRATE, true);
+        bool.put(isFirst, true);
     }
 
     public static String getPathToSound() {
@@ -406,6 +412,8 @@ public class Consts {
         putMap(COUNT3R2);
         putMap(COUNT4R2);
 
+        putMap(IM_AT_HOME);
+
     }
 
     public static Map<String, Integer> getMap() {
@@ -444,9 +452,6 @@ public class Consts {
         parameter.borderColor = Color.BLACK;
         parameter.borderWidth = 5;
         fontForMenu = generator.generateFont(parameter);
-
-        parameter.size = WIDTH / 15;
-        fontForBoards = generator.generateFont(parameter);
 
         generator.dispose();
     }

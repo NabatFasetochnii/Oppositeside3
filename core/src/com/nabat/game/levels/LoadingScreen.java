@@ -120,6 +120,8 @@ public class LoadingScreen implements Screen {
                                         gameState[Consts.getMap().size() * 4] == (byte) 1);
                                 Consts.getBool().put(Consts.getVIBRATE(),
                                         gameState[Consts.getMap().size() * 4 + 1] == (byte) 1);
+                                Consts.getBool().put(Consts.getIsFirst(),
+                                        gameState[Consts.getMap().size() * 4 + 2] == (byte) 1);
                                 myGame.changeMusicPlay();
 
                             } else {

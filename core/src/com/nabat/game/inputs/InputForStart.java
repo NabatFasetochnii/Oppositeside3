@@ -13,7 +13,7 @@ public class InputForStart implements InputProcessor {
     private final MyGame myGame;
     private final RectZone rectZone, gpgsZone;
     private final Start start;
-    private final boolean isAdShow = false;
+//    private final boolean isAdShow = false;
 
     public InputForStart(Start start) {
 
@@ -45,7 +45,7 @@ public class InputForStart implements InputProcessor {
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-
+        Consts.time = 0;
         int y = Consts.getHEIGHT() - screenY;
 
         if (rectZone.isTouch(screenX, y)) {
@@ -56,7 +56,11 @@ public class InputForStart implements InputProcessor {
 
         if (Consts.isTouch(start.getShopX(), start.getShopY(), start.getShopW(), start.getShopH(), screenX, y)) {
 
+            /*if (myGame.purchaseManager.installed()){
 
+                myGame.setScreen(new Store(myGame));
+            }*/
+            Gdx.input.vibrate(25);
             //TODO SHOP
         }
 
@@ -99,8 +103,9 @@ public class InputForStart implements InputProcessor {
             try {
                 myGame.gsClient.showAchievements();
 
-            } catch (GameServiceException e) {
+            } catch (GameServiceException | NullPointerException e) {
                 e.printStackTrace();
+                Gdx.input.vibrate(25);
             }
 
         }
@@ -111,8 +116,9 @@ public class InputForStart implements InputProcessor {
             try {
                 myGame.gsClient.showLeaderboards(Consts.getLEADERBOARD1());
 
-            } catch (GameServiceException e) {
+            } catch (GameServiceException | NullPointerException e) {
                 e.printStackTrace();
+                Gdx.input.vibrate(25);
             }
         }
 

@@ -2,10 +2,12 @@ package com.nabat.game;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
-import com.badlogic.gdx.pay.android.googlebilling.PurchaseManagerGoogleBilling;
 import com.google.android.gms.ads.*;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
@@ -15,11 +17,13 @@ import de.golfgl.gdxgamesvcs.IGameServiceIdMapper;
 public class AndroidLauncher extends AndroidApplication implements AdsController {
 
     //    private static final String BANNER_AD_UNIT_ID = "ca-app-pub-8832576459433269/9861516377";
+    //    private static final String BANNER_START_AD_UNIT_ID = "ca-app-pub-8832576459433269/8336558007";
     private static final String TEST_BANNER_AD_UNIT_ID = "ca-app-pub-3940256099942544/1033173712";
+    private static final String TEST_BANNER_AD_UNIT_ID2 = "ca-app-pub-3940256099942544/6300978111";
     GpgsClient gpgsClient;
     //    private AdView adView;
     private InterstitialAd mInterstitialAd;
-
+    private AdView adView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +32,6 @@ public class AndroidLauncher extends AndroidApplication implements AdsController
         config.useAccelerometer = false;
         config.useCompass = false;
         gpgsLoad();
-        setBillingClient();
 
         MobileAds.initialize(this, new OnInitializationCompleteListener() {
             @Override
@@ -36,6 +39,9 @@ public class AndroidLauncher extends AndroidApplication implements AdsController
 
             }
         });
+        adView = new AdView(this);
+        adView.setAdSize(AdSize.BANNER);
+        setupAds();
 
         mInterstitialAd = new InterstitialAd(this);
         mInterstitialAd.setAdUnitId(TEST_BANNER_AD_UNIT_ID);
@@ -47,6 +53,7 @@ public class AndroidLauncher extends AndroidApplication implements AdsController
             public void onAdClosed() {
                 super.onAdClosed();
                 onResume();
+                showBannerForStart();
             }
 
             @Override
@@ -84,8 +91,30 @@ public class AndroidLauncher extends AndroidApplication implements AdsController
 
         MyGame myGame = new MyGame(this);
         myGame.gsClient = gpgsClient;
-        myGame.purchaseManager = new PurchaseManagerGoogleBilling(this);
-        initialize(myGame, config);
+//        myGame.purchaseManager = new PurchaseManagerGoogleBilling(this);
+
+        View gameView = initializeForView(myGame, config);
+
+//        initialize(myGame, config);
+
+        RelativeLayout layout = new RelativeLayout(this);
+        layout.addView(gameView, ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT);
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT);
+        params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+        layout.addView(adView, params);
+
+        setContentView(layout);
+    }
+
+    public void setupAds() {
+        adView = new AdView(this);
+        adView.setVisibility(View.INVISIBLE);
+        adView.setBackgroundColor(0xff000000); // black
+        adView.setAdUnitId(TEST_BANNER_AD_UNIT_ID2);
+        adView.setAdSize(AdSize.SMART_BANNER);
     }
 
     private void gpgsLoad() {
@@ -116,10 +145,6 @@ public class AndroidLauncher extends AndroidApplication implements AdsController
                         return null;
                     }
                 }).initialize(this, true);
-    }
-
-    private void setBillingClient() {
-
     }
 
     @Override
@@ -170,6 +195,29 @@ public class AndroidLauncher extends AndroidApplication implements AdsController
 
                 mInterstitialAd.loadAd(new AdRequest.Builder().build());
 
+            }
+        });
+    }
+
+    @Override
+    public void hideBannerForStart() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                adView.setVisibility(View.INVISIBLE);
+            }
+        });
+    }
+
+    @Override
+    public void showBannerForStart() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                adView.setVisibility(View.VISIBLE);
+                AdRequest.Builder builder = new AdRequest.Builder();
+                AdRequest ad = builder.build();
+                adView.loadAd(ad);
             }
         });
     }

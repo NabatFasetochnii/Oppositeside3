@@ -51,6 +51,7 @@ public class InputForGame implements InputProcessor {
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 
+        Consts.time = 0;
         boolean q = false;
         for (int k = 0; k < size; k++) {
 
