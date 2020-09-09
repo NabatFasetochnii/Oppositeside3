@@ -10,7 +10,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Consts {
-
     //
     private static final String LEADERBOARD1 = "BOARD1";
     private static final String LEADER_BOARD = "CgkIpq7zg9UYEAIQAg";
@@ -32,18 +31,14 @@ public class Consts {
     private final static String LOSE = "You lose";//константа текста победы
     private final static String WIN = "You WIN!";//константа текста проигрыша
     private final static String ttfPath = "fonts/Terminus.ttf";//путь к шрифту
-    private final static String PLAY = "Tap to play";//TODO добавить мигание надписи //в игрее этого пока что вообще нет
+    private final static String PLAY = "Tap to play";//TODO добавить мигание надписи?
     //private final static String SOUND = "Sound";
     private final static String GPGS = "Google Play\nGames: ";
     private final static String OFF = "OFF";
     private final static String ON = "ON";
     //
-    private final static float scaleX = Gdx.app.getGraphics().getWidth() / 1080f; //масштабируем под экран
-    private final static float scaleY = Gdx.app.getGraphics().getHeight() / 1920f;
-    private final static float scaleXY = ((scaleX + scaleY) / 2f);
-    private final static float LOSE_TO_SCREEN = 7.5f; //константа для подгона кегля под экран, вроде
-    //
     private final static String PATH_TO_FIRST = "levels/1/1";//пути к файлам базовых уровней
+    //
     private final static String PATH_TO_SECOND = "levels/2/1";
     private final static String PATH_TO_THIRD = "levels/3/1";
     private final static String PATH_TO_FOURTH = "levels/4/1";
@@ -66,10 +61,8 @@ public class Consts {
     private final static String PATH_TO_MUSIC = "audio/music.mp3";
     private final static String PATH_TO_SOUND = "audio/sounds/JYKD_kick_chick.wav";
     //
-    private final static int WIDTH = Gdx.app.getGraphics().getWidth();//ширина и высота экрана
-    private final static int HEIGHT = Gdx.app.getGraphics().getHeight();
-    //
     private final static String COUNT1 = "countOfPoints1";//стринги-ключи к preferences
+    //
     private final static String COUNT2 = "countOfPoints2";
     private final static String COUNT3 = "countOfPoints3";
     private final static String COUNT4 = "countOfPoints4";
@@ -124,8 +117,18 @@ public class Consts {
     private final static String VIBRATE = "vib";
     //
     private static final Map<String, Boolean> bool = new HashMap<>();
+    private static final Map<Integer, Boolean> isWin = new HashMap<>();
     //
     private final static String isFirst = "isFirstRan";
+    //
+    private static int WIDTH;//ширина и высота экрана
+    private static int HEIGHT;//TODO AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+    //
+    private static float scaleX; //масштабируем под экран
+    private static float scaleY;
+    private static float scaleXY;
+    private final static float LOSE_TO_SCREEN = 7.5f; //константа для подгона кегля под экран, вроде
+    //    private final static String removeAds = "REM";
     //
     public static float time = 0;
     public static float timeSpeed = 0;
@@ -137,13 +140,36 @@ public class Consts {
     private static BitmapFont fontForCountMiss;
     private static BitmapFont fontForWin;
     private static BitmapFont fontForMenu;
+    private static BitmapFont fontForStore;
     //
     private static boolean isLastSessionFall = false;
     private static boolean isRead = true;
+    private static boolean isRemoveAds = false;
+
 
     Consts() {
 
 
+    }
+
+    public static void setZeroLevel(int zeroLevel) {
+        WIDTH = Gdx.app.getGraphics().getWidth();//ширина и высота экрана
+        HEIGHT = Gdx.app.getGraphics().getHeight() - zeroLevel;
+        scaleX = WIDTH / 1080f; //масштабируем под экран
+        scaleY = HEIGHT / 1920f;
+        scaleXY = ((scaleX + scaleY) / 2f);
+    }
+
+    public static boolean isRemoveAds() {
+        return isRemoveAds;
+    }
+
+    public static void setRemoveAds(boolean isRemoveAds) {
+        Consts.isRemoveAds = isRemoveAds;
+    }
+
+    public static Map<Integer, Boolean> getIsWin() {
+        return isWin;
     }
 
     public static String getIsFirst() {
@@ -330,6 +356,24 @@ public class Consts {
         loadBool();
         loadAch();
         loadEvents();
+        loadWins();
+    }
+
+    private static void loadWins() {
+
+        for (int i = 1; i < 5; i++) {
+
+            isWin.put(i, false);
+            isWin.put(i * 10, false);
+            isWin.put(i * 10 + 1, false);
+            isWin.put(i * 10 + 2, false);
+            isWin.put(i * 100 + 1, false);
+            isWin.put(i * 100 + 2, false);
+            isWin.put(i * 100 + 11, false);
+            isWin.put(i * 100 + 22, false);
+        }
+
+
     }
 
     private static void loadBool() {
@@ -337,6 +381,7 @@ public class Consts {
         bool.put(SOUND, true);
         bool.put(VIBRATE, true);
         bool.put(isFirst, true);
+//        bool.put(removeAds, false);
     }
 
     public static String getPathToSound() {
@@ -425,6 +470,10 @@ public class Consts {
         return ((x <= X) && (X <= x + w) && (y <= Y) && (Y <= y + h));
     }
 
+    public static BitmapFont getFontForStore() {
+        return fontForStore;
+    }
+
     public static void loadFonts() {
 
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal(Consts.getTtfPath()));
@@ -453,6 +502,8 @@ public class Consts {
         parameter.borderWidth = 5;
         fontForMenu = generator.generateFont(parameter);
 
+        parameter.size = WIDTH / 16;
+        fontForStore = generator.generateFont(parameter);
         generator.dispose();
     }
 
@@ -467,6 +518,7 @@ public class Consts {
         fontForCountMiss.dispose();
         fontForLose.dispose();
         fontForWin.dispose();
+        fontForStore.dispose();
     }
 
     public static String getSOUND() {

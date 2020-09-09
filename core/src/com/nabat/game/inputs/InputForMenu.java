@@ -1,5 +1,6 @@
 package com.nabat.game.inputs;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.nabat.game.Consts;
 import com.nabat.game.levels.Levels;
@@ -35,7 +36,7 @@ public class InputForMenu implements InputProcessor {
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         Consts.time = 0;
         scrollX = screenX;
-        int y = Consts.getHEIGHT() - screenY;
+        int y = Gdx.app.getGraphics().getHeight() - screenY;
 
         if (Consts.isTouch(Consts.getWIDTH()-levels.getRectsS(),
                 Consts.getHEIGHT()-levels.getRectsS(),
@@ -46,143 +47,143 @@ public class InputForMenu implements InputProcessor {
         ////////////////////////////////////////////////////////////////////////
         if (levels.getL1().isTouch(screenX, y)) {
 
-            Levels.setLvl(1);
+            levels.setLvl(1);
         }
         if (levels.getL2().isTouch(screenX, y)) {
 
-            Levels.setLvl(2);
+            levels.setLvl(2);
         }
         if (levels.getL3().isTouch(screenX, y)) {
 
-            Levels.setLvl(3);
+            levels.setLvl(3);
         }
         if (levels.getL4().isTouch(screenX, y)) {
 
-            Levels.setLvl(4);
+            levels.setLvl(4);
         }
         ////////////////////////////////////////////////////////////////////////
         if (levels.getL1R().isTouch(screenX, y)) {
-            Levels.setLvl(10);
+            levels.setLvl(10);
         }
         if (levels.getL2R().isTouch(screenX, y)) {
-            Levels.setLvl(20);
+            levels.setLvl(20);
         }
         if (levels.getL3R().isTouch(screenX, y)) {
-            Levels.setLvl(30);
+            levels.setLvl(30);
         }
         if (levels.getL4R().isTouch(screenX, y)) {
-            Levels.setLvl(40);
+            levels.setLvl(40);
         }
         ////////////////////////////////////////////////////////////////////////
         if (levels.getL1R1().isTouch(screenX, y)) {
-            Levels.setLvl(101);
+            levels.setLvl(101);
         }
         if (levels.getL2R1().isTouch(screenX, y)) {
-            Levels.setLvl(201);
+            levels.setLvl(201);
         }
         if (levels.getL3R1().isTouch(screenX, y)) {
-            Levels.setLvl(301);
+            levels.setLvl(301);
         }
         if (levels.getL4R1().isTouch(screenX, y)) {
-            Levels.setLvl(401);
+            levels.setLvl(401);
         }
         ////////////////////////////////////////////////////////////////////////
         if (levels.getL1R2().isTouch(screenX, y)) {
-            Levels.setLvl(102);
+            levels.setLvl(102);
         }
         if (levels.getL2R2().isTouch(screenX, y)) {
-            Levels.setLvl(202);
+            levels.setLvl(202);
         }
         if (levels.getL3R2().isTouch(screenX, y)) {
-            Levels.setLvl(302);
+            levels.setLvl(302);
         }
         if (levels.getL4R2().isTouch(screenX, y)) {
-            Levels.setLvl(402);
+            levels.setLvl(402);
         }
         ////////////////////////////////////////////////////////////////////////
         if (levels.getL11().isTouch(screenX, y)) {
 
-            Levels.setLvl(11);
+            levels.setLvl(11);
         }
         if (levels.getL21().isTouch(screenX, y)) {
 
-            Levels.setLvl(21);
+            levels.setLvl(21);
         }
         if (levels.getL31().isTouch(screenX, y)) {
 
-            Levels.setLvl(31);
+            levels.setLvl(31);
         }
         if (levels.getL41().isTouch(screenX, y)) {
 
-            Levels.setLvl(41);
+            levels.setLvl(41);
         }
         ////////////////////////////////////////////////////////////////////////
         if (levels.getL12().isTouch(screenX, y)) {
 
-            Levels.setLvl(12);
+            levels.setLvl(12);
         }
         if (levels.getL22().isTouch(screenX, y)) {
 
-            Levels.setLvl(22);
+            levels.setLvl(22);
         }
         if (levels.getL32().isTouch(screenX, y)) {
 
-            Levels.setLvl(32);
+            levels.setLvl(32);
         }
         if (levels.getL42().isTouch(screenX, y)) {
 
-            Levels.setLvl(42);
+            levels.setLvl(42);
         }
         ////////////////////////////////////////////////////////////////////////
         if (levels.getL121().isTouch(screenX, y)) {
 
-            Levels.setLvl(121);
+            levels.setLvl(121);
         }
         if (levels.getL221().isTouch(screenX, y)) {
 
-            Levels.setLvl(221);
+            levels.setLvl(221);
         }
         if (levels.getL321().isTouch(screenX, y)) {
 
-            Levels.setLvl(321);
+            levels.setLvl(321);
         }
         if (levels.getL421().isTouch(screenX, y)) {
 
-            Levels.setLvl(421);
+            levels.setLvl(421);
         }
         ////////////////////////////////////////////////////////////////////////
         if (levels.getL122().isTouch(screenX, y)) {
 
-            Levels.setLvl(122);
+            levels.setLvl(122);
         }
         if (levels.getL222().isTouch(screenX, y)) {
 
-            Levels.setLvl(222);
+            levels.setLvl(222);
         }
         if (levels.getL322().isTouch(screenX, y)) {
 
-            Levels.setLvl(322);
+            levels.setLvl(322);
         }
         if (levels.getL422().isTouch(screenX, y)) {
 
-            Levels.setLvl(422);
+            levels.setLvl(422);
         }
         ////////////////////////////////////////////////////////////////////////
         if (levels.getL111().isTouch(screenX, y)) {
 
-            Levels.setLvl(111);
+            levels.setLvl(111);
         }
         if (levels.getL211().isTouch(screenX, y)) {
 
-            Levels.setLvl(211);
+            levels.setLvl(211);
         }
         if (levels.getL311().isTouch(screenX, y)) {
 
-            Levels.setLvl(311);
+            levels.setLvl(311);
         }
         if (levels.getL411().isTouch(screenX, y)) {
 
-            Levels.setLvl(411);
+            levels.setLvl(411);
         }
         ////////////////////////////////////////////////////////////////////////
 

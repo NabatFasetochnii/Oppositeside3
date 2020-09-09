@@ -32,8 +32,8 @@ public class Start implements Screen {
 
         this.myGame = myGame;
 
-        startZone = new RectZone(0, Consts.getHEIGHT() / 2,
-                Consts.getWIDTH(), Consts.getHEIGHT() / 2, Color.RED);
+        startZone = new RectZone(0, Gdx.app.getGraphics().getHeight() / 2,
+                Consts.getWIDTH(), Gdx.app.getGraphics().getHeight(), Color.RED);
         startZone.setPulsar(false);
 
         GlyphLayout glyphLayout = new GlyphLayout(Consts.getFontForMenu(), Consts.getPLAY());

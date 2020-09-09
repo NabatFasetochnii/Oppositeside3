@@ -5,6 +5,7 @@ import com.badlogic.gdx.InputProcessor;
 import com.nabat.game.Consts;
 import com.nabat.game.RectZone;
 import com.nabat.game.levels.LevelFactory;
+import com.nabat.game.levels.Levels;
 
 import java.util.ArrayList;
 
@@ -55,7 +56,7 @@ public class InputForGame implements InputProcessor {
         boolean q = false;
         for (int k = 0; k < size; k++) {
 
-            if (arrayLists.get(i).get(k).isTouch(screenX, Consts.getHEIGHT() - screenY)) {
+            if (arrayLists.get(i).get(k).isTouch(screenX, Gdx.app.getGraphics().getHeight() - screenY)) {
 
                 q = true;
                 break;
@@ -67,7 +68,7 @@ public class InputForGame implements InputProcessor {
             if (pointer < size) {
 
                 points[pointer][0] = screenX;
-                points[pointer][1] = Consts.getHEIGHT() - screenY;
+                points[pointer][1] = Gdx.app.getGraphics().getHeight() - screenY;
                 touch[pointer] = true;
 
                 r = true;
@@ -105,7 +106,7 @@ public class InputForGame implements InputProcessor {
                         }
 
                         levelFactory.setI(i + 1);//TODO написать функцию смены уровня
-                        i++;//TODO ВИБРАЦИЯ + ЗВУК ТЫКА
+                        i++;
                         levelFactory.upCountOfSquare();
 
                     }
@@ -127,6 +128,14 @@ public class InputForGame implements InputProcessor {
             points[pointer][0] = -1;
             points[pointer][1] = -1;
             touch[pointer] = false;
+        }
+
+
+        if (Consts.isTouch(Consts.getWIDTH() - levelFactory.rectsS, Consts.getHEIGHT() - levelFactory.rectsS,
+                levelFactory.rectsS, levelFactory.rectsS,
+                screenX, Gdx.app.getGraphics().getHeight() - screenY)) {
+            levelFactory.getMyGame().setScreen(new Levels(levelFactory.getMyGame()));
+            levelFactory.dispose();
         }
         return true;
     }

@@ -3,14 +3,19 @@ package com.nabat.game.levels;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
+import com.badlogic.gdx.pay.Information;
 import com.nabat.game.Consts;
+import com.nabat.game.Loader;
 import com.nabat.game.MyGame;
+import com.nabat.game.RectZone;
 
 public class Store implements Screen {
 
-/*    private final int rectsS;
+    private final int rectsS;
     private final MyGame myGame;
-//    private final Information info;
+    private final Information info;
     private final String RESTORE = "Restore";
     private final float nameX;
     private final float nameY;
@@ -19,30 +24,29 @@ public class Store implements Screen {
     private final float restoreX;
     private final float restoreY;
     private final RectZone priceButton;
-    private final RectZone restoreButton;*/
+    private final RectZone restoreButton;
 
     public Store(MyGame myGame) {
 
-/*        this.myGame = myGame;
-//        info = myGame.purchaseManager.getInformation(myGame.getSKU());
+        this.myGame = myGame;
+        info = myGame.purchaseManager.getInformation(myGame.getSKU());
         rectsS = Consts.getWIDTH() / 10;
-        float d = Consts.getWIDTH() / 20f;
-
-//        GlyphLayout glyphLayout = new GlyphLayout(Consts.getFontForMenu(), info.getLocalPricing());
+        float d = Consts.getWIDTH() / 30f;
+        GlyphLayout glyphLayout = new GlyphLayout(Consts.getFontForStore(), info.getLocalPricing());
         nameX = d * 2;
         nameY = Consts.getHEIGHT() - rectsS - d;
         priceY = nameY;
-        priceX = Consts.getWIDTH() - d - glyphLayout.width;
+        priceX = Consts.getWIDTH() - d * 2 - glyphLayout.width;
         restoreX = d * 2;
-        restoreY = d * 2;
+        restoreY = nameY - glyphLayout.height - d * 4;
 //        Information.UNAVAILABLE
-        priceButton = new RectZone(priceX - d, priceY - d,
+        priceButton = new RectZone(priceX - d, priceY - d * 2f,
                 glyphLayout.width + d * 2, glyphLayout.height + d * 2, Color.RED);
 
-        glyphLayout = new GlyphLayout(Consts.getFontForMenu(), RESTORE);
+        glyphLayout = new GlyphLayout(Consts.getFontForStore(), RESTORE);
 
-        restoreButton = new RectZone(restoreX - d, restoreY - d,
-                glyphLayout.width + d * 2, glyphLayout.height + d * 2, Color.RED);*/
+        restoreButton = new RectZone(restoreX - d, restoreY - d * 2,
+                glyphLayout.width + d * 2, glyphLayout.height + d * 2, Color.RED);
     }
 
     @Override
@@ -72,17 +76,18 @@ public class Store implements Screen {
             @Override
             public boolean touchUp(int screenX, int screenY, int pointer, int button) {
                 Consts.time = 0;
-                int y = Consts.getHEIGHT() - screenY;
-/*
+                int y = Gdx.app.getGraphics().getHeight() - screenY;
+
 
                 if (priceButton.isTouch(screenX, y)) {
 
+                    myGame.purchaseManager.purchase(myGame.getSKU());
                     //TODO СЛЫШ КУПИ
                 }
 
                 if (restoreButton.isTouch(screenX, y)) {
                     //TODO СЛЫШ ВЕРНИ
-
+                    myGame.purchaseManager.purchaseRestore();
                 }
 
                 if (Consts.isTouch(Consts.getWIDTH() - rectsS,
@@ -91,7 +96,6 @@ public class Store implements Screen {
                     myGame.setScreen(new Start(myGame));
                     dispose();
                 }
-*/
 
                 return true;
             }
@@ -116,18 +120,19 @@ public class Store implements Screen {
     @Override
     public void render(float delta) {
 
-       /* priceButton.draw();
+        Consts.clear();
+        priceButton.draw();
         restoreButton.draw();
 
         myGame.getBatch().begin();
         myGame.getBatch().draw(Loader.getSettingsButton(),
                 Consts.getWIDTH() - rectsS, Consts.getHEIGHT() - rectsS, rectsS, rectsS);
 
-        Consts.getFontForMenu().draw(myGame.getBatch(), info.getLocalName(), nameX, nameY);
-        Consts.getFontForMenu().draw(myGame.getBatch(), info.getLocalPricing(), priceX, priceY);
-        Consts.getFontForMenu().draw(myGame.getBatch(), RESTORE, restoreX, restoreY);
+        Consts.getFontForStore().draw(myGame.getBatch(), "Disable ads", nameX, nameY);
+        Consts.getFontForStore().draw(myGame.getBatch(), info.getLocalPricing(), priceX, priceY);
+        Consts.getFontForStore().draw(myGame.getBatch(), RESTORE, restoreX, restoreY);
 
-        myGame.getBatch().end();*/
+        myGame.getBatch().end();
     }
 
     @Override
@@ -152,6 +157,6 @@ public class Store implements Screen {
 
     @Override
     public void dispose() {
-//        priceButton.dispose();
+        priceButton.dispose();
     }
 }

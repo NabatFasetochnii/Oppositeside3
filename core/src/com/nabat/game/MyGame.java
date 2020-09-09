@@ -4,6 +4,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.pay.Offer;
+import com.badlogic.gdx.pay.OfferType;
+import com.badlogic.gdx.pay.PurchaseManager;
+import com.badlogic.gdx.pay.PurchaseManagerConfig;
 import com.nabat.game.levels.Levels;
 import com.nabat.game.levels.LoadingScreen;
 import com.nabat.game.levels.Start;
@@ -16,46 +20,52 @@ public class MyGame extends com.badlogic.gdx.Game implements IGameServiceListene
 
     private final String GAME_TAG = "MY_GAME";
     private final AdsController adsController;
-    //    private final String SKU = "98s252md49mjtivhx8sz";
+    private final String SKU = "98s252md49mjtivhx8sz";
     public IGameServiceClient gsClient;
-    //    public PurchaseManager purchaseManager;
+    public PurchaseManager purchaseManager;
     private Levels levels;
     private SpriteBatch batch;
     private Preferences preferences;
     private Music music;
+    private final int zero;
 
-    public MyGame(AdsController adsController) {
+    public MyGame(AdsController adsController, int zero) {
 
         this.adsController = adsController;
+        this.zero = zero;
+    }
+
+    public String getSKU() {
+        return SKU;
     }
 
     @Override
     public void create() {
 
+        // for getting callbacks from the client
+        gsClient.setListener(this);
+        // establish a connection to the game service without error messages or login screens
+        gsClient.resumeSession();
         Consts.setRead(true);
         music = Gdx.audio.newMusic(Gdx.files.internal(Consts.getPathToMusic()));
         music.setVolume(0.3f);
         music.setLooping(true);
 
-/*        PurchaseManagerConfig pmc = new PurchaseManagerConfig();
-        pmc.addOffer(new Offer().setType(OfferType.SUBSCRIPTION).setIdentifier(SKU));
-//        pmc.addStoreParam(PurchaseManagerConfig.STORE_NAME_ANDROID_GOOGLE, null);
-
-        purchaseManager.install(new MyObserver(this), pmc, true);*/
-
         preferences = Gdx.app.getPreferences(Consts.getPrefName());
 
-        Consts.loadFonts();
         Consts.loadMaps();
         batch = new SpriteBatch();
-        levels = new Levels(this);
+
         Loader.load();
 
-        // for getting callbacks from the client
-        gsClient.setListener(this);
-        // establish a connection to the game service without error messages or login screens
-        gsClient.resumeSession();
+        if (adsController.isEnabled()) {
+            Consts.setZeroLevel(zero);
+        } else {
+            Consts.setZeroLevel(0);
+        }
 
+        Consts.loadFonts();
+        levels = new Levels(this);
         if (Consts.isLastSessionFall()) {
 
             initPref();
@@ -70,9 +80,16 @@ public class MyGame extends com.badlogic.gdx.Game implements IGameServiceListene
                 setScreen(new Start(this));
             }
         }
-        adsController.showBannerForStart();
-//        gsClient.incrementAchievement()
 
+        PurchaseManagerConfig pmc = new PurchaseManagerConfig();
+        pmc.addOffer(new Offer().setType(OfferType.SUBSCRIPTION).setIdentifier(SKU));
+//        pmc.addStoreParam(PurchaseManagerConfig.STORE_NAME_ANDROID_GOOGLE, null);
+
+        purchaseManager.install(new MyObserver(this), pmc, true);
+
+        if (!Consts.isRemoveAds()) {
+            adsController.showBannerForStart();
+        }
     }
 
     public int bytesToInt(byte[] gameState) {
@@ -100,6 +117,11 @@ public class MyGame extends com.badlogic.gdx.Game implements IGameServiceListene
             for (Map.Entry<String, Boolean> integerEntry : Consts.getBool().entrySet()) {
 
                 Consts.getBool().put(integerEntry.getKey(), preferences.getBoolean(integerEntry.getKey()));
+            }
+
+            for (Map.Entry<Integer, Boolean> integerEntry : Consts.getIsWin().entrySet()) {
+                Consts.getIsWin().put(integerEntry.getKey(), preferences.getBoolean(String.valueOf(integerEntry.getKey())));
+
             }
         }
         changeMusicPlay();
@@ -147,6 +169,12 @@ public class MyGame extends com.badlogic.gdx.Game implements IGameServiceListene
         preferences.put(Consts.getMap());
         preferences.put(Consts.getBool());
 
+        for (Map.Entry<Integer, Boolean> integerEntry : Consts.getIsWin().entrySet()) {
+            preferences.putBoolean(String.valueOf(integerEntry.getKey()), integerEntry.getValue());
+
+        }
+//        preferences.put(Consts.getIsWin());
+
         preferences.flush();
     }
 
@@ -156,7 +184,7 @@ public class MyGame extends com.badlogic.gdx.Game implements IGameServiceListene
 ///data/user/0/com.nabat.game/shared_prefs/fileForPrefs.xml.bak
             try {
 
-                byte[] save = new byte[Consts.getMap().size() * 4 + 3];
+                byte[] save = new byte[Consts.getMap().size() * 4 + Consts.getIsWin().size() + 3];
 
                 int i = 0;
                 for (Map.Entry<String, Integer> integerEntry : Consts.getMap().entrySet()) {
@@ -170,9 +198,16 @@ public class MyGame extends com.badlogic.gdx.Game implements IGameServiceListene
                     i += 4;
                 }
 
-                save[Consts.getMap().size() * 4] = (byte) (Consts.getBool().get(Consts.getSOUND()) ? 1 : 0);
-                save[Consts.getMap().size() * 4 + 1] = (byte) (Consts.getBool().get(Consts.getVIBRATE()) ? 1 : 0);
-                save[Consts.getMap().size() * 4 + 2] = (byte) (Consts.getBool().get(Consts.getIsFirst()) ? 1 : 0);
+                int y = 0;
+                for (Map.Entry<Integer, Boolean> integerEntry : Consts.getIsWin().entrySet()) {
+
+                    save[Consts.getIsWin().size() * 4 + y] = (byte) (integerEntry.getValue() ? 1 : 0);
+                    y++;
+                }
+
+                save[Consts.getMap().size() * 4 + y] = (byte) (Consts.getBool().get(Consts.getSOUND()) ? 1 : 0);
+                save[Consts.getMap().size() * 4 + y + 1] = (byte) (Consts.getBool().get(Consts.getVIBRATE()) ? 1 : 0);
+                save[Consts.getMap().size() * 4 + y + 2] = (byte) (Consts.getBool().get(Consts.getIsFirst()) ? 1 : 0);
 
                 gsClient.saveGameState(Consts.getPrefName(),
                         save, 0, null);
@@ -213,7 +248,7 @@ public class MyGame extends com.badlogic.gdx.Game implements IGameServiceListene
         //l0.dispose();
         levels.dispose();
         Loader.dispose();
-//        purchaseManager.dispose();
+        purchaseManager.dispose();
     }
 
 

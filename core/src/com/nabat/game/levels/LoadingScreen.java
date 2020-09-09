@@ -116,14 +116,23 @@ public class LoadingScreen implements Screen {
                                     Consts.getMap().put(integerEntry.getKey(), myGame.bytesToInt(load));
                                 }
 
+                                int y = 0;
+                                for (Map.Entry<Integer, Boolean> integerEntry : Consts.getIsWin().entrySet()) {
+
+                                    Consts.getIsWin().put(integerEntry.getKey(),
+                                            gameState[Consts.getMap().size() * 4 + y] == (byte) 1);
+                                    y++;
+                                }
+
                                 Consts.getBool().put(Consts.getSOUND(),
-                                        gameState[Consts.getMap().size() * 4] == (byte) 1);
+                                        gameState[Consts.getMap().size() * 4 + y] == (byte) 1);
                                 Consts.getBool().put(Consts.getVIBRATE(),
-                                        gameState[Consts.getMap().size() * 4 + 1] == (byte) 1);
+                                        gameState[Consts.getMap().size() * 4 + y + 1] == (byte) 1);
                                 Consts.getBool().put(Consts.getIsFirst(),
-                                        gameState[Consts.getMap().size() * 4 + 2] == (byte) 1);
+                                        gameState[Consts.getMap().size() * 4 + y + 2] == (byte) 1);
                                 myGame.changeMusicPlay();
 
+                                Gdx.app.log("Loading", "loaded from cloud");
                             } else {
                                 Gdx.app.log("Loading", "gameState is null");
                                 myGame.initPref();

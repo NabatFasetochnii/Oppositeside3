@@ -18,61 +18,9 @@ public class Loader {
     private static TextureRegion leaderBoardButton;
     private static TextureRegion achievementsButton;
     private static TextureRegion loadIcon;
+    private static TextureRegion winIcon;
     private static TextureAtlas textureAtlas;
-
     Loader() {
-
-
-    }
-
-    public static TextureRegion getLoadIcon() {
-        return loadIcon;
-    }
-
-    public static TextureRegion getLeaderBoardButton() {
-        return leaderBoardButton;
-    }
-
-    public static TextureRegion getAchievementsButton() {
-        return achievementsButton;
-    }
-
-    public static TextureRegion getVibrateButton() {
-        return vibrateButton;
-    }
-
-    public static TextureRegion getNoVibrateButton() {
-        return noVibrateButton;
-    }
-
-    public static TextureRegion getExitButton() {
-
-        return exitButton;
-    }
-
-    public static TextureRegion getSettingsButton() {
-        return settingsButton;
-    }
-
-//    public static TextureRegion getRateButton() {
-//        return rateButton;
-//    }
-
-    public static TextureRegion getSoundOn() {
-        return soundOn;
-    }
-
-    public static TextureRegion getSoundOff() {
-        return soundOff;
-    }
-
-    public static void dispose() {
-
-        textureAtlas.dispose();
-    }
-
-    public static TextureRegion getShopButton() {
-        return shopButton;
     }
 
     public static void load() {
@@ -90,6 +38,13 @@ public class Loader {
         loadAch();
         loadLeaderBoard();
         loadIcon();
+        loadWinIcon();
+    }
+
+    private static void loadWinIcon() {
+
+        winIcon = textureAtlas.findRegion("ic_done_outline");
+        winIcon.getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
     }
 
     private static void loadIcon() {
@@ -150,5 +105,59 @@ public class Loader {
 
         vibrateButton.getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         noVibrateButton.getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+    }
+
+    public static TextureRegion getLoadIcon() {
+        return loadIcon;
+    }
+
+    public static TextureRegion getLeaderBoardButton() {
+        return leaderBoardButton;
+    }
+
+    public static TextureRegion getAchievementsButton() {
+        return achievementsButton;
+    }
+
+    public static TextureRegion getVibrateButton() {
+        return vibrateButton;
+    }
+
+    public static TextureRegion getNoVibrateButton() {
+        return noVibrateButton;
+    }
+
+    public static TextureRegion getExitButton() {
+
+        return exitButton;
+    }
+
+    public static TextureRegion getWinIcon() {
+        return winIcon;
+    }
+
+    public static TextureRegion getSettingsButton() {
+        return settingsButton;
+    }
+
+//    public static TextureRegion getRateButton() {
+//        return rateButton;
+//    }
+
+    public static TextureRegion getSoundOn() {
+        return soundOn;
+    }
+
+    public static TextureRegion getSoundOff() {
+        return soundOff;
+    }
+
+    public static void dispose() {
+
+        textureAtlas.dispose();
+    }
+
+    public static TextureRegion getShopButton() {
+        return shopButton;
     }
 }

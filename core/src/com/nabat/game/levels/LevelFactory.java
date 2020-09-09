@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.nabat.game.Consts;
+import com.nabat.game.Loader;
 import com.nabat.game.MyGame;
 import com.nabat.game.RectZone;
 import com.nabat.game.inputs.InputForGame;
@@ -20,6 +21,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class LevelFactory implements Screen {
 
+    public final float rectsS = Consts.getWIDTH() / 10f;
     private final int MAX_COUNT_OF_PERIOD; //30sec = 6000
     private final float period = 0.005f;
     private final String path; //levels/1/2
@@ -45,11 +47,10 @@ public class LevelFactory implements Screen {
     private float text_Y = Consts.getHEIGHT() / 2f;
     private boolean isRotation = false;
     private boolean isDot = false;
-    private int MAX_MISS = 3;
+    //    private int MAX_MISS = 3;
     private boolean subEv = true;
     private boolean subEv2 = true;
     private boolean subEv3 = true;
-
     public LevelFactory(Color color, float levelTime, String pathToFile,
                         int sizeOfScreens, int lvl, MyGame myGame, int lvlName) {
         this.levelTime = levelTime;
@@ -70,6 +71,10 @@ public class LevelFactory implements Screen {
 
     }
 
+    public MyGame getMyGame() {
+        return myGame;
+    }
+
     public int getLvlName() {
         return lvlName;
     }
@@ -80,11 +85,11 @@ public class LevelFactory implements Screen {
 
     public void setDot(boolean isDot) {
         this.isDot = isDot;
-        miss();
+//        miss();
 
     }
 
-    private void miss() {
+    /*private void miss() {
 
         if (isDot && isRotation) {
             MAX_MISS = 7;
@@ -94,7 +99,7 @@ public class LevelFactory implements Screen {
             MAX_MISS = 5;
         }
 
-    }
+    }*/
 
     public boolean isRotation() {
         return isRotation;
@@ -103,7 +108,7 @@ public class LevelFactory implements Screen {
     public void setRotation(boolean rotation, float rot) {
         rotationSpeed = rot;
         isRotation = rotation;
-        miss();
+//        miss();
     }
 
     public int getSizeOfScreens() {
@@ -124,9 +129,9 @@ public class LevelFactory implements Screen {
 
     public void upCountOfMiss() {
         countOfMiss++;
-        if (countOfMiss == MAX_MISS) {
+        /*if (countOfMiss == MAX_MISS) {
             isLose = true;
-        }
+        }*/
     }
 
     public void load() {
@@ -588,8 +593,6 @@ public class LevelFactory implements Screen {
             }
             subEv2 = false;
         }
-
-
 //        int timeMax = 20;
 
         if (time > 20) {
@@ -622,18 +625,7 @@ public class LevelFactory implements Screen {
                     @Override
                     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
 
-                        myGame.getAdsController().showBannerAd();
-                        isLose = false;
-                        countOfMiss = 0;
-                        countOfSquare = 0;
-                        countOfPeriod = 0;
-                        i = 0;
-                        arrayLists = null;
-                        time = 0;
-                        subEv = true;
-                        text_Y = Consts.getHEIGHT() / 2f;
                         myGame.setScreen(myGame.getLevels());
-
                         sound.dispose();
                         return true;
                     }
@@ -704,10 +696,13 @@ public class LevelFactory implements Screen {
 
                         myGame.getBatch().begin();
                         Consts.getFontForCount().draw(myGame.getBatch(), countOfSquare + "",
-                                50f, Gdx.app.getGraphics().getHeight() - 50f);
+                                50f, Consts.getHEIGHT() - 50f);
                         Consts.getFontForCountMiss().draw(myGame.getBatch(), countOfMiss + "",
-                                Gdx.app.getGraphics().getWidth() - 100f,
-                                Gdx.app.getGraphics().getHeight() - 50f);
+                                50f,
+                                Consts.getHEIGHT() - 150f);
+
+                        myGame.getBatch().draw(Loader.getSettingsButton(),
+                                Consts.getWIDTH() - rectsS, Consts.getHEIGHT() - rectsS, rectsS, rectsS);
 
                         myGame.getBatch().end();
                         timeLineDraw();
@@ -715,6 +710,7 @@ public class LevelFactory implements Screen {
                 } else {
 
                     if (subEv) {
+                        Consts.getIsWin().put(lvlName, true);
                         myGame.gsClient.submitEvent(String.valueOf(lvlName), 1);
                         myGame.gsClient.unlockAchievement(Consts.getPRIME());
                     }

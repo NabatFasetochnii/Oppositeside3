@@ -16,18 +16,9 @@ public class MyObserver implements PurchaseObserver {
     @Override
     public void handleInstall() {
         Gdx.app.log("IAP", "Installed");
-
-       /* Gdx.app.postRunnable(new Runnable() {
-            @Override
-            public void run() {
-//                updateGuiWhenPurchaseManInstalled(null);
-                if (myGame.getPurchaseManager().installed()){
+        myGame.purchaseManager.purchaseRestore();
 
 
-                }
-
-            }
-        });*/
     }
 
     @Override
@@ -41,9 +32,8 @@ public class MyObserver implements PurchaseObserver {
             for (Transaction t : transactions) {
                 handlePurchase(t, true);
             }
-        /*else if (restorePressed) {
-//            showErrorOnMainThread("Nothing to restore");
-        }*/
+
+
     }
 
     @Override
@@ -57,18 +47,19 @@ public class MyObserver implements PurchaseObserver {
     }
 
     protected void handlePurchase(final Transaction transaction, final boolean fromRestore) {
-        /*Gdx.app.postRunnable(new Runnable() {
+        Gdx.app.postRunnable(new Runnable() {
             @Override
             public void run() {
                 if (transaction.isPurchased()) {
-                    if (transaction.getIdentifier().equals(MY_ENTITLEMENT))
-                        buyEntitlement.setBought(fromRestore);
-                    else if (transaction.getIdentifier().equals(MY_CONSUMABLE))
-                        buyConsumable.setBought(fromRestore);
+                    if (transaction.getIdentifier().equals(myGame.getSKU())) {
+                        Consts.setRemoveAds(true);
+                        myGame.getAdsController().hideBannerForStart();
+
+                    }
 
                 }
             }
-        });*/
+        });
     }
 
     @Override

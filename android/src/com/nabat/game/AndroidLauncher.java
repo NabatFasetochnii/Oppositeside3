@@ -1,6 +1,12 @@
 package com.nabat.game;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkCapabilities;
+import android.net.NetworkInfo;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +14,7 @@ import android.widget.RelativeLayout;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
+import com.badlogic.gdx.pay.android.googlebilling.PurchaseManagerGoogleBilling;
 import com.google.android.gms.ads.*;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
@@ -16,8 +23,8 @@ import de.golfgl.gdxgamesvcs.IGameServiceIdMapper;
 
 public class AndroidLauncher extends AndroidApplication implements AdsController {
 
-    //    private static final String BANNER_AD_UNIT_ID = "ca-app-pub-8832576459433269/9861516377";
-    //    private static final String BANNER_START_AD_UNIT_ID = "ca-app-pub-8832576459433269/8336558007";
+    //        private static final String BANNER_AD_UNIT_ID = "ca-app-pub-8832576459433269/9861516377";
+//        private static final String BANNER_START_AD_UNIT_ID = "ca-app-pub-8832576459433269/8336558007";
     private static final String TEST_BANNER_AD_UNIT_ID = "ca-app-pub-3940256099942544/1033173712";
     private static final String TEST_BANNER_AD_UNIT_ID2 = "ca-app-pub-3940256099942544/6300978111";
     GpgsClient gpgsClient;
@@ -43,6 +50,11 @@ public class AndroidLauncher extends AndroidApplication implements AdsController
         adView.setAdSize(AdSize.BANNER);
         setupAds();
 
+        int zero;
+//        float zero = AdSize.BANNER.getHeight();
+        zero = AdSize.BANNER.getHeightInPixels(this);
+
+
         mInterstitialAd = new InterstitialAd(this);
         mInterstitialAd.setAdUnitId(TEST_BANNER_AD_UNIT_ID);
 //        mInterstitialAd.loadAd(new AdRequest.Builder().build());
@@ -53,6 +65,7 @@ public class AndroidLauncher extends AndroidApplication implements AdsController
             public void onAdClosed() {
                 super.onAdClosed();
                 onResume();
+
                 showBannerForStart();
             }
 
@@ -89,9 +102,9 @@ public class AndroidLauncher extends AndroidApplication implements AdsController
             }
         });
 
-        MyGame myGame = new MyGame(this);
+        MyGame myGame = new MyGame(this, zero);
         myGame.gsClient = gpgsClient;
-//        myGame.purchaseManager = new PurchaseManagerGoogleBilling(this);
+        myGame.purchaseManager = new PurchaseManagerGoogleBilling(this);
 
         View gameView = initializeForView(myGame, config);
 
@@ -103,10 +116,11 @@ public class AndroidLauncher extends AndroidApplication implements AdsController
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT);
-        params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+        params.addRule(RelativeLayout.ALIGN_PARENT_TOP);
         layout.addView(adView, params);
 
         setContentView(layout);
+
     }
 
     public void setupAds() {
@@ -188,13 +202,33 @@ public class AndroidLauncher extends AndroidApplication implements AdsController
     }
 
     @Override
+    public boolean isEnabled() {
+
+        ConnectivityManager connectivityManager = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            Network nw = null;
+            if (connectivityManager != null) {
+                nw = connectivityManager.getActiveNetwork();
+            }
+            if (nw == null) return false;
+            NetworkCapabilities actNw = connectivityManager.getNetworkCapabilities(nw);
+            return actNw != null && (actNw.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) || actNw.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) || actNw.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) || actNw.hasTransport(NetworkCapabilities.TRANSPORT_BLUETOOTH));
+        } else {
+            NetworkInfo nwInfo = null;
+            if (connectivityManager != null) {
+                nwInfo = connectivityManager.getActiveNetworkInfo();
+            }
+            return nwInfo != null && nwInfo.isConnected();
+        }
+
+    }
+
+    @Override
     public void loadBanner() {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-
                 mInterstitialAd.loadAd(new AdRequest.Builder().build());
-
             }
         });
     }

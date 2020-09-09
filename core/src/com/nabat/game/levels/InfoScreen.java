@@ -38,9 +38,9 @@ public class InfoScreen implements Screen {
         } else if (levelFactory.isRotation() || levelFactory.isDot()) {
             complexity *= 2;
         }
-        info = "INFO: " + '\n' + "Complexity: " + complexity + '\n' +
-                "Duration: " + levelFactory.getLevelTime() + "s" + '\n' +
-                "Size: " + levelFactory.getSizeOfScreens() + '\n';
+        info = "INFO " + '\n' + "*Complexity: " + complexity + '\n' +
+                "*Duration: " + levelFactory.getLevelTime() + "s" + '\n' +
+                "*Size: " + levelFactory.getSizeOfScreens() + '\n' + "*";
 
         switch (levelFactory.getLvlName()) {
 
@@ -229,9 +229,9 @@ public class InfoScreen implements Screen {
             @Override
             public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 
-                if (startGame.isTouch(screenX, Consts.getHEIGHT() - screenY)) {
+                if (startGame.isTouch(screenX, Gdx.app.getGraphics().getHeight() - screenY)) {
                     start = true;
-                } else if (backToMenu.isTouch(screenX, Consts.getHEIGHT() - screenY)) {
+                } else if (backToMenu.isTouch(screenX, Gdx.app.getGraphics().getHeight() - screenY)) {
                     back = true;
                 }
 
@@ -281,7 +281,7 @@ public class InfoScreen implements Screen {
 
         if (start) {
             myGame.getAdsController().loadBanner();
-            myGame.getAdsController().hideBannerForStart();
+//            myGame.getAdsController().hideBannerForStart();
             myGame.setScreen(levelFactory);
             dispose();
         }

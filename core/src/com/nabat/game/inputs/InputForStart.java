@@ -2,10 +2,12 @@ package com.nabat.game.inputs;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.pay.Information;
 import com.nabat.game.Consts;
 import com.nabat.game.MyGame;
 import com.nabat.game.RectZone;
 import com.nabat.game.levels.Start;
+import com.nabat.game.levels.Store;
 import de.golfgl.gdxgamesvcs.GameServiceException;
 
 public class InputForStart implements InputProcessor {
@@ -46,7 +48,7 @@ public class InputForStart implements InputProcessor {
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
         Consts.time = 0;
-        int y = Consts.getHEIGHT() - screenY;
+        int y = Gdx.app.getGraphics().getHeight() - screenY;
 
         if (rectZone.isTouch(screenX, y)) {
 
@@ -56,11 +58,15 @@ public class InputForStart implements InputProcessor {
 
         if (Consts.isTouch(start.getShopX(), start.getShopY(), start.getShopW(), start.getShopH(), screenX, y)) {
 
-            /*if (myGame.purchaseManager.installed()){
+
+            if (myGame.purchaseManager.installed() &&
+                    !myGame.purchaseManager.getInformation(myGame.getSKU()).equals(Information.UNAVAILABLE)) {
 
                 myGame.setScreen(new Store(myGame));
-            }*/
-            Gdx.input.vibrate(25);
+            } else {
+                Gdx.input.vibrate(25);
+            }
+
             //TODO SHOP
         }
 

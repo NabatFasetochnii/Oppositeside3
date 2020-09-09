@@ -6,77 +6,84 @@ filter: Nearest,Nearest
 repeat: none
 achievement3
   rotate: false
-  xy: 516, 723
+  xy: 2, 198
   size: 113, 113
   orig: 113, 113
   offset: 0, 0
   index: -1
 ic_action_music_note
   rotate: false
-  xy: 631, 740
+  xy: 2, 100
   size: 96, 96
   orig: 96, 96
   offset: 0, 0
   index: -1
 ic_action_music_off
   rotate: false
-  xy: 2, 2
+  xy: 226, 337
   size: 96, 96
   orig: 96, 96
   offset: 0, 0
   index: -1
 ic_action_no_vibration
   rotate: false
-  xy: 222, 226
+  xy: 516, 631
   size: 96, 96
   orig: 96, 96
   offset: 0, 0
   index: -1
 ic_action_vibration
   rotate: false
-  xy: 516, 625
+  xy: 638, 851
   size: 96, 96
   orig: 96, 96
   offset: 0, 0
   index: -1
 ic_attach_money
   rotate: false
-  xy: 124, 226
+  xy: 516, 729
   size: 96, 96
   orig: 96, 96
   offset: 0, 0
   index: -1
 ic_clear
   rotate: false
-  xy: 516, 527
+  xy: 736, 851
   size: 96, 96
   orig: 96, 96
   offset: 0, 0
   index: -1
+ic_done_outline
+  rotate: false
+  xy: 2, 313
+  size: 120, 120
+  orig: 120, 120
+  offset: 0, 0
+  index: -1
 ic_settings
   rotate: false
-  xy: 2, 202
+  xy: 516, 827
   size: 120, 120
   orig: 120, 120
   offset: 0, 0
   index: -1
 ic_shopping_cart
   rotate: false
-  xy: 729, 740
+  xy: 2, 2
   size: 96, 96
   orig: 96, 96
   offset: 0, 0
   index: -1
 icon2
   rotate: false
-  xy: 2, 324
+  xy: 2, 435
   size: 512, 512
   orig: 512, 512
   offset: 0, 0
   index: -1
 icons8-leaderboard-100-2
   rotate: false
-  xy: 2, 100
+  xy: 124, 333
   size: 100, 100
   orig: 100, 100
   offset: 0, 0
