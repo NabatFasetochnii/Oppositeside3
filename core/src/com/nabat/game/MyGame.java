@@ -21,13 +21,14 @@ public class MyGame extends com.badlogic.gdx.Game implements IGameServiceListene
     private final String GAME_TAG = "MY_GAME";
     private final AdsController adsController;
     private final String SKU = "98s252md49mjtivhx8sz";
+    private final int zero;
     public IGameServiceClient gsClient;
     public PurchaseManager purchaseManager;
+    public Loader loader;
     private Levels levels;
     private SpriteBatch batch;
     private Preferences preferences;
     private Music music;
-    private final int zero;
 
     public MyGame(AdsController adsController, int zero) {
 
@@ -50,21 +51,17 @@ public class MyGame extends com.badlogic.gdx.Game implements IGameServiceListene
         music = Gdx.audio.newMusic(Gdx.files.internal(Consts.getPathToMusic()));
         music.setVolume(0.3f);
         music.setLooping(true);
-
+        batch = new SpriteBatch();
         preferences = Gdx.app.getPreferences(Consts.getPrefName());
 
         Consts.loadMaps();
-        batch = new SpriteBatch();
-
-        Loader.load();
 
         if (adsController.isEnabled()) {
             Consts.setZeroLevel(zero);
         } else {
             Consts.setZeroLevel(0);
         }
-
-        Consts.loadFonts();
+        loader = new Loader();
         levels = new Levels(this);
         if (Consts.isLastSessionFall()) {
 
@@ -201,7 +198,7 @@ public class MyGame extends com.badlogic.gdx.Game implements IGameServiceListene
                 int y = 0;
                 for (Map.Entry<Integer, Boolean> integerEntry : Consts.getIsWin().entrySet()) {
 
-                    save[Consts.getIsWin().size() * 4 + y] = (byte) (integerEntry.getValue() ? 1 : 0);
+                    save[Consts.getMap().size() * 4 + y] = (byte) (integerEntry.getValue() ? 1 : 0);
                     y++;
                 }
 
@@ -245,9 +242,8 @@ public class MyGame extends com.badlogic.gdx.Game implements IGameServiceListene
         updatePref();
         Consts.dispose();
         music.dispose();
-        //l0.dispose();
         levels.dispose();
-        Loader.dispose();
+        loader.dispose();
         purchaseManager.dispose();
     }
 

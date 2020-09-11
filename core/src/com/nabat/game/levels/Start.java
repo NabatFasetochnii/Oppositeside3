@@ -5,7 +5,6 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.nabat.game.Consts;
-import com.nabat.game.Loader;
 import com.nabat.game.MyGame;
 import com.nabat.game.RectZone;
 import com.nabat.game.inputs.InputForStart;
@@ -23,10 +22,11 @@ public class Start implements Screen {
     private final float vibX, vibY;
     private final float achX, achY;
     private final float leaderBX, leaderBY;
-//    private final float size = Consts.getWIDTH() / 2f;
+    //    private final float size = Consts.getWIDTH() / 2f;
     private String onOff;
     private int time = 0;
     private boolean isInput = true;
+
 
     public Start(MyGame myGame) {
 
@@ -36,9 +36,9 @@ public class Start implements Screen {
                 Consts.getWIDTH(), Gdx.app.getGraphics().getHeight(), Color.RED);
         startZone.setPulsar(false);
 
-        GlyphLayout glyphLayout = new GlyphLayout(Consts.getFontForMenu(), Consts.getPLAY());
+        GlyphLayout glyphLayout = new GlyphLayout(myGame.loader.getFontForMenu(), Consts.getPLAY());
         startW = glyphLayout.width; // получаем ширину текста
-        glyphLayout = new GlyphLayout(Consts.getFontForMenu(), Consts.getGPGS() + Consts.getOFF());
+        glyphLayout = new GlyphLayout(myGame.loader.getFontForMenu(), Consts.getGPGS() + Consts.getOFF());
         gpgsW = glyphLayout.width;
         gpgsH = glyphLayout.height;
         int delta = Consts.getWIDTH() / 50;
@@ -72,7 +72,6 @@ public class Start implements Screen {
         exitY = shopY;//shopY;
 
     }
-
 
     public float getAchX() {
         return achX;
@@ -110,6 +109,9 @@ public class Start implements Screen {
 
             myGame.gsClient.incrementAchievement(Consts.getImAtHome(), 1, Consts.getMap().get(Consts.getImAtHome()) / 421f);
         }
+        if (Consts.isRemoveAds()) {
+            myGame.getAdsController().hideBannerForStart();
+        }
 
     }
 
@@ -124,68 +126,58 @@ public class Start implements Screen {
                 Gdx.input.setInputProcessor(new InputForStart(this));
                 isInput = false;
                 time = 0;
-
             } else {
                 time++;
             }
         }
 
-
         startZone.draw(); //большой квадратик сверху
         gpgsZone.draw();//квадратик gpgs
 
         myGame.getBatch().begin();
-        Consts.getFontForMenu().draw(myGame.getBatch(), Consts.getPLAY(),//призыв начать играть
+        myGame.loader.getFontForMenu().draw(myGame.getBatch(), Consts.getPLAY(),//призыв начать играть
                 Consts.getWIDTH() / 2f - startW / 2, Consts.getHEIGHT() * 3 / 4f);
 
         if (myGame.gsClient.isSessionActive()) {
-
             onOff = Consts.getGPGS() + Consts.getON();
-
         } else if (myGame.gsClient.isConnectionPending()) {
-
             onOff = Consts.getGPGS() + "...";
         } else {
             onOff = Consts.getGPGS() + Consts.getOFF();
-
         }
-        Consts.getFontForMenu().draw(myGame.getBatch(), onOff, //переключатель аунтификации гугл плэя
+        myGame.loader.getFontForMenu().draw(myGame.getBatch(), onOff, //переключатель аунтификации гугл плэя
                 Consts.getWIDTH() / 2f - gpgsW / 2, Consts.getHEIGHT() / 3f + gpgsH);
 
-        myGame.getBatch().draw(Loader.getShopButton(), // кнопка магазина
+        myGame.getBatch().draw(myGame.loader.getShopButton(), // кнопка магазина
                 shopX, shopY,
                 shopW, shopH);
 
         if (Consts.getBool().get(Consts.getSOUND())) { // переключатель музыки
 
-            myGame.getBatch().draw(Loader.getSoundOn(),
+            myGame.getBatch().draw(myGame.loader.getSoundOn(),
                     soundX, soundY,
                     soundW, soundH);
         } else {
 
-            myGame.getBatch().draw(Loader.getSoundOff(),
+            myGame.getBatch().draw(myGame.loader.getSoundOff(),
                     soundX, soundY,
                     soundW, soundH);
         }
         if (Consts.getBool().get(Consts.getVIBRATE())) {
-            myGame.getBatch().draw(Loader.getVibrateButton(), vibX, vibY, shopW, shopH);
+            myGame.getBatch().draw(myGame.loader.getVibrateButton(), vibX, vibY, shopW, shopH);
         } else {
-            myGame.getBatch().draw(Loader.getNoVibrateButton(), vibX, vibY, shopW, shopH);
+            myGame.getBatch().draw(myGame.loader.getNoVibrateButton(), vibX, vibY, shopW, shopH);
         }
 
         /*myGame.getBatch().draw(Loader.getRateButton(), rateX, rateY, //кнопка оценки приложения
                 shopW, shopH);*/
 
-        myGame.getBatch().draw(Loader.getExitButton(), exitX, exitY, shopW, shopH);
-        myGame.getBatch().draw(Loader.getAchievementsButton(), achX, achY, shopW, shopH);
-        myGame.getBatch().draw(Loader.getLeaderBoardButton(), leaderBX, leaderBY, shopW, shopH);
-
+        myGame.getBatch().draw(myGame.loader.getExitButton(), exitX, exitY, shopW, shopH);
+        myGame.getBatch().draw(myGame.loader.getAchievementsButton(), achX, achY, shopW, shopH);
+        myGame.getBatch().draw(myGame.loader.getLeaderBoardButton(), leaderBX, leaderBY, shopW, shopH);
 
         myGame.getBatch().end();
-
-
     }
-
 
     @Override
     public void resize(int width, int height) {
@@ -210,6 +202,7 @@ public class Start implements Screen {
     @Override
     public void dispose() {
         startZone.dispose();
+        gpgsZone.dispose();
     }
 
     public float getExitX() {

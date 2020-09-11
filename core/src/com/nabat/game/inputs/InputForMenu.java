@@ -36,11 +36,19 @@ public class InputForMenu implements InputProcessor {
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         Consts.time = 0;
         scrollX = screenX;
+
+
+        return true;
+    }
+
+    @Override
+    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+
         int y = Gdx.app.getGraphics().getHeight() - screenY;
 
-        if (Consts.isTouch(Consts.getWIDTH()-levels.getRectsS(),
-                Consts.getHEIGHT()-levels.getRectsS(),
-                levels.getRectsS(), levels.getRectsS(), screenX, y)){
+        if (Consts.isTouch(Consts.getWIDTH() - levels.getRectsS(),
+                Consts.getHEIGHT() - levels.getRectsS(),
+                levels.getRectsS(), levels.getRectsS(), screenX, y)) {
             levels.setStart();
         }
 
@@ -185,14 +193,61 @@ public class InputForMenu implements InputProcessor {
 
             levels.setLvl(411);
         }
+
+        ////////////////////////////////////////////////////////////////////////
+        if (levels.getL13().isTouch(screenX, y)) {
+
+            levels.setLvl(13);
+        }
+        if (levels.getL23().isTouch(screenX, y)) {
+
+            levels.setLvl(23);
+        }
+        if (levels.getL33().isTouch(screenX, y)) {
+
+            levels.setLvl(33);
+        }
+        if (levels.getL43().isTouch(screenX, y)) {
+
+            levels.setLvl(43);
+        }
+        ////////////////////////////////////////////////////////////////////////
+        if (levels.getL131().isTouch(screenX, y)) {
+
+            levels.setLvl(131);
+        }
+        if (levels.getL231().isTouch(screenX, y)) {
+
+            levels.setLvl(231);
+        }
+        if (levels.getL331().isTouch(screenX, y)) {
+
+            levels.setLvl(331);
+        }
+        if (levels.getL431().isTouch(screenX, y)) {
+
+            levels.setLvl(431);
+        }
+        ////////////////////////////////////////////////////////////////////////
+        if (levels.getL132().isTouch(screenX, y)) {
+
+            levels.setLvl(132);
+        }
+        if (levels.getL232().isTouch(screenX, y)) {
+
+            levels.setLvl(232);
+        }
+        if (levels.getL332().isTouch(screenX, y)) {
+
+            levels.setLvl(332);
+        }
+        if (levels.getL432().isTouch(screenX, y)) {
+
+            levels.setLvl(432);
+        }
         ////////////////////////////////////////////////////////////////////////
 
         return true;
-    }
-
-    @Override
-    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        return false;
     }
 
     @Override

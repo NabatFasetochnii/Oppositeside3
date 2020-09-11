@@ -31,6 +31,7 @@ public class AndroidLauncher extends AndroidApplication implements AdsController
     //    private AdView adView;
     private InterstitialAd mInterstitialAd;
     private AdView adView;
+    private MyGame myGame;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,8 +52,8 @@ public class AndroidLauncher extends AndroidApplication implements AdsController
         setupAds();
 
         int zero;
-//        float zero = AdSize.BANNER.getHeight();
-        zero = AdSize.BANNER.getHeightInPixels(this);
+//        zero = AdSize.BANNER.getHeight();
+        zero = AdSize.SMART_BANNER.getHeightInPixels(this);
 
 
         mInterstitialAd = new InterstitialAd(this);
@@ -102,7 +103,7 @@ public class AndroidLauncher extends AndroidApplication implements AdsController
             }
         });
 
-        MyGame myGame = new MyGame(this, zero);
+        myGame = new MyGame(this, zero);
         myGame.gsClient = gpgsClient;
         myGame.purchaseManager = new PurchaseManagerGoogleBilling(this);
 
@@ -255,6 +256,10 @@ public class AndroidLauncher extends AndroidApplication implements AdsController
             }
         });
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        myGame.updatePref();
+    }
 }
-
-

@@ -1,29 +1,36 @@
 package com.nabat.game;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 
 public class Loader {
 
-    private static TextureRegion exitButton;
-    private static TextureRegion soundOn;
-    private static TextureRegion soundOff;
-    private static TextureRegion shopButton;
-    private static TextureRegion settingsButton;
+    private final TextureAtlas textureAtlas;
+    private TextureRegion exitButton;
+    private TextureRegion soundOn;
+    private TextureRegion soundOff;
+    private TextureRegion shopButton;
+    private TextureRegion settingsButton;
     //    private static TextureRegion rateButton;
-    private static TextureRegion vibrateButton;
-    private static TextureRegion noVibrateButton;
-    private static TextureRegion leaderBoardButton;
-    private static TextureRegion achievementsButton;
-    private static TextureRegion loadIcon;
-    private static TextureRegion winIcon;
-    private static TextureAtlas textureAtlas;
-    Loader() {
-    }
+    private TextureRegion vibrateButton;
+    private TextureRegion noVibrateButton;
+    private TextureRegion leaderBoardButton;
+    private TextureRegion achievementsButton;
+    private TextureRegion loadIcon;
+    private TextureRegion winIcon;
+    private BitmapFont fontForLose;
+    private BitmapFont fontForCount;
+    private BitmapFont fontForCountMiss;
+    private BitmapFont fontForWin;
+    private BitmapFont fontForMenu;
+    private BitmapFont fontForStore;
 
-    public static void load() {
+
+    Loader() {
 
         textureAtlas = new TextureAtlas(
                 Gdx.files.internal("texture//assets.atlas"));//texture\assets.atlas
@@ -39,40 +46,99 @@ public class Loader {
         loadLeaderBoard();
         loadIcon();
         loadWinIcon();
+        loadFonts();
+
     }
 
-    private static void loadWinIcon() {
+    public void loadFonts() {
+
+        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal(Consts.getTtfPath()));
+        FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        parameter.size = (int) (Consts.getWIDTH() / 7.5f);
+        parameter.color = Color.RED;
+        parameter.borderColor = Color.BLACK;
+        parameter.borderWidth = Consts.getWIDTH() / 216f;
+        fontForLose = generator.generateFont(parameter);
+
+        parameter.color = Color.GREEN;
+
+        fontForWin = generator.generateFont(parameter);
+
+        parameter.size = (int) (Consts.getWIDTH() / 10f);
+        parameter.borderWidth = Consts.getWIDTH() / 360f;
+        fontForCount = generator.generateFont(parameter);
+
+        parameter.color = Color.RED;
+
+        fontForCountMiss = generator.generateFont(parameter);
+
+        parameter.size = Consts.getWIDTH() / 12;
+        parameter.color = Color.CHARTREUSE;
+        parameter.borderColor = Color.BLACK;
+        parameter.borderWidth = Consts.getWIDTH() / 216f;
+        fontForMenu = generator.generateFont(parameter);
+
+        parameter.size = Consts.getWIDTH() / 16;
+        fontForStore = generator.generateFont(parameter);
+        generator.dispose();
+    }
+
+    public BitmapFont getFontForLose() {
+        return fontForLose;
+    }
+
+    public BitmapFont getFontForCount() {
+        return fontForCount;
+    }
+
+    public BitmapFont getFontForCountMiss() {
+        return fontForCountMiss;
+    }
+
+    public BitmapFont getFontForWin() {
+        return fontForWin;
+    }
+
+    public BitmapFont getFontForMenu() {
+        return fontForMenu;
+    }
+
+    public BitmapFont getFontForStore() {
+        return fontForStore;
+    }
+
+    private void loadWinIcon() {
 
         winIcon = textureAtlas.findRegion("ic_done_outline");
-        winIcon.getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+//        winIcon.getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
     }
 
-    private static void loadIcon() {
+    private void loadIcon() {
 
         loadIcon = textureAtlas.findRegion("icon2");
-        loadIcon.getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+//        loadIcon.getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
     }
 
-    private static void loadSoundOn() {
+    private void loadSoundOn() {
         soundOn = textureAtlas.findRegion("ic_action_music_note");
-        soundOn.getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+//        soundOn.getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
     }
 
-    private static void loadSoundOff() {
+    private void loadSoundOff() {
         soundOff = textureAtlas.findRegion("ic_action_music_off");
-        soundOff.getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+//        soundOff.getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
     }
 
-    private static void loadExit() {
+    private void loadExit() {
 
         exitButton = textureAtlas.findRegion("ic_clear");
-        exitButton.getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+//        exitButton.getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
     }
 
-    private static void loadShop() {
+    private void loadShop() {
 
         shopButton = textureAtlas.findRegion("ic_shopping_cart");
-        shopButton.getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+//        shopButton.getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
     }
 
 //    private static void loadRate() {
@@ -80,63 +146,63 @@ public class Loader {
 //        rateButton.getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 //    }
 
-    private static void loadSettings() {
+    private void loadSettings() {
 
         settingsButton = textureAtlas.findRegion("ic_settings");
-        settingsButton.getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+//        settingsButton.getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
     }
 
-    private static void loadAch() {
+    private void loadAch() {
 
         achievementsButton = textureAtlas.findRegion("achievement3");
-        achievementsButton.getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+//        achievementsButton.getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
     }
 
-    private static void loadLeaderBoard() {
+    private void loadLeaderBoard() {
 
         leaderBoardButton = textureAtlas.findRegion("icons8-leaderboard-100-2");
-        leaderBoardButton.getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+//        leaderBoardButton.getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
     }
 
-    private static void loadVibrate() {
+    private void loadVibrate() {
 
         vibrateButton = textureAtlas.findRegion("ic_action_vibration");
         noVibrateButton = textureAtlas.findRegion("ic_action_no_vibration");
 
-        vibrateButton.getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        noVibrateButton.getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+//        vibrateButton.getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+//        noVibrateButton.getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
     }
 
-    public static TextureRegion getLoadIcon() {
+    public TextureRegion getLoadIcon() {
         return loadIcon;
     }
 
-    public static TextureRegion getLeaderBoardButton() {
+    public TextureRegion getLeaderBoardButton() {
         return leaderBoardButton;
     }
 
-    public static TextureRegion getAchievementsButton() {
+    public TextureRegion getAchievementsButton() {
         return achievementsButton;
     }
 
-    public static TextureRegion getVibrateButton() {
+    public TextureRegion getVibrateButton() {
         return vibrateButton;
     }
 
-    public static TextureRegion getNoVibrateButton() {
+    public TextureRegion getNoVibrateButton() {
         return noVibrateButton;
     }
 
-    public static TextureRegion getExitButton() {
+    public TextureRegion getExitButton() {
 
         return exitButton;
     }
 
-    public static TextureRegion getWinIcon() {
+    public TextureRegion getWinIcon() {
         return winIcon;
     }
 
-    public static TextureRegion getSettingsButton() {
+    public TextureRegion getSettingsButton() {
         return settingsButton;
     }
 
@@ -144,20 +210,24 @@ public class Loader {
 //        return rateButton;
 //    }
 
-    public static TextureRegion getSoundOn() {
+    public TextureRegion getSoundOn() {
         return soundOn;
     }
 
-    public static TextureRegion getSoundOff() {
+    public TextureRegion getSoundOff() {
         return soundOff;
     }
 
-    public static void dispose() {
-
+    public void dispose() {
+        fontForCount.dispose();
+        fontForCountMiss.dispose();
+        fontForLose.dispose();
+        fontForWin.dispose();
+        fontForStore.dispose();
         textureAtlas.dispose();
     }
 
-    public static TextureRegion getShopButton() {
+    public TextureRegion getShopButton() {
         return shopButton;
     }
 }

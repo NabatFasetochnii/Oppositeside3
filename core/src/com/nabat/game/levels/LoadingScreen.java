@@ -3,7 +3,6 @@ package com.nabat.game.levels;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.nabat.game.Consts;
-import com.nabat.game.Loader;
 import com.nabat.game.MyGame;
 import de.golfgl.gdxgamesvcs.gamestate.ILoadGameStateResponseListener;
 
@@ -87,7 +86,7 @@ public class LoadingScreen implements Screen {
 
         myGame.getBatch().begin();
 
-        myGame.getBatch().draw(Loader.getLoadIcon(),//TODO МБ ПОТОМ СДЕЛАЮ ГИФ ОЧ КУ
+        myGame.getBatch().draw(myGame.loader.getLoadIcon(),//TODO МБ ПОТОМ СДЕЛАЮ ГИФ ОЧ КУ
                 Consts.getWIDTH() / 2f - size / 2f,
                 Consts.getHEIGHT() / 2f - size / 2f, size, size);
 

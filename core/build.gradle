@@ -8,6 +8,7 @@ dependencies {
     implementation "pl.mk5.gdx-fireapp:gdx-fireapp-core:2.1.8"
     implementation 'com.google.android.gms:play-services-ads:19.3.0'
     implementation "com.badlogicgames.gdxpay:gdx-pay-client:$gdxPayVersion"
+    implementation 'org.jetbrains:annotations-java5:15.0'
 }
 
 sourceSets.main.java.srcDirs = [ "src/" ]

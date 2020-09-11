@@ -6,10 +6,11 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.nabat.game.Consts;
-import com.nabat.game.Loader;
 import com.nabat.game.MyGame;
 import com.nabat.game.RectZone;
 import com.nabat.game.inputs.InputForGame;
@@ -51,6 +52,9 @@ public class LevelFactory implements Screen {
     private boolean subEv = true;
     private boolean subEv2 = true;
     private boolean subEv3 = true;
+    private boolean isAlf = false;
+    private final float countH;
+
     public LevelFactory(Color color, float levelTime, String pathToFile,
                         int sizeOfScreens, int lvl, MyGame myGame, int lvlName) {
         this.levelTime = levelTime;
@@ -68,7 +72,13 @@ public class LevelFactory implements Screen {
         timeLineEnd = new ShapeRenderer();
 
         sound = Gdx.audio.newSound(Gdx.files.internal(Consts.getPathToSound()));
+        GlyphLayout g = new GlyphLayout(myGame.loader.getFontForCount(), "000");
+        countH = g.height;
 
+    }
+
+    public void setAlf(boolean alf) {
+        isAlf = alf;
     }
 
     public MyGame getMyGame() {
@@ -174,7 +184,8 @@ public class LevelFactory implements Screen {
     }
 
     public void endLevel(String text, BitmapFont font1) {
-        myGame.getBatch().begin();
+
+        myGame.getBatch().begin();//ошибка
         font1.draw(myGame.getBatch(), text,
                 Consts.getWIDTH() / 3f, text_Y);
         myGame.getBatch().end();
@@ -367,6 +378,51 @@ public class LevelFactory implements Screen {
                         break;
                     }
                     ////////////////////////////////////////
+                    case 121: {
+                        if (points > Consts.getMap().get(Consts.getCOUNT121())) {
+
+                            Consts.getMap().put(Consts.getCOUNT0(),
+                                    Consts.getMap().get(Consts.getCOUNT0()) +
+                                            points - Consts.getMap().get(Consts.getCOUNT121()));
+                            Consts.getMap().put(Consts.getCOUNT121(), points);
+                        }
+
+                        break;
+                    }
+                    case 221: {
+
+                        if (points > Consts.getMap().get(Consts.getCOUNT221())) {
+
+                            Consts.getMap().put(Consts.getCOUNT0(),
+                                    Consts.getMap().get(Consts.getCOUNT0()) +
+                                            points - Consts.getMap().get(Consts.getCOUNT221()));
+                            Consts.getMap().put(Consts.getCOUNT221(), points);
+                        }
+                        break;
+                    }
+                    case 321: {
+
+                        if (points > Consts.getMap().get(Consts.getCOUNT321())) {
+
+                            Consts.getMap().put(Consts.getCOUNT0(),
+                                    Consts.getMap().get(Consts.getCOUNT0()) +
+                                            points - Consts.getMap().get(Consts.getCOUNT321()));
+                            Consts.getMap().put(Consts.getCOUNT321(), points);
+                        }
+                        break;
+                    }
+                    case 421: {
+
+                        if (points > Consts.getMap().get(Consts.getCOUNT421())) {
+
+                            Consts.getMap().put(Consts.getCOUNT0(),
+                                    Consts.getMap().get(Consts.getCOUNT0()) +
+                                            points - Consts.getMap().get(Consts.getCOUNT421()));
+                            Consts.getMap().put(Consts.getCOUNT421(), points);
+                        }
+                        break;
+                    }
+                    ////////////////////////////////////////
                     case 122: {
                         if (points > Consts.getMap().get(Consts.getCOUNT122())) {
 
@@ -547,6 +603,140 @@ public class LevelFactory implements Screen {
                         break;
                     }
                     ////////////////////////////////////////
+                    case 13: {
+                        if (points > Consts.getMap().get(Consts.getCOUNT13())) {
+
+                            Consts.getMap().put(Consts.getCOUNT0(),
+                                    Consts.getMap().get(Consts.getCOUNT0()) +
+                                            points - Consts.getMap().get(Consts.getCOUNT13()));
+                            Consts.getMap().put(Consts.getCOUNT13(), points);
+                        }
+
+                        break;
+                    }
+                    case 23: {
+
+                        if (points > Consts.getMap().get(Consts.getCOUNT23())) {
+
+                            Consts.getMap().put(Consts.getCOUNT0(),
+                                    Consts.getMap().get(Consts.getCOUNT0()) +
+                                            points - Consts.getMap().get(Consts.getCOUNT23()));
+                            Consts.getMap().put(Consts.getCOUNT23(), points);
+                        }
+                        break;
+                    }
+                    case 33: {
+
+                        if (points > Consts.getMap().get(Consts.getCOUNT33())) {
+
+                            Consts.getMap().put(Consts.getCOUNT0(),
+                                    Consts.getMap().get(Consts.getCOUNT0()) +
+                                            points - Consts.getMap().get(Consts.getCOUNT33()));
+                            Consts.getMap().put(Consts.getCOUNT33(), points);
+                        }
+                        break;
+                    }
+                    case 43: {
+
+                        if (points > Consts.getMap().get(Consts.getCOUNT43())) {
+
+                            Consts.getMap().put(Consts.getCOUNT0(),
+                                    Consts.getMap().get(Consts.getCOUNT0()) +
+                                            points - Consts.getMap().get(Consts.getCOUNT43()));
+                            Consts.getMap().put(Consts.getCOUNT43(), points);
+                        }
+                        break;
+                    }
+                    ////////////////////////////////////////
+                    case 131: {
+                        if (points > Consts.getMap().get(Consts.getCOUNT131())) {
+
+                            Consts.getMap().put(Consts.getCOUNT0(),
+                                    Consts.getMap().get(Consts.getCOUNT0()) +
+                                            points - Consts.getMap().get(Consts.getCOUNT131()));
+                            Consts.getMap().put(Consts.getCOUNT131(), points);
+                        }
+
+                        break;
+                    }
+                    case 231: {
+
+                        if (points > Consts.getMap().get(Consts.getCOUNT231())) {
+
+                            Consts.getMap().put(Consts.getCOUNT0(),
+                                    Consts.getMap().get(Consts.getCOUNT0()) +
+                                            points - Consts.getMap().get(Consts.getCOUNT231()));
+                            Consts.getMap().put(Consts.getCOUNT231(), points);
+                        }
+                        break;
+                    }
+                    case 331: {
+
+                        if (points > Consts.getMap().get(Consts.getCOUNT331())) {
+
+                            Consts.getMap().put(Consts.getCOUNT0(),
+                                    Consts.getMap().get(Consts.getCOUNT0()) +
+                                            points - Consts.getMap().get(Consts.getCOUNT331()));
+                            Consts.getMap().put(Consts.getCOUNT331(), points);
+                        }
+                        break;
+                    }
+                    case 431: {
+
+                        if (points > Consts.getMap().get(Consts.getCOUNT431())) {
+
+                            Consts.getMap().put(Consts.getCOUNT0(),
+                                    Consts.getMap().get(Consts.getCOUNT0()) +
+                                            points - Consts.getMap().get(Consts.getCOUNT431()));
+                            Consts.getMap().put(Consts.getCOUNT431(), points);
+                        }
+                        break;
+                    }
+                    ////////////////////////////////////////
+                    case 132: {
+                        if (points > Consts.getMap().get(Consts.getCOUNT132())) {
+
+                            Consts.getMap().put(Consts.getCOUNT0(),
+                                    Consts.getMap().get(Consts.getCOUNT0()) +
+                                            points - Consts.getMap().get(Consts.getCOUNT132()));
+                            Consts.getMap().put(Consts.getCOUNT132(), points);
+                        }
+
+                        break;
+                    }
+                    case 232: {
+
+                        if (points > Consts.getMap().get(Consts.getCOUNT232())) {
+
+                            Consts.getMap().put(Consts.getCOUNT0(),
+                                    Consts.getMap().get(Consts.getCOUNT0()) +
+                                            points - Consts.getMap().get(Consts.getCOUNT232()));
+                            Consts.getMap().put(Consts.getCOUNT232(), points);
+                        }
+                        break;
+                    }
+                    case 332: {
+
+                        if (points > Consts.getMap().get(Consts.getCOUNT332())) {
+
+                            Consts.getMap().put(Consts.getCOUNT0(),
+                                    Consts.getMap().get(Consts.getCOUNT0()) +
+                                            points - Consts.getMap().get(Consts.getCOUNT332()));
+                            Consts.getMap().put(Consts.getCOUNT332(), points);
+                        }
+                        break;
+                    }
+                    case 432: {
+
+                        if (points > Consts.getMap().get(Consts.getCOUNT432())) {
+
+                            Consts.getMap().put(Consts.getCOUNT0(),
+                                    Consts.getMap().get(Consts.getCOUNT0()) +
+                                            points - Consts.getMap().get(Consts.getCOUNT432()));
+                            Consts.getMap().put(Consts.getCOUNT432(), points);
+                        }
+                        break;
+                    }
                 }
 
                 myGame.updatePref();
@@ -625,6 +815,9 @@ public class LevelFactory implements Screen {
                     @Override
                     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
 
+                        if (!Consts.isRemoveAds()) {
+                            myGame.getAdsController().showBannerAd();
+                        }
                         myGame.setScreen(myGame.getLevels());
                         sound.dispose();
                         return true;
@@ -667,54 +860,72 @@ public class LevelFactory implements Screen {
     public void render(float delta) {
 
         Consts.clear();
-
         if (isLose) {
-
-            endLevel(Consts.getLOSE(), Consts.getFontForLose());
             if (subEv) {
-
                 myGame.gsClient.submitEvent(String.valueOf(-lvlName), 1);
                 subEv = false;
             }
 
+            endLevel(Consts.getLOSE(), myGame.loader.getFontForLose());
         } else {
-
             if (arrayLists != null) {
-
                 if (i < arrayLists.size()) {
                     for (int j = 0; j < arrayLists.get(i).size(); j++) {
-
                         try {
-                            arrayLists.get(i).get(j).draw();
+                            if (isAlf) {
+                                Gdx.gl.glEnable(GL20.GL_BLEND);
+                                Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+
+                                switch (lvl) {
+                                    case 1:
+                                    case 2:
+                                        arrayLists.get(i).get(j).setAlf();
+                                        break;
+                                    case 3:
+                                        arrayLists.get(i).get(j).setAlf(0.03f);
+                                        break;
+                                    case 4:
+                                        arrayLists.get(i).get(j).setAlf(0.01f);
+                                        break;
+                                }
+                                arrayLists.get(i).get(j).draw();
+                                Gdx.gl.glDisable(GL20.GL_BLEND);
+
+                            } else {
+                                arrayLists.get(i).get(j).draw();
+                            }
+
                             if (arrayLists.get(i).get(j).getHeightS() < 2) {
                                 i++;
                             }
-
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
 
                         myGame.getBatch().begin();
-                        Consts.getFontForCount().draw(myGame.getBatch(), countOfSquare + "",
-                                50f, Consts.getHEIGHT() - 50f);
-                        Consts.getFontForCountMiss().draw(myGame.getBatch(), countOfMiss + "",
-                                50f,
-                                Consts.getHEIGHT() - 150f);
+                        myGame.loader.getFontForCount().draw(myGame.getBatch(), String.valueOf(countOfSquare),
+                                Consts.getWIDTH() / 20f, Consts.getHEIGHT() - Consts.getWIDTH() / 20f);
+                        myGame.loader.getFontForCountMiss().draw(myGame.getBatch(), String.valueOf(countOfMiss),
+                                Consts.getWIDTH() / 20f,
+                                Consts.getHEIGHT() - countH - Consts.getWIDTH() / 15f);
 
-                        myGame.getBatch().draw(Loader.getSettingsButton(),
+                        myGame.getBatch().draw(myGame.loader.getSettingsButton(),
                                 Consts.getWIDTH() - rectsS, Consts.getHEIGHT() - rectsS, rectsS, rectsS);
 
                         myGame.getBatch().end();
                         timeLineDraw();
                     }
                 } else {
-
+//                    Gdx.gl.glDisable(GL20.GL_BLEND);
+                    /*if (Gdx.gl.glIsEnabled(GL20.GL_BLEND)){
+                        Gdx.gl.glDisable(GL20.GL_BLEND);
+                    }*/
                     if (subEv) {
                         Consts.getIsWin().put(lvlName, true);
                         myGame.gsClient.submitEvent(String.valueOf(lvlName), 1);
                         myGame.gsClient.unlockAchievement(Consts.getPRIME());
                     }
-                    endLevel(Consts.getWIN(), Consts.getFontForWin());
+                    endLevel(Consts.getWIN(), myGame.loader.getFontForWin());
 
                 }
             }

@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.pay.Information;
 import com.nabat.game.Consts;
-import com.nabat.game.Loader;
 import com.nabat.game.MyGame;
 import com.nabat.game.RectZone;
 
@@ -32,18 +31,18 @@ public class Store implements Screen {
         info = myGame.purchaseManager.getInformation(myGame.getSKU());
         rectsS = Consts.getWIDTH() / 10;
         float d = Consts.getWIDTH() / 30f;
-        GlyphLayout glyphLayout = new GlyphLayout(Consts.getFontForStore(), info.getLocalPricing());
+        GlyphLayout glyphLayout = new GlyphLayout(myGame.loader.getFontForStore(), info.getLocalPricing());
         nameX = d * 2;
-        nameY = Consts.getHEIGHT() - rectsS - d;
+        nameY = Consts.getHEIGHT() - rectsS - d * 3;
         priceY = nameY;
         priceX = Consts.getWIDTH() - d * 2 - glyphLayout.width;
-        restoreX = d * 2;
+        restoreX = priceX;
         restoreY = nameY - glyphLayout.height - d * 4;
 //        Information.UNAVAILABLE
         priceButton = new RectZone(priceX - d, priceY - d * 2f,
                 glyphLayout.width + d * 2, glyphLayout.height + d * 2, Color.RED);
 
-        glyphLayout = new GlyphLayout(Consts.getFontForStore(), RESTORE);
+        glyphLayout = new GlyphLayout(myGame.loader.getFontForStore(), RESTORE);
 
         restoreButton = new RectZone(restoreX - d, restoreY - d * 2,
                 glyphLayout.width + d * 2, glyphLayout.height + d * 2, Color.RED);
@@ -80,13 +79,10 @@ public class Store implements Screen {
 
 
                 if (priceButton.isTouch(screenX, y)) {
-
                     myGame.purchaseManager.purchase(myGame.getSKU());
-                    //TODO СЛЫШ КУПИ
                 }
 
                 if (restoreButton.isTouch(screenX, y)) {
-                    //TODO СЛЫШ ВЕРНИ
                     myGame.purchaseManager.purchaseRestore();
                 }
 
@@ -125,12 +121,12 @@ public class Store implements Screen {
         restoreButton.draw();
 
         myGame.getBatch().begin();
-        myGame.getBatch().draw(Loader.getSettingsButton(),
+        myGame.getBatch().draw(myGame.loader.getSettingsButton(),
                 Consts.getWIDTH() - rectsS, Consts.getHEIGHT() - rectsS, rectsS, rectsS);
 
-        Consts.getFontForStore().draw(myGame.getBatch(), "Disable ads", nameX, nameY);
-        Consts.getFontForStore().draw(myGame.getBatch(), info.getLocalPricing(), priceX, priceY);
-        Consts.getFontForStore().draw(myGame.getBatch(), RESTORE, restoreX, restoreY);
+        myGame.loader.getFontForStore().draw(myGame.getBatch(), "Disable ads", nameX, nameY);
+        myGame.loader.getFontForStore().draw(myGame.getBatch(), info.getLocalPricing(), priceX, priceY);
+        myGame.loader.getFontForStore().draw(myGame.getBatch(), RESTORE, restoreX, restoreY);
 
         myGame.getBatch().end();
     }

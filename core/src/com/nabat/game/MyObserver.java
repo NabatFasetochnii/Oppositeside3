@@ -6,7 +6,9 @@ import com.badlogic.gdx.pay.Transaction;
 
 public class MyObserver implements PurchaseObserver {
 
-    MyGame myGame;
+    private final MyGame myGame;
+    private final String TAG = "PurchaseObserver";
+
 
     public MyObserver(MyGame myGame) {
         this.myGame = myGame;
@@ -15,7 +17,7 @@ public class MyObserver implements PurchaseObserver {
 
     @Override
     public void handleInstall() {
-        Gdx.app.log("IAP", "Installed");
+        Gdx.app.log(TAG, "Installed");
         myGame.purchaseManager.purchaseRestore();
 
 
@@ -23,11 +25,12 @@ public class MyObserver implements PurchaseObserver {
 
     @Override
     public void handleInstallError(Throwable e) {
-        Gdx.app.error("IAP", "Error when trying to install PurchaseManager", e);
+        Gdx.app.error(TAG, "Error when trying to install PurchaseManager", e);
     }
 
     @Override
     public void handleRestore(Transaction[] transactions) {
+        Gdx.app.log(TAG, "handleRestore");
         if (transactions != null && transactions.length > 0)
             for (Transaction t : transactions) {
                 handlePurchase(t, true);
@@ -38,11 +41,12 @@ public class MyObserver implements PurchaseObserver {
 
     @Override
     public void handleRestoreError(Throwable e) {
-
+        Gdx.app.log(TAG, "handleRestoreError", e);
     }
 
     @Override
     public void handlePurchase(Transaction transaction) {
+        Gdx.app.log(TAG, "handlePurchase");
         handlePurchase(transaction, false);
     }
 
@@ -64,11 +68,11 @@ public class MyObserver implements PurchaseObserver {
 
     @Override
     public void handlePurchaseError(Throwable e) {
-
+        Gdx.app.log(TAG, "handlePurchaseError", e);
     }
 
     @Override
     public void handlePurchaseCanceled() {
-
+        Gdx.app.log(TAG, "handlePurchaseCanceled");
     }
 }

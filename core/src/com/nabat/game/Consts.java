@@ -1,10 +1,7 @@
 package com.nabat.game;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -31,7 +28,7 @@ public class Consts {
     private final static String LOSE = "You lose";//константа текста победы
     private final static String WIN = "You WIN!";//константа текста проигрыша
     private final static String ttfPath = "fonts/Terminus.ttf";//путь к шрифту
-    private final static String PLAY = "Tap to play";//TODO добавить мигание надписи?
+    private final static String PLAY = "Tap to play";
     //private final static String SOUND = "Sound";
     private final static String GPGS = "Google Play\nGames: ";
     private final static String OFF = "OFF";
@@ -107,6 +104,21 @@ public class Consts {
     private final static String COUNT3R2 = "countOfPoints3R2";
     private final static String COUNT4R2 = "countOfPoints4R2";
     //
+    private final static String COUNT13 = "countOfPoints12";
+    private final static String COUNT23 = "countOfPoints22";
+    private final static String COUNT33 = "countOfPoints32";
+    private final static String COUNT43 = "countOfPoints42";
+    //
+    private final static String COUNT131 = "countOfPoints121";
+    private final static String COUNT231 = "countOfPoints221";
+    private final static String COUNT331 = "countOfPoints321";
+    private final static String COUNT431 = "countOfPoints421";
+    //
+    private final static String COUNT132 = "countOfPoints122";
+    private final static String COUNT232 = "countOfPoints222";
+    private final static String COUNT332 = "countOfPoints322";
+    private final static String COUNT432 = "countOfPoints422";
+    //
     private final static String COUNT0 = "countOfAllPoints";
     //
     private final static Map<String, Integer> map = new HashMap<>();
@@ -120,36 +132,76 @@ public class Consts {
     private static final Map<Integer, Boolean> isWin = new HashMap<>();
     //
     private final static String isFirst = "isFirstRan";
-    //
-    private static int WIDTH;//ширина и высота экрана
-    private static int HEIGHT;//TODO AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-    //
-    private static float scaleX; //масштабируем под экран
-    private static float scaleY;
-    private static float scaleXY;
-    private final static float LOSE_TO_SCREEN = 7.5f; //константа для подгона кегля под экран, вроде
     //    private final static String removeAds = "REM";
     //
     public static float time = 0;
     public static float timeSpeed = 0;
+    //
+    private static int WIDTH;//ширина и высота экрана
+    private static int HEIGHT;
+    //
+    private static float scaleX; //масштабируем под экран
+    private static float scaleY;
+    private static float scaleXY;
     //    private static boolean isVibrate = true;
 //    private static boolean sound = true;
     //
-    private static BitmapFont fontForLose;
-    private static BitmapFont fontForCount;
-    private static BitmapFont fontForCountMiss;
-    private static BitmapFont fontForWin;
-    private static BitmapFont fontForMenu;
-    private static BitmapFont fontForStore;
     //
     private static boolean isLastSessionFall = false;
     private static boolean isRead = true;
     private static boolean isRemoveAds = false;
 
-
     Consts() {
 
 
+    }
+
+    public static String getCOUNT13() {
+        return COUNT13;
+    }
+
+    public static String getCOUNT23() {
+        return COUNT23;
+    }
+
+    public static String getCOUNT33() {
+        return COUNT33;
+    }
+
+    public static String getCOUNT43() {
+        return COUNT43;
+    }
+
+    public static String getCOUNT131() {
+        return COUNT131;
+    }
+
+    public static String getCOUNT231() {
+        return COUNT231;
+    }
+
+    public static String getCOUNT331() {
+        return COUNT331;
+    }
+
+    public static String getCOUNT431() {
+        return COUNT431;
+    }
+
+    public static String getCOUNT132() {
+        return COUNT132;
+    }
+
+    public static String getCOUNT232() {
+        return COUNT232;
+    }
+
+    public static String getCOUNT332() {
+        return COUNT332;
+    }
+
+    public static String getCOUNT432() {
+        return COUNT432;
     }
 
     public static void setZeroLevel(int zeroLevel) {
@@ -339,10 +391,37 @@ public class Consts {
         events.put("-302", "CgkIpq7zg9UYEAIQUw");
         events.put("402", "CgkIpq7zg9UYEAIQVA");
         events.put("-402", "CgkIpq7zg9UYEAIQVQ");
+/////
+
+        events.put("13", "CgkIpq7zg9UYEAIQWg");
+        events.put("-13", "CgkIpq7zg9UYEAIQWw");
+        events.put("23", "CgkIpq7zg9UYEAIQXA");
+        events.put("-23", "CgkIpq7zg9UYEAIQXQ");
+        events.put("33", "CgkIpq7zg9UYEAIQXg");
+        events.put("-33", "CgkIpq7zg9UYEAIQXw");
+        events.put("43", "CgkIpq7zg9UYEAIQYA");
+        events.put("-43", "CgkIpq7zg9UYEAIQYQ");
+
+        events.put("131", "CgkIpq7zg9UYEAIQYg");
+        events.put("-131", "CgkIpq7zg9UYEAIQYw");
+        events.put("231", "CgkIpq7zg9UYEAIQZA");
+        events.put("-231", "CgkIpq7zg9UYEAIQZQ");
+        events.put("331", "CgkIpq7zg9UYEAIQZg");
+        events.put("-331", "CgkIpq7zg9UYEAIQZw");
+        events.put("431", "CgkIpq7zg9UYEAIQaA");
+        events.put("-431", "CgkIpq7zg9UYEAIQaQ");
+
+        events.put("132", "CgkIpq7zg9UYEAIQag");
+        events.put("-132", "CgkIpq7zg9UYEAIQaw");
+        events.put("232", "CgkIpq7zg9UYEAIQbA");
+        events.put("-232", "CgkIpq7zg9UYEAIQbQ");
+        events.put("332", "CgkIpq7zg9UYEAIQbg");
+        events.put("-332", "CgkIpq7zg9UYEAIQbw");
+        events.put("432", "CgkIpq7zg9UYEAIQcA");
+        events.put("-432", "CgkIpq7zg9UYEAIQcQ");
     }
 
     /*
-
 
      * */
 
@@ -367,10 +446,14 @@ public class Consts {
             isWin.put(i * 10, false);
             isWin.put(i * 10 + 1, false);
             isWin.put(i * 10 + 2, false);
+            isWin.put(i * 10 + 3, false);
             isWin.put(i * 100 + 1, false);
             isWin.put(i * 100 + 2, false);
             isWin.put(i * 100 + 11, false);
+            isWin.put(i * 100 + 21, false);
             isWin.put(i * 100 + 22, false);
+            isWin.put(i * 100 + 31, false);
+            isWin.put(i * 100 + 32, false);
         }
 
 
@@ -457,6 +540,21 @@ public class Consts {
         putMap(COUNT3R2);
         putMap(COUNT4R2);
 
+        putMap(COUNT13);
+        putMap(COUNT23);
+        putMap(COUNT33);
+        putMap(COUNT43);
+
+        putMap(COUNT131);
+        putMap(COUNT231);
+        putMap(COUNT331);
+        putMap(COUNT431);
+
+        putMap(COUNT132);
+        putMap(COUNT232);
+        putMap(COUNT332);
+        putMap(COUNT432);
+
         putMap(IM_AT_HOME);
 
     }
@@ -470,55 +568,16 @@ public class Consts {
         return ((x <= X) && (X <= x + w) && (y <= Y) && (Y <= y + h));
     }
 
-    public static BitmapFont getFontForStore() {
-        return fontForStore;
-    }
-
-    public static void loadFonts() {
-
-        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal(Consts.getTtfPath()));
-        FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = (int) (WIDTH / LOSE_TO_SCREEN);
-        parameter.color = Color.RED;
-        parameter.borderColor = Color.BLACK;
-        parameter.borderWidth = 5;
-        fontForLose = generator.generateFont(parameter);
-
-        parameter.color = Color.GREEN;
-
-        fontForWin = generator.generateFont(parameter);
-
-        parameter.size = (int) (WIDTH / 10f);
-        parameter.borderWidth = 3;
-        fontForCount = generator.generateFont(parameter);
-
-        parameter.color = Color.RED;
-
-        fontForCountMiss = generator.generateFont(parameter);
-
-        parameter.size = WIDTH / 12;
-        parameter.color = Color.CHARTREUSE;
-        parameter.borderColor = Color.BLACK;
-        parameter.borderWidth = 5;
-        fontForMenu = generator.generateFont(parameter);
-
-        parameter.size = WIDTH / 16;
-        fontForStore = generator.generateFont(parameter);
-        generator.dispose();
-    }
 
     public static void clear() {
 
         Gdx.gl.glClearColor(240, 240, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
     }
 
     public static void dispose() {
-        fontForCount.dispose();
-        fontForCountMiss.dispose();
-        fontForLose.dispose();
-        fontForWin.dispose();
-        fontForStore.dispose();
+
     }
 
     public static String getSOUND() {
@@ -537,28 +596,8 @@ public class Consts {
         return ON;
     }
 
-    public static BitmapFont getFontForMenu() {
-        return fontForMenu;
-    }
-
     public static String getPathToMusic() {
         return PATH_TO_MUSIC;
-    }
-
-    public static BitmapFont getFontForLose() {
-        return fontForLose;
-    }
-
-    public static BitmapFont getFontForCount() {
-        return fontForCount;
-    }
-
-    public static BitmapFont getFontForCountMiss() {
-        return fontForCountMiss;
-    }
-
-    public static BitmapFont getFontForWin() {
-        return fontForWin;
     }
 
     public static String getCOUNT1R1() {

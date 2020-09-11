@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL20;
 import com.nabat.game.Consts;
 import com.nabat.game.MyGame;
 import com.nabat.game.RectZone;
@@ -24,12 +23,12 @@ public class InfoScreen implements Screen {
         this.myGame = myGame;
         this.levelFactory = levelFactory;
 
-        startGame = new RectZone(Consts.getWIDTH() / 20, (int) (Consts.getHEIGHT() * 0.1f),
-                Consts.getWIDTH() / 8, Consts.getWIDTH() / 8, Color.FOREST);
-        backToMenu = new RectZone((int) (Consts.getWIDTH() * (19f / 20f)) - Consts.getWIDTH() / 8,
+        backToMenu = new RectZone(Consts.getWIDTH() / 20, (int) (Consts.getHEIGHT() * 0.1f),
+                Consts.getWIDTH() / 8, Consts.getWIDTH() / 8, Color.CORAL);
+        startGame = new RectZone((int) (Consts.getWIDTH() * (19f / 20f)) - Consts.getWIDTH() / 8,
                 (int) (Consts.getHEIGHT() * 0.1f),
                 Consts.getWIDTH() / 8,
-                Consts.getWIDTH() / 8, Color.CORAL);
+                Consts.getWIDTH() / 8, Color.FOREST);
 
         int complexity = levelFactory.getLvl();
 
@@ -203,6 +202,60 @@ public class InfoScreen implements Screen {
                 break;
             }
             ////////////////////////////////////////
+            case 13: {
+                info += "Best score: " + Consts.getMap().get(Consts.getCOUNT13());
+                break;
+            }
+            case 23: {
+                info += "Best score: " + Consts.getMap().get(Consts.getCOUNT23());
+                break;
+            }
+            case 33: {
+                info += "Best score: " + Consts.getMap().get(Consts.getCOUNT33());
+                break;
+            }
+            case 43: {
+
+                info += "Best score: " + Consts.getMap().get(Consts.getCOUNT43());
+                break;
+            }
+            ////////////////////////////////////////
+
+            case 131: {
+                info += "Best score: " + Consts.getMap().get(Consts.getCOUNT131());
+                break;
+            }
+            case 231: {
+                info += "Best score: " + Consts.getMap().get(Consts.getCOUNT231());
+                break;
+            }
+            case 331: {
+                info += "Best score: " + Consts.getMap().get(Consts.getCOUNT331());
+                break;
+            }
+            case 431: {
+
+                info += "Best score: " + Consts.getMap().get(Consts.getCOUNT431());
+                break;
+            }
+            ////////////////////////////////////////
+            case 132: {
+                info += "Best score: " + Consts.getMap().get(Consts.getCOUNT132());
+                break;
+            }
+            case 232: {
+                info += "Best score: " + Consts.getMap().get(Consts.getCOUNT232());
+                break;
+            }
+            case 332: {
+                info += "Best score: " + Consts.getMap().get(Consts.getCOUNT332());
+                break;
+            }
+            case 432: {
+                info += "Best score: " + Consts.getMap().get(Consts.getCOUNT432());
+                break;
+            }
+            ////////////////////////////////////////
 
         }
 
@@ -265,22 +318,22 @@ public class InfoScreen implements Screen {
     @Override
     public void render(float delta) {
 
-        Gdx.gl.glClearColor(255, 255, 0, 1); //чтобы добиться кека в скрине НЕ нужно писать эти две строки
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        Consts.clear();
 
         backToMenu.draw();
         startGame.draw();
 
         myGame.getBatch().begin();
-
-
-        Consts.getFontForMenu().draw(myGame.getBatch(), info,
+        myGame.loader.getFontForMenu().draw(myGame.getBatch(), info,
                 Consts.getWIDTH() / 20f, Consts.getHEIGHT() * 0.9f);
         myGame.getBatch().end();
 
 
         if (start) {
-            myGame.getAdsController().loadBanner();
+            if (!Consts.isRemoveAds()) {
+                myGame.getAdsController().loadBanner();
+            }
+
 //            myGame.getAdsController().hideBannerForStart();
             myGame.setScreen(levelFactory);
             dispose();

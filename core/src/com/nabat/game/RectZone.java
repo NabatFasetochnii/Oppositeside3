@@ -18,6 +18,7 @@ public class RectZone {
     private final Vector2 leftDown;
     private final float cX = Consts.getWIDTH() / 3f;
     private final float cY = Consts.getHEIGHT() / 2f;
+    private final Color color;
     private boolean pulsar = true;
     private int widthS;
     private int heightS;
@@ -30,7 +31,10 @@ public class RectZone {
     private float gain = 0;
     private float rot; //deg
     private boolean isDot = false;
-    public RectZone(int x, int y, int width, int height, Color color, boolean isRotation, float rot, boolean isDot) {
+    private float a = 1f;
+
+    public RectZone(int x, int y, int width, int height, Color color,
+                    boolean isRotation, float rot, boolean isDot) {
 
         this.x = x;
         this.y = y;
@@ -39,6 +43,7 @@ public class RectZone {
         this.isRotation = isRotation;
         this.rot = rot;
         this.isDot = isDot;
+        this.color = color;
 
         widthS = width;
         heightS = height;
@@ -64,6 +69,7 @@ public class RectZone {
         this.width = width;
         this.height = height;
         this.isRotation = false;
+        this.color = color;
 
         widthS = width;
         heightS = height;
@@ -87,6 +93,7 @@ public class RectZone {
         this.width = (int) width;
         this.height = (int) height;
         this.isRotation = false;
+        this.color = color;
 
         widthS = (int) width;
         heightS = (int) height;
@@ -100,7 +107,14 @@ public class RectZone {
         /*leftUp = new Vector2(x, y + height);
         rightDown = new Vector2(x + width,y);
         rightUp = new Vector2(x + width,y+height);*/
+    }
 
+    public void setAlf(float disappearSpeed) {
+        if (a > 0) square.setColor(color.r, color.g, color.b, a -= disappearSpeed);
+    }
+
+    public void setAlf() {
+        if (a > 0) square.setColor(color.r, color.g, color.b, a -= 0.07);
     }
 
     public void setPulsar(boolean pulsar) {
@@ -110,15 +124,6 @@ public class RectZone {
     public int getHeightS() {
         return heightS;
     }
-
-    /*public void setRotation(boolean rotation, float rot) {
-        this.rot = rot;
-        isRotation = rotation;
-
-        cX = x + width / 4f;
-        cY = y + height / 4f;
-        leftDown = new Vector2(x - cX, y - cY);
-    }*/
 
     public int getWidth() {
         return width;
@@ -142,7 +147,6 @@ public class RectZone {
 
     synchronized public void draw() {
 
-
         if (pulsar) {
 
             timeSecondsPulsar += Gdx.graphics.getRawDeltaTime();
@@ -152,57 +156,35 @@ public class RectZone {
             if (isDot) {
 
                 if (timeSecondsPulsar > period) {
-
-
                     gain -= DELTA;
-
                     timeSecondsPulsar -= period;
-
                 }
             } else {
 
                 if (countOfPeriodPulsar <= MAX_COUNT_OF_PERIOD_PULSAR / 2) {
-
-
                     if (timeSecondsPulsar > period) {
-
-
                         gain += DELTA;
-
                         timeSecondsPulsar -= period;
                         countOfPeriodPulsar++;
                     }
-
                 } else if (countOfPeriodPulsar < MAX_COUNT_OF_PERIOD_PULSAR) {
 
                     if (timeSecondsPulsar > period) {
-
-
                         gain -= DELTA;
-
                         timeSecondsPulsar -= period;
                         countOfPeriodPulsar++;
                     }
 
                 } else if (countOfPeriodPulsar == MAX_COUNT_OF_PERIOD_PULSAR) {
-
                     //gain = 0;
                     gain -= DELTA * 2;
                     countOfPeriodPulsar = 0;
                 }
             }
-
-
         }
-
-
         square.begin(ShapeRenderer.ShapeType.Filled);
-
-
         if (isRotation) {
-
             leftDown.rotate(rot);
-
             x = (int) (leftDown.x + cX);
             y = (int) (leftDown.y + cY);
         }
@@ -241,9 +223,6 @@ public class RectZone {
     public void dispose() {
         square.dispose();
     }
-    /*boolean isNotOverlay(int X, int Y, int RIGHT, int TOP) {
-        return ((x + width < X || RIGHT < x) && (y + height < Y || TOP < y));//
-    }*/
 
     public boolean isTouch(int X, int Y) {
 
