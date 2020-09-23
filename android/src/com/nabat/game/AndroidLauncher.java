@@ -11,10 +11,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 import com.badlogic.gdx.pay.android.googlebilling.PurchaseManagerGoogleBilling;
+import com.badlogic.gdx.utils.TimeUtils;
 import com.google.android.gms.ads.*;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
@@ -23,15 +25,17 @@ import de.golfgl.gdxgamesvcs.IGameServiceIdMapper;
 
 public class AndroidLauncher extends AndroidApplication implements AdsController {
 
-    //        private static final String BANNER_AD_UNIT_ID = "ca-app-pub-8832576459433269/9861516377";
-//        private static final String BANNER_START_AD_UNIT_ID = "ca-app-pub-8832576459433269/8336558007";
-    private static final String TEST_BANNER_AD_UNIT_ID = "ca-app-pub-3940256099942544/1033173712";
-    private static final String TEST_BANNER_AD_UNIT_ID2 = "ca-app-pub-3940256099942544/6300978111";
+    private static final String BANNER_AD_UNIT_ID = "ca-app-pub-8832576459433269/9861516377";
+    private static final String BANNER_START_AD_UNIT_ID = "ca-app-pub-8832576459433269/8336558007";
+    //        private static final String TEST_BANNER_AD_UNIT_ID = "ca-app-pub-3940256099942544/1033173712";
+//    private static final String TEST_BANNER_AD_UNIT_ID2 = "ca-app-pub-3940256099942544/6300978111";
     GpgsClient gpgsClient;
     //    private AdView adView;
     private InterstitialAd mInterstitialAd;
     private AdView adView;
     private MyGame myGame;
+    private boolean isFirstTap = true;
+    private long time = 0L;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,16 +61,14 @@ public class AndroidLauncher extends AndroidApplication implements AdsController
 
 
         mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId(TEST_BANNER_AD_UNIT_ID);
+        mInterstitialAd.setAdUnitId(BANNER_AD_UNIT_ID);
 //        mInterstitialAd.loadAd(new AdRequest.Builder().build());
         mInterstitialAd.setAdListener(new AdListener() {
-
-
             @Override
             public void onAdClosed() {
                 super.onAdClosed();
                 onResume();
-
+                myGame.isFirst = true;
                 showBannerForStart();
             }
 
@@ -117,7 +119,7 @@ public class AndroidLauncher extends AndroidApplication implements AdsController
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT);
-        params.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+        params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
         layout.addView(adView, params);
 
         setContentView(layout);
@@ -128,7 +130,7 @@ public class AndroidLauncher extends AndroidApplication implements AdsController
         adView = new AdView(this);
         adView.setVisibility(View.INVISIBLE);
         adView.setBackgroundColor(0xff000000); // black
-        adView.setAdUnitId(TEST_BANNER_AD_UNIT_ID2);
+        adView.setAdUnitId(BANNER_START_AD_UNIT_ID);
         adView.setAdSize(AdSize.SMART_BANNER);
     }
 
@@ -259,7 +261,17 @@ public class AndroidLauncher extends AndroidApplication implements AdsController
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        myGame.updatePref();
+        Gdx.input.vibrate(30);
+        if (isFirstTap || TimeUtils.timeSinceMillis(time) > 2000) {
+            Toast.makeText(this, "Tap again to exit", Toast.LENGTH_SHORT).show();
+            isFirstTap = false;
+            time = TimeUtils.millis();
+        } else if (TimeUtils.timeSinceMillis(time) < 2000) {
+            super.onBackPressed();
+            myGame.updatePref();
+        } else {
+            isFirstTap = true;
+        }
+
     }
 }

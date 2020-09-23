@@ -35,10 +35,10 @@ public class Levels implements Screen {
     private final float sumOfBestX;
     private final float sumOfBestY;
     private final float scoreW;
-    private final String section1 = "Normal";
-    private final String section2 = "Reduction";
-    private final String section3 = "Rotation";
-    private final String section4 = "Disappear";
+    private final String section1;
+    private final String section2;
+    private final String section3;
+    private final String section4;
     private final float section1_y;
     private int scrollX = 0;
     private String score;
@@ -50,51 +50,52 @@ public class Levels implements Screen {
     public Levels(MyGame myGame) {
         zoneList = new ArrayList<>();
         this.myGame = myGame;
+        GlyphLayout glyphLayout;
 
+        if (myGame.isRu) {
+            section1 = "Обычный";
+            section2 = "Уменьшение";
+            section3 = "Вращение";
+            section4 = "Исчезновение";
+            score = "Сумма лучших: ";
+        } else {
+            section1 = "Normal";
+            section2 = "Reduction";
+            section3 = "Rotation";
+            section4 = "Disappear";
+            score = "Sum of best: ";
+        }
+        glyphLayout = new GlyphLayout(myGame.loader.getFontForMenu(),
+                score + Consts.getMap().get(Consts.getCOUNT0()));
         sumOfBestX = Consts.getWIDTH() / 22f;
         sumOfBestY = Consts.getHEIGHT() - sumOfBestX;
 
-        color1 = Color.RED;
-        color2 = parseColor("#714cfe");//
-        color3 = Color.LIME;
-        color4 = parseColor("#fa8100");//
+        color1 = Consts.parseColor("#A13941");
+        color2 = Consts.parseColor("#714cfe");//
+        color3 = Consts.parseColor("#00b9a2");
+        color4 = Consts.parseColor("#fa8100");//
 
-        Color color01 = parseColor("#3dee02");
-        Color color02 = parseColor("#1edc00");
-        Color color03 = parseColor("#00c700");
-
-        Color color11 = parseColor("#319efe");
-        Color color12 = parseColor("#0280ee");
-        Color color13 = parseColor("#0b6eda");
-
-        Color color21 = parseColor("#ff593a");//#ff2410
-        Color color22 = parseColor("#ff2410");
-        Color color23 = parseColor("#ee0202");
-
-        Color color31 = parseColor("#ec58f2");
-        Color color32 = parseColor("#e602ee");
-        Color color33 = parseColor("#cc00e5");
-
-        GlyphLayout glyphLayout = new GlyphLayout(myGame.loader.getFontForMenu(),
-                "Sum of best: " + Consts.getMap().get(Consts.getCOUNT0()));
+        Color color01 = Consts.parseColor("#4bb042");
+        Color color11 = Consts.parseColor("#319efe");
+        Color color21 = Consts.parseColor("#e2535e");//##ff7c5d
+        Color color31 = Consts.parseColor("#df55f2");
 
         scoreW = glyphLayout.width;
         float scoreH = glyphLayout.height;
 
-        zeroPoint = Consts.getWIDTH() / 10;
+        zeroPoint = Consts.getWIDTH() / 7;
         rectsS = Consts.getWIDTH() / 10;
         section1_y = sumOfBestY - scoreH * 2;
 
-        int rectsY = (int) (section1_y - scoreH * 2.5f - rectsS);
-        int rectsX = Consts.getWIDTH() / 10;
-
         int rectDelta = Consts.getWIDTH() / 5;
+        int rectsY = (int) (section1_y - scoreH * 2.5f - rectsS);
+        int rectsX = Consts.getWIDTH() / 7;
+
 
         if (scoreW > Consts.getWIDTH() - sumOfBestX * 2 - rectsS) {
-            score = "Sum of best:\n" + Consts.getMap().get(Consts.getCOUNT0());
-        } else {
-            score = "Sum of best: " + Consts.getMap().get(Consts.getCOUNT0());
+            score += "\n";
         }
+        score = String.valueOf(Consts.getMap().get(Consts.getCOUNT0()));
 
         l1 = new RectZone(rectsX, rectsY, rectsS, rectsS, color01);
         l2 = new RectZone(rectsX, rectsY - rectDelta, rectsS, rectsS, color01);
@@ -105,18 +106,18 @@ public class Levels implements Screen {
 
         int c = 1;
 
-        l11 = new RectZone(rectsX + c * rectDelta, rectsY, rectsS, rectsS, color02);
-        l21 = new RectZone(rectsX + c * rectDelta, rectsY - rectDelta, rectsS, rectsS, color02);
-        l31 = new RectZone(rectsX + c * rectDelta, rectsY - 2 * rectDelta, rectsS, rectsS, color02);
-        l41 = new RectZone(rectsX + c * rectDelta, rectsY - 3 * rectDelta, rectsS, rectsS, color02);
+        l11 = new RectZone(rectsX + c * rectDelta, rectsY, rectsS, rectsS, color01);
+        l21 = new RectZone(rectsX + c * rectDelta, rectsY - rectDelta, rectsS, rectsS, color01);
+        l31 = new RectZone(rectsX + c * rectDelta, rectsY - 2 * rectDelta, rectsS, rectsS, color01);
+        l41 = new RectZone(rectsX + c * rectDelta, rectsY - 3 * rectDelta, rectsS, rectsS, color01);
 
         ////////////////////////////////
         c = 2;
 
-        l111 = new RectZone(rectsX + c * rectDelta, rectsY, rectsS, rectsS, color03);
-        l211 = new RectZone(rectsX + c * rectDelta, rectsY - rectDelta, rectsS, rectsS, color03);
-        l311 = new RectZone(rectsX + c * rectDelta, rectsY - 2 * rectDelta, rectsS, rectsS, color03);
-        l411 = new RectZone(rectsX + c * rectDelta, rectsY - 3 * rectDelta, rectsS, rectsS, color03);
+        l111 = new RectZone(rectsX + c * rectDelta, rectsY, rectsS, rectsS, color01);
+        l211 = new RectZone(rectsX + c * rectDelta, rectsY - rectDelta, rectsS, rectsS, color01);
+        l311 = new RectZone(rectsX + c * rectDelta, rectsY - 2 * rectDelta, rectsS, rectsS, color01);
+        l411 = new RectZone(rectsX + c * rectDelta, rectsY - 3 * rectDelta, rectsS, rectsS, color01);
 
         ////////////////////////////////
         c = 3;
@@ -128,19 +129,19 @@ public class Levels implements Screen {
         ////////////////////////////////
         c = 4;
 
-        l121 = new RectZone(rectsX + c * rectDelta, rectsY, rectsS, rectsS, color12);
-        l221 = new RectZone(rectsX + c * rectDelta, rectsY - rectDelta, rectsS, rectsS, color12);
-        l321 = new RectZone(rectsX + c * rectDelta, rectsY - 2 * rectDelta, rectsS, rectsS, color12);
-        l421 = new RectZone(rectsX + c * rectDelta, rectsY - 3 * rectDelta, rectsS, rectsS, color12);
+        l121 = new RectZone(rectsX + c * rectDelta, rectsY, rectsS, rectsS, color11);
+        l221 = new RectZone(rectsX + c * rectDelta, rectsY - rectDelta, rectsS, rectsS, color11);
+        l321 = new RectZone(rectsX + c * rectDelta, rectsY - 2 * rectDelta, rectsS, rectsS, color11);
+        l421 = new RectZone(rectsX + c * rectDelta, rectsY - 3 * rectDelta, rectsS, rectsS, color11);
 
         /////////////////////////////////////////////////
 
         c = 5;
 
-        l122 = new RectZone(rectsX + c * rectDelta, rectsY, rectsS, rectsS, color13);
-        l222 = new RectZone(rectsX + c * rectDelta, rectsY - rectDelta, rectsS, rectsS, color13);
-        l322 = new RectZone(rectsX + c * rectDelta, rectsY - 2 * rectDelta, rectsS, rectsS, color13);
-        l422 = new RectZone(rectsX + c * rectDelta, rectsY - 3 * rectDelta, rectsS, rectsS, color13);
+        l122 = new RectZone(rectsX + c * rectDelta, rectsY, rectsS, rectsS, color11);
+        l222 = new RectZone(rectsX + c * rectDelta, rectsY - rectDelta, rectsS, rectsS, color11);
+        l322 = new RectZone(rectsX + c * rectDelta, rectsY - 2 * rectDelta, rectsS, rectsS, color11);
+        l422 = new RectZone(rectsX + c * rectDelta, rectsY - 3 * rectDelta, rectsS, rectsS, color11);
 
         /////////////////////////////////////////////////
         c = 6;
@@ -153,18 +154,18 @@ public class Levels implements Screen {
         /////////////////////////////////////////////////
         c = 7;
 
-        l1R1 = new RectZone(rectsX + c * rectDelta, rectsY, rectsS, rectsS, color22);//new Color(116,73,255,100)
-        l2R1 = new RectZone(rectsX + c * rectDelta, rectsY - rectDelta, rectsS, rectsS, color22);
-        l3R1 = new RectZone(rectsX + c * rectDelta, rectsY - 2 * rectDelta, rectsS, rectsS, color22);
-        l4R1 = new RectZone(rectsX + c * rectDelta, rectsY - 3 * rectDelta, rectsS, rectsS, color22);
+        l1R1 = new RectZone(rectsX + c * rectDelta, rectsY, rectsS, rectsS, color21);//new Color(116,73,255,100)
+        l2R1 = new RectZone(rectsX + c * rectDelta, rectsY - rectDelta, rectsS, rectsS, color21);
+        l3R1 = new RectZone(rectsX + c * rectDelta, rectsY - 2 * rectDelta, rectsS, rectsS, color21);
+        l4R1 = new RectZone(rectsX + c * rectDelta, rectsY - 3 * rectDelta, rectsS, rectsS, color21);
 
         /////////////////////////////////////////////////
         c = 8;
 
-        l1R2 = new RectZone(rectsX + c * rectDelta, rectsY, rectsS, rectsS, color23);//new Color(116,73,255,100)
-        l2R2 = new RectZone(rectsX + c * rectDelta, rectsY - rectDelta, rectsS, rectsS, color23);
-        l3R2 = new RectZone(rectsX + c * rectDelta, rectsY - 2 * rectDelta, rectsS, rectsS, color23);
-        l4R2 = new RectZone(rectsX + c * rectDelta, rectsY - 3 * rectDelta, rectsS, rectsS, color23);
+        l1R2 = new RectZone(rectsX + c * rectDelta, rectsY, rectsS, rectsS, color21);//new Color(116,73,255,100)
+        l2R2 = new RectZone(rectsX + c * rectDelta, rectsY - rectDelta, rectsS, rectsS, color21);
+        l3R2 = new RectZone(rectsX + c * rectDelta, rectsY - 2 * rectDelta, rectsS, rectsS, color21);
+        l4R2 = new RectZone(rectsX + c * rectDelta, rectsY - 3 * rectDelta, rectsS, rectsS, color21);
 
         /////////////////////////////////////////////////
         c = 9;
@@ -177,18 +178,18 @@ public class Levels implements Screen {
         /////////////////////////////////////////////////
         c = 10;
 
-        l131 = new RectZone(rectsX + c * rectDelta, rectsY, rectsS, rectsS, color32);//new Color(116,73,255,100)
-        l231 = new RectZone(rectsX + c * rectDelta, rectsY - rectDelta, rectsS, rectsS, color32);
-        l331 = new RectZone(rectsX + c * rectDelta, rectsY - 2 * rectDelta, rectsS, rectsS, color32);
-        l431 = new RectZone(rectsX + c * rectDelta, rectsY - 3 * rectDelta, rectsS, rectsS, color32);
+        l131 = new RectZone(rectsX + c * rectDelta, rectsY, rectsS, rectsS, color31);//new Color(116,73,255,100)
+        l231 = new RectZone(rectsX + c * rectDelta, rectsY - rectDelta, rectsS, rectsS, color31);
+        l331 = new RectZone(rectsX + c * rectDelta, rectsY - 2 * rectDelta, rectsS, rectsS, color31);
+        l431 = new RectZone(rectsX + c * rectDelta, rectsY - 3 * rectDelta, rectsS, rectsS, color31);
 
         /////////////////////////////////////////////////
         c = 11;
 
-        l132 = new RectZone(rectsX + c * rectDelta, rectsY, rectsS, rectsS, color33);//new Color(116,73,255,100)
-        l232 = new RectZone(rectsX + c * rectDelta, rectsY - rectDelta, rectsS, rectsS, color33);
-        l332 = new RectZone(rectsX + c * rectDelta, rectsY - 2 * rectDelta, rectsS, rectsS, color33);
-        l432 = new RectZone(rectsX + c * rectDelta, rectsY - 3 * rectDelta, rectsS, rectsS, color33);
+        l132 = new RectZone(rectsX + c * rectDelta, rectsY, rectsS, rectsS, color31);//new Color(116,73,255,100)
+        l232 = new RectZone(rectsX + c * rectDelta, rectsY - rectDelta, rectsS, rectsS, color31);
+        l332 = new RectZone(rectsX + c * rectDelta, rectsY - 2 * rectDelta, rectsS, rectsS, color31);
+        l432 = new RectZone(rectsX + c * rectDelta, rectsY - 3 * rectDelta, rectsS, rectsS, color31);
 
         endPoint = Consts.getWIDTH() - zeroPoint - l1.getWidth();
 
@@ -263,6 +264,10 @@ public class Levels implements Screen {
         zoneList.add(l232);
         zoneList.add(l332);
         zoneList.add(l432);
+    }
+
+    public MyGame getMyGame() {
+        return myGame;
     }
 
     //TODO ДОБАВИТЬ МЕХАНИКУ ПЕРЕСТАНОВКИ КВАДРАТИКОВ,
@@ -400,7 +405,7 @@ public class Levels implements Screen {
             ////////////////////////////////////////
             case 121: {
                 LevelFactory lvl_f = new LevelFactory(color1,
-                        35, Consts.getPathToFirst(), 400, 1, myGame, lvl);
+                        35, Consts.getPathToFirst(), 300, 1, myGame, lvl);
                 lvl_f.setDot(true);
                 myGame.setScreen(new InfoScreen(myGame, lvl_f));
 //                lvl = 0;//5700
@@ -433,7 +438,7 @@ public class Levels implements Screen {
             ////////////////////////////////////////
             case 122: {
                 LevelFactory lvl_f = new LevelFactory(color1,
-                        40, Consts.getPathToFirstComplicated(), 400, 1, myGame, lvl);
+                        40, Consts.getPathToFirstComplicated(), 300, 1, myGame, lvl);
                 lvl_f.setDot(true);
                 myGame.setScreen(new InfoScreen(myGame, lvl_f));
 //                lvl = 0;
@@ -441,7 +446,7 @@ public class Levels implements Screen {
             }
             case 222: {
                 LevelFactory lvl_f = new LevelFactory(color2,
-                        40, Consts.getPathToSecondComplicated(), 300, 2, myGame, lvl);
+                        45, Consts.getPathToSecondComplicated(), 300, 2, myGame, lvl);
                 lvl_f.setDot(true);
 
                 myGame.setScreen(new InfoScreen(myGame, lvl_f));
@@ -468,7 +473,7 @@ public class Levels implements Screen {
             case 10: { //набор уровней с кручением
 
                 LevelFactory lvl_f = new LevelFactory(color1,
-                        40, Consts.getPathToFirstRotation(), 300, 1, myGame, lvl);
+                        40, Consts.getPathToFirstRotation(), 200, 1, myGame, lvl);
                 lvl_f.setRotation(true, 5);
                 myGame.setScreen(new InfoScreen(myGame, lvl_f));
 //                lvl = 0;
@@ -503,7 +508,7 @@ public class Levels implements Screen {
             case 101: { //набор уровней с кручением
 
                 LevelFactory lvl_f = new LevelFactory(color4,
-                        80, Consts.getPathToFirstRotation(), 500, 1, myGame, lvl);
+                        80, Consts.getPathToFirstRotation(), 450, 1, myGame, lvl);
                 lvl_f.setRotation(true, 4);
                 myGame.setScreen(new InfoScreen(myGame, lvl_f));
 //                lvl = 0;
@@ -540,7 +545,7 @@ public class Levels implements Screen {
 
                 // сами уровни
                 LevelFactory lvl_f = new LevelFactory(color1,
-                        100, Consts.getPathToFirstRotationComplicated(), 600, 1, myGame, lvl);
+                        100, Consts.getPathToFirstRotationComplicated(), 500, 1, myGame, lvl);
                 lvl_f.setRotation(true, 3);
                 myGame.setScreen(new InfoScreen(myGame, lvl_f));
 //                lvl = 0;
@@ -565,7 +570,7 @@ public class Levels implements Screen {
             }
             case 402: {
                 LevelFactory lvl_f = new LevelFactory(color4,
-                        100, Consts.getPathToFourthRotationComplicated(), 200, 4, myGame, lvl);
+                        100, Consts.getPathToFourthRotationComplicated(), 100, 4, myGame, lvl);
                 lvl_f.setRotation(true, 0.25f);
                 myGame.setScreen(new InfoScreen(myGame, lvl_f));
 //                lvl = 0;
@@ -609,7 +614,7 @@ public class Levels implements Screen {
             ////////////////////////////////////////
             case 131: {
                 LevelFactory lvl_f = new LevelFactory(color1,
-                        35, Consts.getPathToFirst(), 400, 1, myGame, lvl);
+                        40, Consts.getPathToFirst(), 400, 1, myGame, lvl);
                 lvl_f.setAlf(true);
                 myGame.setScreen(new InfoScreen(myGame, lvl_f));
 //                lvl = 0;//5700
@@ -682,13 +687,22 @@ public class Levels implements Screen {
 
     private void drawNumber(String s, RectZone r) {
 
-        myGame.loader.getFontForMenu().draw(myGame.getBatch(), s, r.getX() + r.getWidth() / 3f, r.getY() + r.getHeight() / 1.3f);
+        myGame.loader.getFontForMenu().draw(myGame.getBatch(), s,
+                r.getX() - r.getWidth(), r.getY() + r.getHeight() / 1.3f);
     }
 
     @Override
     public void render(float delta) {
 
         Consts.clear();
+
+        myGame.showAdToAFK();
+
+        Consts.time += Gdx.graphics.getDeltaTime();
+        if (Consts.time >= 3600) {
+            myGame.gsClient.unlockAchievement(Consts.getTakeThought());
+        }
+        Consts.timeSpeed += Gdx.graphics.getDeltaTime();
 
         for (RectZone r : zoneList) {
             r.draw();
@@ -736,22 +750,6 @@ public class Levels implements Screen {
 
         }
         Gdx.input.setInputProcessor(new InputForMenu(this));
-    }
-
-    protected Color parseColor(String hex) {
-        if (hex.length() == 7) {
-            hex = hex.substring(1, 7);
-        }
-        String s1 = hex.substring(0, 2);//#ec58f2
-        int v1 = Integer.parseInt(s1, 16);
-        float f1 = 1f * v1 / 255f;
-        String s2 = hex.substring(2, 4);
-        int v2 = Integer.parseInt(s2, 16);
-        float f2 = 1f * v2 / 255f;
-        String s3 = hex.substring(4, 6);
-        int v3 = Integer.parseInt(s3, 16);
-        float f3 = 1f * v3 / 255f;
-        return new Color(f1, f2, f3, 1f);
     }
 
     @Override

@@ -22,29 +22,39 @@ public class Start implements Screen {
     private final float vibX, vibY;
     private final float achX, achY;
     private final float leaderBX, leaderBY;
+    private final String PLAY;
+    private final String GPGS = "Google Play Games: ";
+    private final String OFF = "OFF";
+    private final String ON = "ON";
     //    private final float size = Consts.getWIDTH() / 2f;
     private String onOff;
     private int time = 0;
     private boolean isInput = true;
 
-
     public Start(MyGame myGame) {
 
         this.myGame = myGame;
 
+        if (myGame.isRu) {
+            PLAY = "Нажми и игрй!";
+        } else {
+            PLAY = "Tap to play";
+        }
+
+        Color color = Consts.parseColor("#A13941");//#
         startZone = new RectZone(0, Gdx.app.getGraphics().getHeight() / 2,
-                Consts.getWIDTH(), Gdx.app.getGraphics().getHeight(), Color.RED);
+                Consts.getWIDTH(), Gdx.app.getGraphics().getHeight(), color);
         startZone.setPulsar(false);
 
-        GlyphLayout glyphLayout = new GlyphLayout(myGame.loader.getFontForMenu(), Consts.getPLAY());
+        GlyphLayout glyphLayout = new GlyphLayout(myGame.loader.getFontForMenu(), PLAY);
         startW = glyphLayout.width; // получаем ширину текста
-        glyphLayout = new GlyphLayout(myGame.loader.getFontForMenu(), Consts.getGPGS() + Consts.getOFF());
-        gpgsW = glyphLayout.width;
-        gpgsH = glyphLayout.height;
+        glyphLayout = new GlyphLayout(myGame.loader.getFontForGPGS(), GPGS + OFF);
         int delta = Consts.getWIDTH() / 50;
+        gpgsW = glyphLayout.width; // + Consts.getWIDTH() / 10f + delta * 2f
+        gpgsH = glyphLayout.height;
         gpgsZone = new RectZone((int) (Consts.getWIDTH() / 2f - gpgsW / 2f) - delta,
                 (int) (Consts.getHEIGHT() / 3f) - delta,
-                (int) gpgsW + 2 * delta, (int) gpgsH + 2 * delta, Color.RED);
+                (int) gpgsW + 2 * delta, (int) gpgsH + 2 * delta, color);
 
         shopW = Consts.getWIDTH() / 10f;
         shopH = shopW;
@@ -119,6 +129,13 @@ public class Start implements Screen {
     public void render(float delta) {
 
         Consts.clear(); //заполняем экран цветом
+        myGame.showAdToAFK();
+
+        Consts.time += Gdx.graphics.getDeltaTime();
+        if (Consts.time >= 3600) {
+            myGame.gsClient.unlockAchievement(Consts.getTakeThought());
+        }
+        Consts.timeSpeed += Gdx.graphics.getDeltaTime();
 
         if (isInput) {
 
@@ -135,17 +152,17 @@ public class Start implements Screen {
         gpgsZone.draw();//квадратик gpgs
 
         myGame.getBatch().begin();
-        myGame.loader.getFontForMenu().draw(myGame.getBatch(), Consts.getPLAY(),//призыв начать играть
+        myGame.loader.getFontForMenu().draw(myGame.getBatch(), PLAY,//призыв начать играть
                 Consts.getWIDTH() / 2f - startW / 2, Consts.getHEIGHT() * 3 / 4f);
 
         if (myGame.gsClient.isSessionActive()) {
-            onOff = Consts.getGPGS() + Consts.getON();
+            onOff = GPGS + ON;
         } else if (myGame.gsClient.isConnectionPending()) {
-            onOff = Consts.getGPGS() + "...";
+            onOff = GPGS + "...";
         } else {
-            onOff = Consts.getGPGS() + Consts.getOFF();
+            onOff = GPGS + OFF;
         }
-        myGame.loader.getFontForMenu().draw(myGame.getBatch(), onOff, //переключатель аунтификации гугл плэя
+        myGame.loader.getFontForGPGS().draw(myGame.getBatch(), onOff, //переключатель аунтификации гугл плэя
                 Consts.getWIDTH() / 2f - gpgsW / 2, Consts.getHEIGHT() / 3f + gpgsH);
 
         myGame.getBatch().draw(myGame.loader.getShopButton(), // кнопка магазина

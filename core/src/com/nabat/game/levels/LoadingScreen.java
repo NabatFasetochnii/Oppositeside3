@@ -84,6 +84,12 @@ public class LoadingScreen implements Screen {
     public void render(float delta) {
         Consts.clear();
 
+        Consts.time += Gdx.graphics.getDeltaTime();
+        if (Consts.time >= 3600) {
+            myGame.gsClient.unlockAchievement(Consts.getTakeThought());
+        }
+        Consts.timeSpeed += Gdx.graphics.getDeltaTime();
+
         myGame.getBatch().begin();
 
         myGame.getBatch().draw(myGame.loader.getLoadIcon(),//TODO МБ ПОТОМ СДЕЛАЮ ГИФ ОЧ КУ

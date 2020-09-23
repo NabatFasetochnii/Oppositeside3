@@ -27,7 +27,9 @@ public class InputForStart implements InputProcessor {
 
     @Override
     public boolean keyDown(int keycode) {
-        return false;
+
+        myGame.isFirst = true;
+        return true;
     }
 
     @Override

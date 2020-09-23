@@ -1,6 +1,7 @@
 package com.nabat.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 
 import java.util.HashMap;
@@ -9,7 +10,7 @@ import java.util.Map;
 public class Consts {
     //
     private static final String LEADERBOARD1 = "BOARD1";
-    private static final String LEADER_BOARD = "CgkIpq7zg9UYEAIQAg";
+    private static final String LEADER_BOARD = "CgkIpq7zg9UYEAIQAg";//
     private static final String PRIME = "Prime";
     private static final String FAST_START = "FastStart";
     private static final String FASTEST_FINGERS_IN_THE_WILD_WEST = "FastestFingersInTheWildWest";
@@ -25,14 +26,8 @@ public class Consts {
     private static final Map<String, String> achievements = new HashMap<>();
     private static final Map<String, String> events = new HashMap<>();
     //
-    private final static String LOSE = "You lose";//константа текста победы
-    private final static String WIN = "You WIN!";//константа текста проигрыша
     private final static String ttfPath = "fonts/Terminus.ttf";//путь к шрифту
-    private final static String PLAY = "Tap to play";
     //private final static String SOUND = "Sound";
-    private final static String GPGS = "Google Play\nGames: ";
-    private final static String OFF = "OFF";
-    private final static String ON = "ON";
     //
     private final static String PATH_TO_FIRST = "levels/1/1";//пути к файлам базовых уровней
     //
@@ -151,6 +146,7 @@ public class Consts {
     private static boolean isRead = true;
     private static boolean isRemoveAds = false;
 
+
     Consts() {
 
 
@@ -206,9 +202,9 @@ public class Consts {
 
     public static void setZeroLevel(int zeroLevel) {
         WIDTH = Gdx.app.getGraphics().getWidth();//ширина и высота экрана
-        HEIGHT = Gdx.app.getGraphics().getHeight() - zeroLevel;
+        HEIGHT = Gdx.app.getGraphics().getHeight();
         scaleX = WIDTH / 1080f; //масштабируем под экран
-        scaleY = HEIGHT / 1920f;
+        scaleY = (HEIGHT - zeroLevel - 50) / 1920f;
         scaleXY = ((scaleX + scaleY) / 2f);
     }
 
@@ -485,7 +481,7 @@ public class Consts {
 
 //    public static boolean isVibrate() {
 //        return isVibrate;
-//    }
+    //    }
 //
 //    public static void setVibrate(boolean isVibrate) {
 //        Consts.isVibrate = isVibrate;
@@ -568,12 +564,27 @@ public class Consts {
         return ((x <= X) && (X <= x + w) && (y <= Y) && (Y <= y + h));
     }
 
-
     public static void clear() {
 
-        Gdx.gl.glClearColor(240, 240, 0, 1);
+        Color color = parseColor("#F3DB74");//
+        Gdx.gl.glClearColor(color.r, color.g, color.b, color.a);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+    }
 
+    public static Color parseColor(String hex) {
+        if (hex.length() == 7) {
+            hex = hex.substring(1, 7);
+        }
+        String s1 = hex.substring(0, 2);//#ec58f2
+        int v1 = Integer.parseInt(s1, 16);
+        float f1 = 1f * v1 / 255f;
+        String s2 = hex.substring(2, 4);
+        int v2 = Integer.parseInt(s2, 16);
+        float f2 = 1f * v2 / 255f;
+        String s3 = hex.substring(4, 6);
+        int v3 = Integer.parseInt(s3, 16);
+        float f3 = 1f * v3 / 255f;
+        return new Color(f1, f2, f3, 1f);
     }
 
     public static void dispose() {
@@ -582,18 +593,6 @@ public class Consts {
 
     public static String getSOUND() {
         return SOUND;
-    }
-
-    public static String getGPGS() {
-        return GPGS;
-    }
-
-    public static String getOFF() {
-        return OFF;
-    }
-
-    public static String getON() {
-        return ON;
     }
 
     public static String getPathToMusic() {
@@ -776,10 +775,6 @@ public class Consts {
         return PATH_TO_FIRST_ROTATION;
     }
 
-    public static String getWIN() {
-        return WIN;
-    }
-
     public static String getCOUNT1() {
         return COUNT1;
     }
@@ -830,14 +825,6 @@ public class Consts {
 
     public static float getScaleXY() {
         return scaleXY;
-    }
-
-    public static String getPLAY() {
-        return PLAY;
-    }
-
-    public static String getLOSE() {
-        return LOSE;
     }
 
     public static String getTtfPath() {

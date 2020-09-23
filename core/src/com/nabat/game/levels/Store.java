@@ -3,7 +3,6 @@ package com.nabat.game.levels;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.pay.Information;
 import com.nabat.game.Consts;
@@ -30,22 +29,22 @@ public class Store implements Screen {
         this.myGame = myGame;
         info = myGame.purchaseManager.getInformation(myGame.getSKU());
         rectsS = Consts.getWIDTH() / 10;
-        float d = Consts.getWIDTH() / 30f;
+        float d = Consts.getWIDTH() / 40f;
         GlyphLayout glyphLayout = new GlyphLayout(myGame.loader.getFontForStore(), info.getLocalPricing());
         nameX = d * 2;
-        nameY = Consts.getHEIGHT() - rectsS - d * 3;
+        nameY = Consts.getHEIGHT() - rectsS - d * 2f;
         priceY = nameY;
-        priceX = Consts.getWIDTH() - d * 2 - glyphLayout.width;
+        priceX = Consts.getWIDTH() - d * 4 - glyphLayout.width;
         restoreX = priceX;
         restoreY = nameY - glyphLayout.height - d * 4;
 //        Information.UNAVAILABLE
-        priceButton = new RectZone(priceX - d, priceY - d * 2f,
-                glyphLayout.width + d * 2, glyphLayout.height + d * 2, Color.RED);
+        priceButton = new RectZone(priceX - d, priceY - d * 2.5f,
+                glyphLayout.width + d * 2, glyphLayout.height + d * 2, Consts.parseColor("#A13941"));
 
         glyphLayout = new GlyphLayout(myGame.loader.getFontForStore(), RESTORE);
 
-        restoreButton = new RectZone(restoreX - d, restoreY - d * 2,
-                glyphLayout.width + d * 2, glyphLayout.height + d * 2, Color.RED);
+        restoreButton = new RectZone(restoreX - d, restoreY - d * 2.5f,
+                glyphLayout.width + d * 2, glyphLayout.height + d * 2, Consts.parseColor("#A13941"));
     }
 
     @Override
@@ -69,7 +68,8 @@ public class Store implements Screen {
 
             @Override
             public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-                return false;
+                myGame.isFirst = true;
+                return true;
             }
 
             @Override
@@ -117,6 +117,14 @@ public class Store implements Screen {
     public void render(float delta) {
 
         Consts.clear();
+        myGame.showAdToAFK();
+
+        Consts.time += Gdx.graphics.getDeltaTime();
+        if (Consts.time >= 3600) {
+            myGame.gsClient.unlockAchievement(Consts.getTakeThought());
+        }
+        Consts.timeSpeed += Gdx.graphics.getDeltaTime();
+
         priceButton.draw();
         restoreButton.draw();
 

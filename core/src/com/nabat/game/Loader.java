@@ -10,6 +10,8 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 public class Loader {
 
     private final TextureAtlas textureAtlas;
+    private final String RUSSIAN_CHARACTERS;
+    private final MyGame myGame;
     private TextureRegion exitButton;
     private TextureRegion soundOn;
     private TextureRegion soundOff;
@@ -28,12 +30,18 @@ public class Loader {
     private BitmapFont fontForWin;
     private BitmapFont fontForMenu;
     private BitmapFont fontForStore;
+    private BitmapFont fontForGPGS;
 
-
-    Loader() {
-
+    Loader(MyGame myGame) {
+        this.myGame = myGame;
         textureAtlas = new TextureAtlas(
                 Gdx.files.internal("texture//assets.atlas"));//texture\assets.atlas
+
+        RUSSIAN_CHARACTERS = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ"
+                + "абвгдеёжзийклмнопрстуфхцчшщъыьэюя"
+                + "1234567890.,:;_¡!¿?\"'+-*/()[]={}" +
+                "ABCDEFGHIJKLMNOPQRSTUVWXYZ" +
+                "abcdefghijklmnopqrstuvwxyz";
 
         loadExit();
         loadShop();
@@ -50,17 +58,22 @@ public class Loader {
 
     }
 
+    public BitmapFont getFontForGPGS() {
+        return fontForGPGS;
+    }
+
     public void loadFonts() {
 
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal(Consts.getTtfPath()));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
         parameter.size = (int) (Consts.getWIDTH() / 7.5f);
-        parameter.color = Color.RED;
+        parameter.color = Consts.parseColor("#A13941");
         parameter.borderColor = Color.BLACK;
         parameter.borderWidth = Consts.getWIDTH() / 216f;
+        if (myGame.isRu) parameter.characters = RUSSIAN_CHARACTERS;
         fontForLose = generator.generateFont(parameter);
 
-        parameter.color = Color.GREEN;
+        parameter.color = Consts.parseColor("#FCF6F5");
 
         fontForWin = generator.generateFont(parameter);
 
@@ -68,16 +81,18 @@ public class Loader {
         parameter.borderWidth = Consts.getWIDTH() / 360f;
         fontForCount = generator.generateFont(parameter);
 
-        parameter.color = Color.RED;
+        parameter.color = Consts.parseColor("#A13941");
 
         fontForCountMiss = generator.generateFont(parameter);
 
         parameter.size = Consts.getWIDTH() / 12;
-        parameter.color = Color.CHARTREUSE;
+        parameter.color = Consts.parseColor("#F0E1B9");//CHARTREUSE
         parameter.borderColor = Color.BLACK;
-        parameter.borderWidth = Consts.getWIDTH() / 216f;
+        parameter.borderWidth = Consts.getWIDTH() / 220f;
         fontForMenu = generator.generateFont(parameter);
 
+        parameter.size = Consts.getWIDTH() / 20;
+        fontForGPGS = generator.generateFont(parameter);
         parameter.size = Consts.getWIDTH() / 16;
         fontForStore = generator.generateFont(parameter);
         generator.dispose();

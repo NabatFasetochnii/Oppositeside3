@@ -102,7 +102,7 @@ public class InputForGame implements InputProcessor {
                     if (b) {
                         if (Consts.getBool().get(Consts.getVIBRATE())) {
                             Gdx.input.vibrate(30);
-                            levelFactory.sound.play(0.3f);
+                            levelFactory.sound.play(0.6f);
                         }
 
                         levelFactory.setI(i + 1);//TODO написать функцию смены уровня

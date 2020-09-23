@@ -8,12 +8,14 @@ import com.badlogic.gdx.pay.Offer;
 import com.badlogic.gdx.pay.OfferType;
 import com.badlogic.gdx.pay.PurchaseManager;
 import com.badlogic.gdx.pay.PurchaseManagerConfig;
+import com.badlogic.gdx.utils.TimeUtils;
 import com.nabat.game.levels.Levels;
 import com.nabat.game.levels.LoadingScreen;
 import com.nabat.game.levels.Start;
 import de.golfgl.gdxgamesvcs.IGameServiceClient;
 import de.golfgl.gdxgamesvcs.IGameServiceListener;
 
+import java.util.Locale;
 import java.util.Map;
 
 public class MyGame extends com.badlogic.gdx.Game implements IGameServiceListener { //TODO реализовать логгер
@@ -21,14 +23,17 @@ public class MyGame extends com.badlogic.gdx.Game implements IGameServiceListene
     private final String GAME_TAG = "MY_GAME";
     private final AdsController adsController;
     private final String SKU = "98s252md49mjtivhx8sz";
-    private final int zero;
+    public final int zero;
     public IGameServiceClient gsClient;
     public PurchaseManager purchaseManager;
     public Loader loader;
+    public boolean isRu = Locale.getDefault().getLanguage().contentEquals("ru");
+    public boolean isFirst = true;
     private Levels levels;
     private SpriteBatch batch;
     private Preferences preferences;
     private Music music;
+    private long timeAd = 0;
 
     public MyGame(AdsController adsController, int zero) {
 
@@ -61,7 +66,7 @@ public class MyGame extends com.badlogic.gdx.Game implements IGameServiceListene
         } else {
             Consts.setZeroLevel(0);
         }
-        loader = new Loader();
+        loader = new Loader(this);
         levels = new Levels(this);
         if (Consts.isLastSessionFall()) {
 
@@ -86,6 +91,23 @@ public class MyGame extends com.badlogic.gdx.Game implements IGameServiceListene
 
         if (!Consts.isRemoveAds()) {
             adsController.showBannerForStart();
+        }
+    }
+
+    public void showAdToAFK() {
+
+        if (isFirst) {
+            timeAd = TimeUtils.millis();
+            isFirst = false;
+        } else {
+            if (Math.abs(TimeUtils.timeSinceMillis(timeAd) - 30000) < 10) {
+                adsController.loadBanner();
+                Gdx.app.log(GAME_TAG, "Loading ad");
+            } else if (Math.abs(TimeUtils.timeSinceMillis(timeAd) - 40000) < 10) {
+                if (!Consts.isRemoveAds()) adsController.showBannerAd();
+                Gdx.app.log(GAME_TAG, "Show ad");
+                isFirst = true;
+            }
         }
     }
 
@@ -154,11 +176,7 @@ public class MyGame extends com.badlogic.gdx.Game implements IGameServiceListene
 //        Consts.clear();
         super.render();
 
-        Consts.time += Gdx.graphics.getDeltaTime();
-        if (Consts.time >= 3600) {
-            gsClient.unlockAchievement(Consts.getTakeThought());
-        }
-        Consts.timeSpeed += Gdx.graphics.getDeltaTime();
+
     }
 
     private void savePref() {

@@ -23,10 +23,10 @@ public class InfoScreen implements Screen {
         this.myGame = myGame;
         this.levelFactory = levelFactory;
 
-        backToMenu = new RectZone(Consts.getWIDTH() / 20, (int) (Consts.getHEIGHT() * 0.1f),
+        backToMenu = new RectZone(Consts.getWIDTH() / 20, (int) (Consts.getHEIGHT() * 0.2f),
                 Consts.getWIDTH() / 8, Consts.getWIDTH() / 8, Color.CORAL);
         startGame = new RectZone((int) (Consts.getWIDTH() * (19f / 20f)) - Consts.getWIDTH() / 8,
-                (int) (Consts.getHEIGHT() * 0.1f),
+                (int) (Consts.getHEIGHT() * 0.2f),
                 Consts.getWIDTH() / 8,
                 Consts.getWIDTH() / 8, Color.FOREST);
 
@@ -37,222 +37,232 @@ public class InfoScreen implements Screen {
         } else if (levelFactory.isRotation() || levelFactory.isDot()) {
             complexity *= 2;
         }
-        info = "INFO " + '\n' + "*Complexity: " + complexity + '\n' +
-                "*Duration: " + levelFactory.getLevelTime() + "s" + '\n' +
-                "*Size: " + levelFactory.getSizeOfScreens() + '\n' + "*";
+        if (myGame.isRu) {
+            info = "ИНФОРМАЦИЯ " + '\n' + "*Сложность: " + complexity + '\n' +
+                    "*Время: " + levelFactory.getLevelTime() + "с" + '\n' +
+                    "*Размер: " + levelFactory.getSizeOfScreens() + '\n' +
+                    "*Очки: " + levelFactory.getSizeOfScreens() * levelFactory.getLvl() + '\n' +
+                    "*Лучший счёт: ";
+        } else {
+            info = "INFO " + '\n' + "*Complexity: " + complexity + '\n' +
+                    "*Duration: " + levelFactory.getLevelTime() + "s" + '\n' +
+                    "*Size: " + levelFactory.getSizeOfScreens() + '\n' +
+                    "*Points: " + levelFactory.getSizeOfScreens() * levelFactory.getLvl() + '\n' +
+                    "*Best score: ";
+        }
 
         switch (levelFactory.getLvlName()) {
 
             case 1: {
-                info += "Best score: " + Consts.getMap().get(Consts.getCOUNT1());
+                info += String.valueOf(Consts.getMap().get(Consts.getCOUNT1()));
                 break;
             }
             case 2: {
-                info += "Best score: " + Consts.getMap().get(Consts.getCOUNT2());
+                info += String.valueOf(Consts.getMap().get(Consts.getCOUNT2()));
                 break;
             }
             case 3: {
-                info += "Best score: " + Consts.getMap().get(Consts.getCOUNT3());
+                info += String.valueOf(Consts.getMap().get(Consts.getCOUNT3()));
                 break;
             }
             case 4: {
-                info += "Best score: " + Consts.getMap().get(Consts.getCOUNT4());
+                info += String.valueOf(Consts.getMap().get(Consts.getCOUNT4()));
                 break;
             }
             ////////////////////////////////////////
             case 11: {
-                info += "Best score: " + Consts.getMap().get(Consts.getCOUNT11());
+                info += String.valueOf(Consts.getMap().get(Consts.getCOUNT11()));
                 break;
             }
             case 21: {
-                info += "Best score: " + Consts.getMap().get(Consts.getCOUNT21());
+                info += String.valueOf(Consts.getMap().get(Consts.getCOUNT21()));
                 break;
             }
             case 31: {
-                info += "Best score: " + Consts.getMap().get(Consts.getCOUNT31());
+                info += String.valueOf(Consts.getMap().get(Consts.getCOUNT31()));
                 break;
             }
             case 41: {
 
-                info += "Best score: " + Consts.getMap().get(Consts.getCOUNT41());
+                info += String.valueOf(Consts.getMap().get(Consts.getCOUNT41()));
                 break;
             }
             ////////////////////////////////////////
 
             case 111: {
-                info += "Best score: " + Consts.getMap().get(Consts.getCOUNT111());
+                info += String.valueOf(Consts.getMap().get(Consts.getCOUNT111()));
                 break;
             }
             case 211: {
-                info += "Best score: " + Consts.getMap().get(Consts.getCOUNT211());
+                info += String.valueOf(Consts.getMap().get(Consts.getCOUNT211()));
                 break;
             }
             case 311: {
-                info += "Best score: " + Consts.getMap().get(Consts.getCOUNT311());
+                info += String.valueOf(Consts.getMap().get(Consts.getCOUNT311()));
                 break;
             }
             case 411: {
 
-                info += "Best score: " + Consts.getMap().get(Consts.getCOUNT411());
+                info += String.valueOf(Consts.getMap().get(Consts.getCOUNT411()));
                 break;
             }
             ////////////////////////////////////////
             case 12: {
-                info += "Best score: " + Consts.getMap().get(Consts.getCOUNT12());
+                info += String.valueOf(Consts.getMap().get(Consts.getCOUNT12()));
                 break;
             }
             case 22: {
-                info += "Best score: " + Consts.getMap().get(Consts.getCOUNT22());
+                info += String.valueOf(Consts.getMap().get(Consts.getCOUNT22()));
                 break;
             }
             case 32: {
-                info += "Best score: " + Consts.getMap().get(Consts.getCOUNT32());
+                info += String.valueOf(Consts.getMap().get(Consts.getCOUNT32()));
                 break;
             }
             case 42: {
 
-                info += "Best score: " + Consts.getMap().get(Consts.getCOUNT42());
+                info += String.valueOf(Consts.getMap().get(Consts.getCOUNT42()));
                 break;
             }
             ////////////////////////////////////////
 
             case 121: {
-                info += "Best score: " + Consts.getMap().get(Consts.getCOUNT121());
+                info += String.valueOf(Consts.getMap().get(Consts.getCOUNT121()));
                 break;
             }
             case 221: {
-                info += "Best score: " + Consts.getMap().get(Consts.getCOUNT221());
+                info += String.valueOf(Consts.getMap().get(Consts.getCOUNT221()));
                 break;
             }
             case 321: {
-                info += "Best score: " + Consts.getMap().get(Consts.getCOUNT321());
+                info += String.valueOf(Consts.getMap().get(Consts.getCOUNT321()));
                 break;
             }
             case 421: {
 
-                info += "Best score: " + Consts.getMap().get(Consts.getCOUNT421());
+                info += String.valueOf(Consts.getMap().get(Consts.getCOUNT421()));
                 break;
             }
             ////////////////////////////////////////
             case 122: {
-                info += "Best score: " + Consts.getMap().get(Consts.getCOUNT122());
+                info += String.valueOf(Consts.getMap().get(Consts.getCOUNT122()));
                 break;
             }
             case 222: {
-                info += "Best score: " + Consts.getMap().get(Consts.getCOUNT222());
+                info += String.valueOf(Consts.getMap().get(Consts.getCOUNT222()));
                 break;
             }
             case 322: {
-                info += "Best score: " + Consts.getMap().get(Consts.getCOUNT322());
+                info += String.valueOf(Consts.getMap().get(Consts.getCOUNT322()));
                 break;
             }
             case 422: {
-                info += "Best score: " + Consts.getMap().get(Consts.getCOUNT422());
+                info += String.valueOf(Consts.getMap().get(Consts.getCOUNT422()));
                 break;
             }
             ////////////////////////////////////////
             case 10: {
-                info += "Best score: " + Consts.getMap().get(Consts.getCOUNT1R());
+                info += String.valueOf(Consts.getMap().get(Consts.getCOUNT1R()));
                 break;
             }
             case 20: {
-                info += "Best score: " + Consts.getMap().get(Consts.getCOUNT2R());
+                info += String.valueOf(Consts.getMap().get(Consts.getCOUNT2R()));
                 break;
             }
             case 30: {
-                info += "Best score: " + Consts.getMap().get(Consts.getCOUNT3R());
+                info += String.valueOf(Consts.getMap().get(Consts.getCOUNT3R()));
                 break;
             }
             case 40: {
-                info += "Best score: " + Consts.getMap().get(Consts.getCOUNT4R());
+                info += String.valueOf(Consts.getMap().get(Consts.getCOUNT4R()));
                 break;
             }
             ////////////////////////////////////////
             case 101: {
-                info += "Best score: " + Consts.getMap().get(Consts.getCOUNT1R1());
+                info += String.valueOf(Consts.getMap().get(Consts.getCOUNT1R1()));
                 break;
             }
             case 201: {
-                info += "Best score: " + Consts.getMap().get(Consts.getCOUNT2R1());
+                info += String.valueOf(Consts.getMap().get(Consts.getCOUNT2R1()));
                 break;
             }
             case 301: {
-                info += "Best score: " + Consts.getMap().get(Consts.getCOUNT3R1());
+                info += String.valueOf(Consts.getMap().get(Consts.getCOUNT3R1()));
                 break;
             }
             case 401: {
-                info += "Best score: " + Consts.getMap().get(Consts.getCOUNT4R1());
+                info += String.valueOf(Consts.getMap().get(Consts.getCOUNT4R1()));
                 break;
             }
             ////////////////////////////////////////
             case 102: {
-                info += "Best score: " + Consts.getMap().get(Consts.getCOUNT1R2());
+                info += String.valueOf(Consts.getMap().get(Consts.getCOUNT1R2()));
                 break;
             }
             case 202: {
-                info += "Best score: " + Consts.getMap().get(Consts.getCOUNT2R2());
+                info += String.valueOf(Consts.getMap().get(Consts.getCOUNT2R2()));
                 break;
             }
             case 302: {
-                info += "Best score: " + Consts.getMap().get(Consts.getCOUNT3R2());
+                info += String.valueOf(Consts.getMap().get(Consts.getCOUNT3R2()));
                 break;
             }
             case 402: {
-                info += "Best score: " + Consts.getMap().get(Consts.getCOUNT4R2());
+                info += String.valueOf(Consts.getMap().get(Consts.getCOUNT4R2()));
                 break;
             }
             ////////////////////////////////////////
             case 13: {
-                info += "Best score: " + Consts.getMap().get(Consts.getCOUNT13());
+                info += String.valueOf(Consts.getMap().get(Consts.getCOUNT13()));
                 break;
             }
             case 23: {
-                info += "Best score: " + Consts.getMap().get(Consts.getCOUNT23());
+                info += String.valueOf(Consts.getMap().get(Consts.getCOUNT23()));
                 break;
             }
             case 33: {
-                info += "Best score: " + Consts.getMap().get(Consts.getCOUNT33());
+                info += String.valueOf(Consts.getMap().get(Consts.getCOUNT33()));
                 break;
             }
             case 43: {
 
-                info += "Best score: " + Consts.getMap().get(Consts.getCOUNT43());
+                info += String.valueOf(Consts.getMap().get(Consts.getCOUNT43()));
                 break;
             }
             ////////////////////////////////////////
 
             case 131: {
-                info += "Best score: " + Consts.getMap().get(Consts.getCOUNT131());
+                info += String.valueOf(Consts.getMap().get(Consts.getCOUNT131()));
                 break;
             }
             case 231: {
-                info += "Best score: " + Consts.getMap().get(Consts.getCOUNT231());
+                info += String.valueOf(Consts.getMap().get(Consts.getCOUNT231()));
                 break;
             }
             case 331: {
-                info += "Best score: " + Consts.getMap().get(Consts.getCOUNT331());
+                info += String.valueOf(Consts.getMap().get(Consts.getCOUNT331()));
                 break;
             }
             case 431: {
 
-                info += "Best score: " + Consts.getMap().get(Consts.getCOUNT431());
+                info += String.valueOf(Consts.getMap().get(Consts.getCOUNT431()));
                 break;
             }
             ////////////////////////////////////////
             case 132: {
-                info += "Best score: " + Consts.getMap().get(Consts.getCOUNT132());
+                info += String.valueOf(Consts.getMap().get(Consts.getCOUNT132()));
                 break;
             }
             case 232: {
-                info += "Best score: " + Consts.getMap().get(Consts.getCOUNT232());
+                info += String.valueOf(Consts.getMap().get(Consts.getCOUNT232()));
                 break;
             }
             case 332: {
-                info += "Best score: " + Consts.getMap().get(Consts.getCOUNT332());
+                info += String.valueOf(Consts.getMap().get(Consts.getCOUNT332()));
                 break;
             }
             case 432: {
-                info += "Best score: " + Consts.getMap().get(Consts.getCOUNT432());
+                info += String.valueOf(Consts.getMap().get(Consts.getCOUNT432()));
                 break;
             }
             ////////////////////////////////////////
@@ -287,7 +297,7 @@ public class InfoScreen implements Screen {
                 } else if (backToMenu.isTouch(screenX, Gdx.app.getGraphics().getHeight() - screenY)) {
                     back = true;
                 }
-
+                myGame.isFirst = true;
 
                 return true;
             }
@@ -319,6 +329,7 @@ public class InfoScreen implements Screen {
     public void render(float delta) {
 
         Consts.clear();
+        myGame.showAdToAFK();
 
         backToMenu.draw();
         startGame.draw();
@@ -328,7 +339,11 @@ public class InfoScreen implements Screen {
                 Consts.getWIDTH() / 20f, Consts.getHEIGHT() * 0.9f);
         myGame.getBatch().end();
 
-
+        Consts.time += Gdx.graphics.getDeltaTime();
+        if (Consts.time >= 3600) {
+            myGame.gsClient.unlockAchievement(Consts.getTakeThought());
+        }
+        Consts.timeSpeed += Gdx.graphics.getDeltaTime();
         if (start) {
             if (!Consts.isRemoveAds()) {
                 myGame.getAdsController().loadBanner();

@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.MathUtils;
 import com.nabat.game.Consts;
 import com.nabat.game.MyGame;
 import com.nabat.game.RectZone;
@@ -34,6 +35,10 @@ public class LevelFactory implements Screen {
     private final MyGame myGame;
     private final float levelTime;
     private final int lvlName;
+    private final float countH;
+    private final String LOSE;//константа текста победы
+    private final String WIN;//константа текста проигрыша
+    private final float timeLineH = 70 * Consts.getScaleY();
     public Sound sound;
     private int time = 0;
     private int y;
@@ -48,12 +53,11 @@ public class LevelFactory implements Screen {
     private float text_Y = Consts.getHEIGHT() / 2f;
     private boolean isRotation = false;
     private boolean isDot = false;
-    //    private int MAX_MISS = 3;
+    private int MAX_MISS;
     private boolean subEv = true;
     private boolean subEv2 = true;
     private boolean subEv3 = true;
     private boolean isAlf = false;
-    private final float countH;
 
     public LevelFactory(Color color, float levelTime, String pathToFile,
                         int sizeOfScreens, int lvl, MyGame myGame, int lvlName) {
@@ -74,6 +78,14 @@ public class LevelFactory implements Screen {
         sound = Gdx.audio.newSound(Gdx.files.internal(Consts.getPathToSound()));
         GlyphLayout g = new GlyphLayout(myGame.loader.getFontForCount(), "000");
         countH = g.height;
+
+        if (myGame.isRu) {
+            LOSE = "Ты проиграл";
+            WIN = "Ты выиграл!";
+        } else {
+            LOSE = "You lose";
+            WIN = "You WIN!";
+        }
 
     }
 
@@ -139,9 +151,9 @@ public class LevelFactory implements Screen {
 
     public void upCountOfMiss() {
         countOfMiss++;
-        /*if (countOfMiss == MAX_MISS) {
+        if (countOfMiss == MAX_MISS) {
             isLose = true;
-        }*/
+        }
     }
 
     public void load() {
@@ -162,13 +174,13 @@ public class LevelFactory implements Screen {
                 Color right = new Color(Color.rgb888(117, 155, 251));//
                 Color left = new Color(Color.rgb888(46, 111, 200));//
 //                timeLine.setColor(Color.GREEN);
-                timeLine.rect(0, 0,
+                timeLine.rect(0, Consts.getHEIGHT() - timeLineH,
                         Consts.getWIDTH() * (1f - (float) countOfPeriod / MAX_COUNT_OF_PERIOD),
-                        50 * Consts.getScaleY(), left, right, right, left);
+                        timeLineH, left, right, right, left);
 
                 timeLineEnd.setColor(Color.WHITE);
                 timeLineEnd.circle(Consts.getWIDTH() * (1f - (float) countOfPeriod / MAX_COUNT_OF_PERIOD),
-                        0, 50 * Consts.getScaleY());
+                        Consts.getHEIGHT() - timeLineH / 2, timeLineH);
 
                 timeLine.end();
                 timeLineEnd.end();
@@ -185,7 +197,8 @@ public class LevelFactory implements Screen {
 
     public void endLevel(String text, BitmapFont font1) {
 
-        myGame.getBatch().begin();//ошибка
+        myGame.showAdToAFK();
+        myGame.getBatch().begin();
         font1.draw(myGame.getBatch(), text,
                 Consts.getWIDTH() / 3f, text_Y);
         myGame.getBatch().end();
@@ -740,9 +753,11 @@ public class LevelFactory implements Screen {
                 }
 
                 myGame.updatePref();
-                if (!myGame.gsClient.submitToLeaderboard(Consts.getLEADERBOARD1(),
+                if (myGame.gsClient.submitToLeaderboard(Consts.getLEADERBOARD1(),
                         Consts.getMap().get(Consts.getCOUNT0()), myGame.gsClient.getGameServiceId())) {
-                    Gdx.app.log("lvlfact", "problem leaderboard");
+                    Gdx.app.log("lvlfact", "leaderboard was loaded");
+                } else {
+                    Gdx.app.log("lvlfact", "problem with leaderboard");
                 }
 
             }
@@ -815,8 +830,10 @@ public class LevelFactory implements Screen {
                     @Override
                     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
 
-                        if (!Consts.isRemoveAds()) {
-                            myGame.getAdsController().showBannerAd();
+                        if (MathUtils.randomBoolean(0.34f)) {
+                            if (!Consts.isRemoveAds()) {
+                                myGame.getAdsController().showBannerAd();
+                            }
                         }
                         myGame.setScreen(myGame.getLevels());
                         sound.dispose();
@@ -854,6 +871,7 @@ public class LevelFactory implements Screen {
     public void show() {
         load();
         Gdx.input.setInputProcessor(new InputForGame(this));
+        MAX_MISS = (int) (sizeOfScreens * 0.5);
     }
 
     @Override
@@ -866,11 +884,12 @@ public class LevelFactory implements Screen {
                 subEv = false;
             }
 
-            endLevel(Consts.getLOSE(), myGame.loader.getFontForLose());
+            endLevel(LOSE, myGame.loader.getFontForLose());
         } else {
             if (arrayLists != null) {
                 if (i < arrayLists.size()) {
                     for (int j = 0; j < arrayLists.get(i).size(); j++) {
+                        timeLineDraw();
                         try {
                             if (isAlf) {
                                 Gdx.gl.glEnable(GL20.GL_BLEND);
@@ -901,31 +920,27 @@ public class LevelFactory implements Screen {
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                         myGame.getBatch().begin();
                         myGame.loader.getFontForCount().draw(myGame.getBatch(), String.valueOf(countOfSquare),
-                                Consts.getWIDTH() / 20f, Consts.getHEIGHT() - Consts.getWIDTH() / 20f);
+                                Consts.getWIDTH() / 20f, Consts.getHEIGHT() - timeLineH - Consts.getWIDTH() / 20f);
                         myGame.loader.getFontForCountMiss().draw(myGame.getBatch(), String.valueOf(countOfMiss),
                                 Consts.getWIDTH() / 20f,
-                                Consts.getHEIGHT() - countH - Consts.getWIDTH() / 15f);
+                                Consts.getHEIGHT() - countH - timeLineH - Consts.getWIDTH() / 15f);
 
                         myGame.getBatch().draw(myGame.loader.getSettingsButton(),
-                                Consts.getWIDTH() - rectsS, Consts.getHEIGHT() - rectsS, rectsS, rectsS);
+                                Consts.getWIDTH() - rectsS, Consts.getHEIGHT() - rectsS,
+                                rectsS, rectsS);
 
                         myGame.getBatch().end();
-                        timeLineDraw();
+
                     }
                 } else {
-//                    Gdx.gl.glDisable(GL20.GL_BLEND);
-                    /*if (Gdx.gl.glIsEnabled(GL20.GL_BLEND)){
-                        Gdx.gl.glDisable(GL20.GL_BLEND);
-                    }*/
                     if (subEv) {
                         Consts.getIsWin().put(lvlName, true);
                         myGame.gsClient.submitEvent(String.valueOf(lvlName), 1);
                         myGame.gsClient.unlockAchievement(Consts.getPRIME());
                     }
-                    endLevel(Consts.getWIN(), myGame.loader.getFontForWin());
+                    endLevel(WIN, myGame.loader.getFontForWin());
 
                 }
             }
@@ -1003,7 +1018,7 @@ public class LevelFactory implements Screen {
                 u = (t + p * lvl) * 3;
                 int[] b = new int[3];
                 b[0] = (int) (e[u] * Consts.getScaleX());
-                b[1] = (int) (e[u + 1] * Consts.getScaleY());
+                b[1] = (int) (e[u + 1] * Consts.getScaleY()) + myGame.zero;
                 b[2] = (int) (e[u + 2] * Consts.getScaleXY());
 
                 doubles.add(new RectZone(
